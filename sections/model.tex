@@ -3,9 +3,8 @@
 This work can use a standard LLM architecture; we plan to start from an open-source pretrained LLM.
 The model should have agentic and reasoning capabilities, and a context window larger than 32k tokens since the design files can be quite large.
 
-Candidates:
+Candidate:
 
 \begin{itemize}
     \item \textbf{Qwen3.6-36B-A3B} ($36$B total, $\sim$$3$B active) --- MoE; primary choice for the full PPO run.
-    \item \textbf{Qwen3.6-27B} ($28$B, dense) --- simpler to fine-tune; used for environment and reward bring-up.
 \end{itemize}

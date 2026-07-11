@@ -3,7 +3,7 @@
 
 We evaluate whether the trained agent proves more properties, and more
 cheaply, than direct proving and prompting-based alternatives. All methods
-run on the held-out test designs frozen in Phase~2
+run on the held-out test designs frozen during the downloadables phase
 (Section~\ref{sec:implementation-plan}), under identical prover
 configurations and wall-clock budgets.
 
@@ -11,14 +11,10 @@ configurations and wall-clock budgets.
 \label{sec:exp-testcases}
 
 The test set is the held-out portion of the verified corpus
-(Section~\ref{sec:rl-instances}), split by \emph{design} so no module seen
-during fine-tuning or RL appears at test time. Results are reported overall
+(Section~\ref{sec:rl-instances}). Results are reported overall
 and per difficulty tier (Section~\ref{sec:curriculum}); the hardest tier ---
 instances the prover alone cannot discharge within budget --- measures
-capability gain rather than speedup. Every instance is provable by
-construction, so unsolved instances reflect method limitations, never false
-properties. Each instance is attempted with $k$ independent seeds per
-method.
+capability gain rather than speedup.
 
 \subsection{Methods Compared}
 \label{sec:exp-methods}
@@ -30,8 +26,8 @@ method.
     \item \textbf{Frozen LLM with verifier feedback.} The pretrained base
     model in the environment loop, observing counterexamples, timeouts, and
     rejections over multiple steps --- the strongest training-free baseline.
-    \item \textbf{Full agent.} The Phase~6 policy with the complete validated
-    action space (lemmas, cutpoints, abstractions, blackboxing).
+    \item \textbf{Full agent.} The fully trained policy with the complete
+    validated action space (lemmas, cutpoints, abstractions, blackboxing).
 \end{itemize}
 
 \subsection{Metrics}
@@ -72,9 +68,10 @@ method.
 
 On the validation split we ablate:
 \begin{itemize}[nosep]
-    \item \emph{Action classes}: the lemma-only policy of Phase~4, and
-    removing cutpoints, abstractions, and blackboxing individually from the
-    full agent (mirroring their staged introduction in Phase~5).
+    \item \emph{Action classes}: the lemma-only policy from the environment
+    stage, and removing cutpoints, abstractions, and blackboxing individually
+    from the full agent (mirroring their staged introduction during RL
+    training).
     \item \emph{Reward shaping}: solve-only reward versus the full shaped
     reward of Section~\ref{sec:rl}.
     \item \emph{Curriculum}: the full difficulty mix from the start versus

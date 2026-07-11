@@ -1,45 +1,50 @@
 \section{Implementation Plan}
 \label{sec:implementation-plan}
 
-\begin{itemize}
-    \item \textbf{Phase 1: Environment and Prover Setup.}
-    Implement the action parser, proof-state ledger, prover adapter, and
-    trajectory logger on 20--50 small verified instances. Done when runs are
-    deterministic, malformed actions are rejected, and replay confirms no
-    target is accepted with an unresolved obligation.
+\subsection{Phases}
+\label{sec:plan-phases}
 
-    \item \textbf{Phase 2: Dataset Construction and Baselines.}
-    Extract and deduplicate verified design--property pairs and freeze
-    design-level splits. Run prover-only, single-shot frozen-LLM, and
-    frozen-LLM-with-feedback baselines under identical time limits, recording
-    proof time, timeouts, and resource use.
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=0.9cm and 1.2cm,
+    phase/.style={draw, rounded corners, align=center, minimum height=0.9cm, inner sep=6pt},
+    dep/.style={-{Stealth}, thick}
+]
+    \node[phase] (prereq) {Prerequisites \\ \textit{\footnotesize license, infrastructure}};
+    \node[phase, right=of prereq] (down) {Downloadables \\ \textit{\footnotesize LLM weights, datasets}};
+    \node[phase, below right=of prereq] (ft) {Fine-tuning};
+    \node[phase, below=of ft] (env) {Environment \\ \textit{\footnotesize basic action set, reward shaping,} \\ \textit{\footnotesize fine-tuned model as frozen policy}};
+    \node[phase, below left=of env] (rl) {RL \\ \textit{\footnotesize full action set, reward shaping}};
+    \node[phase, below right=of rl] (eval) {Evaluation \\ \textit{\footnotesize frozen and RL agents} \\ \textit{\footnotesize vs.\ prover-only baseline}};
 
-    \item \textbf{Phase 3: Supervised Fine-Tuning.}
-    Fine-tune the bring-up model with the two-stage corpus of
-    Section~\ref{sec:finetuning}. Done when it improves action-schema validity
-    and discharged-obligation rate over the frozen model on validation.
+    \draw[dep] (prereq) -- (ft);
+    \draw[dep] (down) -- (ft);
+    \draw[dep] (ft) -- (env);
+    \draw[dep] (env) -- (rl);
+    \draw[dep] (rl) -- (eval);
+    \draw[dep] (env) to[bend left=35] (eval);
+\end{tikzpicture}
+\caption{Dependencies between implementation phases. Evaluation compares the
+frozen policy (from the environment phase) and the RL-trained agent, so it
+depends on both.}
+\label{fig:phase-dag}
+\end{figure}
 
-    \item \textbf{Phase 4: Restricted RL Pilot.}
-    Train with only \texttt{ADD\_LEMMA} and \texttt{RETRACT} on small designs,
-    tuning reward coefficients on train/validation only. Done when a
-    replicated run improves held-out solve rate or median proof time over SFT
-    without unsound acceptances.
-
-    \item \textbf{Phase 5: Hierarchical and Transformational Actions.}
-    Add interface contracts, cutpoints, abstractions, and blackboxing one at a
-    time with the obligations of Section~\ref{sec:rl}. Retain an action only
-    if it passes soundness replay and improves validation performance.
-
-    \item \textbf{Phase 6: Full Training Run.}
-    Scale to Qwen3.6-36B-A3B and the full curriculum. Freeze the model, reward
-    coefficients, prover configuration, and stopping rule before test
-    evaluation; select checkpoints by validation solve rate under a fixed
-    compute budget.
-
-    \item \textbf{Phase 7: Final Evaluation.}
-    Compare all systems on the untouched test designs, reporting solve rate,
-    proof time, verifier calls, compute per solved target, proof-DAG size, and
-    confidence intervals, with ablations and failure analysis. Done when the
-    experiment reproduces from a clean environment and every successful proof
-    passes independent replay.
-\end{itemize}
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llp{5.2cm}}
+\hline
+Quantity & Value & Rationale \\
+\hline
+Episode step limit & 5 actions & Matches the re-prompting limit of
+\cite{peled2026lemmaminers}. \\
+Prover timeout per obligation & 30\,s & Matches the per-query timeout of
+\cite{peled2026lemmaminers}. \\
+Test wall-clock budget & 2\,h per instance & Identical for every method
+compared. \\
+\hline
+\end{tabular}
+\label{tab:constants}
+\end{table}
