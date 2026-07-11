@@ -1,1 +1,92 @@
 \section{Experiments}
+\label{sec:experiments}
+
+We evaluate whether the trained agent proves more properties, and more
+cheaply, than direct proving and prompting-based alternatives. All methods
+run on the held-out test designs frozen in Phase~2
+(Section~\ref{sec:implementation-plan}), under identical prover
+configurations and wall-clock budgets.
+
+\subsection{Test Cases}
+\label{sec:exp-testcases}
+
+The test set is the held-out portion of the verified corpus
+(Section~\ref{sec:rl-instances}), split by \emph{design} so no module seen
+during fine-tuning or RL appears at test time. Results are reported overall
+and per difficulty tier (Section~\ref{sec:curriculum}); the hardest tier ---
+instances the prover alone cannot discharge within budget --- measures
+capability gain rather than speedup. Every instance is provable by
+construction, so unsolved instances reflect method limitations, never false
+properties. Each instance is attempted with $k$ independent seeds per
+method.
+
+\subsection{Methods Compared}
+\label{sec:exp-methods}
+
+\begin{itemize}[nosep]
+    \item \textbf{Prover-only.} SymbiYosys/Verific run directly on the
+    target assertion with the full budget and no transformations; the
+    baseline and the normalizer for relative proof time.
+    \item \textbf{Frozen LLM with verifier feedback.} The pretrained base
+    model in the environment loop, observing counterexamples, timeouts, and
+    rejections over multiple steps --- the strongest training-free baseline.
+    \item \textbf{Full agent.} The Phase~6 policy with the complete validated
+    action space (lemmas, cutpoints, abstractions, blackboxing).
+\end{itemize}
+
+\subsection{Metrics}
+\label{sec:exp-metrics}
+
+\textbf{Effectiveness.}
+\begin{itemize}[nosep]
+    \item \emph{Solve rate}: fraction of instances whose target and full
+    obligation closure are proved within budget, overall and per tier.
+    \item \emph{Newly solved instances}: targets proved that prover-only
+    cannot discharge within the same budget.
+\end{itemize}
+
+\textbf{Efficiency} (on instances solved by both methods compared).
+\begin{itemize}[nosep]
+    \item \emph{End-to-end wall-clock time} to a completed sound proof;
+    median and speedup relative to prover-only.
+    \item \emph{Verifier time and calls}: cumulative prover CPU-time and
+    obligations dispatched.
+    \item \emph{Compute per solved target}: CPU- and GPU-hours per solve,
+    making the LLM's own cost visible.
+\end{itemize}
+
+\textbf{Proof and policy quality.}
+\begin{itemize}[nosep]
+    \item \emph{Proof-DAG size and depth}: helper properties and obligations
+    in the accepted proof; smaller DAGs are more targeted and cheaper to
+    re-check.
+    \item \emph{Action validity rate}: fraction of actions accepted by the
+    environment schema and design checks.
+    \item \emph{Obligation discharge rate}: fraction of introduced
+    obligations eventually proved, separating productive lemmas from
+    speculative ones.
+\end{itemize}
+
+\subsection{Ablations}
+\label{sec:exp-ablations}
+
+On the validation split we ablate:
+\begin{itemize}[nosep]
+    \item \emph{Action classes}: the lemma-only policy of Phase~4, and
+    removing cutpoints, abstractions, and blackboxing individually from the
+    full agent (mirroring their staged introduction in Phase~5).
+    \item \emph{Reward shaping}: solve-only reward versus the full shaped
+    reward of Section~\ref{sec:rl}.
+    \item \emph{Curriculum}: the full difficulty mix from the start versus
+    the graded curriculum of Section~\ref{sec:curriculum}.
+    \item \emph{Fine-tuning stages}: the SFT-only model
+    (Section~\ref{sec:finetuning}) without RL, and RL from the base model
+    versus from each fine-tuning stage.
+\end{itemize}
+
+\subsection{Failure Analysis}
+\label{sec:exp-failures}
+
+Unsolved instances are categorized by terminal state: prover timeout on a
+valid decomposition, step-budget exhaustion without a viable DAG, persistent
+invalid actions, or unproductive loops (repeated lemma--retract cycles).

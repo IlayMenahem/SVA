@@ -1,13 +1,13 @@
 \section{Reinforcement Learning}
 \label{sec:rl}
 
-We train the fine-tuned LLM with PPO (Proximal Policy Optimization)~\citep{schulman2017ppo} and Generalized Advantage Estimation (GAE)~\citep{schulman2016gae}.
+We train the fine-tuned LLM with PPO~\citep{schulman2017ppo} and GAE~\citep{schulman2016gae}.
 
 \subsection{The environment}
-\textbf{Initialization.} The environment starts with a SystemVerilog design and an assertion to prove.
+\textbf{Initialization.} An episode starts from a SystemVerilog design and a
+target assertion to prove.
 
-\textbf{Action.} At each step, the agent emits one typed action rather than a
-complete proof DAG. The available actions are:
+\textbf{Action.} At each step the agent emits one typed action:
 \begin{itemize}[nosep]
     \item \texttt{ADD\_LEMMA(property, lemma\_assertion)};
     \item \texttt{ADD\_CUTPOINT(signal)};
@@ -15,87 +15,72 @@ complete proof DAG. The available actions are:
     \item \texttt{ADD\_COUNTER\_ABSTRACTION(module)};
     \item \texttt{RETRACT(property)};
 \end{itemize}
-The environment rejects actions
-that do not match this schema, contain invalid SVA, refer to an unknown design
-object, or introduce a cycle. Accepted actions incrementally construct a DAG
-rooted at the target; edges point from a property to the helper properties or
-generated proof obligations on which it depends.
+Actions that violate the schema, contain invalid SVA, reference unknown design
+objects, or introduce a cycle are rejected. Accepted actions incrementally
+build a proof DAG rooted at the target, with edges from each property to the
+helper properties and generated obligations it depends on.
 
-\textbf{Environment mechanics.} The environment maintains the current design,
-proof DAG, transformation history, and status of every proof obligation. It
-checks each proposed action before changing this state. It enforces the
-following conditions:
+\textbf{Soundness.} The environment tracks the design, proof DAG,
+transformation history, and status of every obligation, and enforces:
 \begin{enumerate}[nosep]
-    \item Helper properties are verified from the leaves upward: a property may
-    use a descendant as an assumption only after that descendant has been
+    \item a property may use a descendant as an assumption only after that
+    descendant is proved;
+    \item benchmark-supplied assumptions are external premises; assumptions
+    from generated interface contracts become obligations discharged at the
+    enclosing scope;
+    \item cutpoints, abstractions, and blackboxes produce explicit equivalence
+    or interface obligations and are usable only once those are proved;
+    \item failed or timed-out obligations cannot support an ancestor;
+    \item the target is accepted only when its entire dependency closure is
     proved.
-    \item Assumptions supplied by the benchmark are marked as external
-    premises; any assumption introduced by a generated interface contract
-    becomes a separate obligation that must be discharged at the enclosing
-    scope.
-    \item Cutpoints, abstractions, and blackboxes produce explicit equivalence
-    or interface obligations and are usable only after those obligations have
-    been proved.
-    \item Failed or timed-out obligations remain unresolved and cannot support
-    an ancestor.
-    \item The target is accepted only when it and every generated obligation in
-    its dependency closure have been proved, ensuring that neither an unproved
-    lemma nor a transformation can make an invalid proof appear successful.
 \end{enumerate}
 
-\textbf{Observation.} After each step the agent observes the full proof state,
+
+\textbf{Observation.} After each step the agent sees the full proof state,
 serialized as text:
 \begin{itemize}[nosep]
     \item the design source and the target property;
-    \item the current proof DAG: every helper property and generated
-    obligation, its dependencies, and its status (proved, failed, or timed out);
-    \item the applied transformations (cutpoints, abstractions, blackboxes)
-    and the obligations they introduced;
-    \item prover feedback for each failed obligation---a counterexample trace
-    projected onto the signals in the property's cone of influence, or a
-    timeout with the bound reached;
-    \item the reason an action was rejected, if the previous action was
-    invalid.
+    \item the proof DAG: each obligation, its dependencies, and its status
+    (proved, failed, or timed out);
+    \item the applied transformations and the obligations they introduced;
+    \item prover feedback per failed obligation---a counterexample trace
+    projected onto the property's cone of influence, or the timeout bound
+    reached;
+    \item the rejection reason, if the last action was invalid.
 \end{itemize}
-The design is pruned to the cone of influence of the open obligations and counterexample
-traces are truncated to the cycles surrounding the violation.
+The design is pruned to the cone of influence of the open obligations, and
+counterexample traces are truncated to the cycles around the violation.
 
-\textbf{Termination.} The environment terminates when the target assertion is proven or when a maximum number of steps is reached.
+\textbf{Termination.} The episode ends when the target is proved or a step
+limit is reached.
 
 \subsection{Prover flow}
 \label{sec:prover}
 
-The environment requires a prover that parses SVA, discharges assertions
+The environment needs a prover that parses SVA, discharges assertions
 unattended at scale, and supports the cutpoint, abstraction, and blackboxing
-commands of the action space. Candidate flows:
-
-\begin{itemize}
+actions. Candidates:
+\begin{itemize}[nosep]
   \item \textbf{SymbiYosys + Verific (Tabby CAD Suite)}~\cite{symbiyosys}:
-    Yosys-based flow with the industry-standard Verific frontend. Full IEEE
-    1800 SVA support; cutpoints and blackboxing map directly to Yosys passes;
-    engines include BMC, k-induction, and IC3 via SMT solvers and ABC.
-    Proprietary but free for academic use.
-  \item \textbf{SymbiYosys (open-source Yosys frontend)}~\cite{symbiyosys}:
-    same flow without Verific. Fully open source, but parses only a subset of
-    SVA (immediate and simple concurrent assertions), which would exclude the
-    temporally deep properties in our corpus.
-  \item \textbf{EBMC}~\cite{ebmc}: word-level bounded model checker with
-    k-induction from the CPROVER family. Native SystemVerilog frontend with
-    broader SVA coverage than open-source Yosys; free and dependency-light, so
-    trivial to deploy on a cluster, but weaker engine variety and no built-in
-    cutpoint support.
+    full IEEE 1800 SVA via the Verific frontend; cutpoints and blackboxing map
+    directly to Yosys passes; BMC, k-induction, and IC3 engines. Proprietary
+    but free for academic use.
+  \item \textbf{SymbiYosys (open-source frontend)}~\cite{symbiyosys}: fully
+    open source, but parses only a subset of SVA, excluding the temporally
+    deep properties in our corpus.
+  \item \textbf{EBMC}~\cite{ebmc}: word-level BMC with k-induction; broader
+    SVA coverage than open-source Yosys and trivial to deploy on a cluster,
+    but weaker engine variety and no built-in cutpoint support.
   \item \textbf{Commercial tools (e.g., JasperGold, VC Formal)}: strongest
-    engines and full SVA, but license-server seats constrain the parallel,
-    unattended proof workers our RL loop requires (Section~\ref{sec:cost}).
+    engines and full SVA, but license seats constrain the parallel proof
+    workers our RL loop requires (Section~\ref{sec:cost}).
 \end{itemize}
-
-We use SymbiYosys with the Verific frontend as the primary flow---it is the
-only free option that combines full SVA parsing with unattended operation and
-native cutpoint/blackbox support---and EBMC as a fallback for designs outside
-the Verific flow.
+We use SymbiYosys with Verific---the only free option combining full SVA
+parsing, unattended operation, and native cutpoint/blackbox support---with
+EBMC as a fallback for designs outside the Verific flow.
 
 \subsection{Reward design}
-The reward for step $t$ is
+The reward at step $t$ is
 \[
   r_t =
   R_{\mathrm{solve}}\,\mathbb{1}[\text{target proved}]
@@ -104,42 +89,40 @@ The reward for step $t$ is
   - \gamma\,U_t
   - \delta\,I_t,
 \]
-where $\Delta P_t$ is the number of newly discharged obligations,
-$\widetilde{T}_t$ is verifier time normalized by the direct-proving baseline,
-$U_t$ is the number of unresolved obligations introduced by the action, and
-$I_t$ indicates an invalid or rejected action. $R_{\mathrm{solve}}$ is larger
-than the maximum cumulative shaping reward so completing a sound proof is
-always preferable to accumulating partial progress. Repeated prover queries are cached.
+where $\Delta P_t$ counts newly discharged obligations, $\widetilde{T}_t$ is
+verifier time normalized by the direct-proving baseline, $U_t$ counts
+unresolved obligations introduced by the action, and $I_t$ flags an invalid
+action. $R_{\mathrm{solve}}$ exceeds the maximum cumulative shaping reward, so
+completing a sound proof always dominates accumulating partial progress.
+Repeated prover queries are cached.
 
 \subsection{Designs and assertions for the environment}
 \label{sec:rl-instances}
 
-Each instance pairs a SystemVerilog design with a target assertion that must
-satisfy \textbf{ground-truth provability}---the target is
-known to hold, so failures are attributable to the agent rather than to a false
-property (we use only formally verified SVA, never generated assertions of
-unknown status).
+Each instance pairs a design with a target assertion satisfying
+\textbf{ground-truth provability}: the target is known to hold, so failures
+are attributable to the agent, not a false property (we use only formally
+verified SVA, never generated assertions of unknown status).
 
-\textbf{Sources.}
-We reuse the verified-SVA subset of the fine-tuning corpus
+\textbf{Sources.} We reuse the verified-SVA subset of the fine-tuning corpus
 (Section~\ref{sec:ft-sources}): HierSVA~\cite{hiersva2026},
 OpenTitan~\cite{opentitan}, riscv-formal~\cite{riscvformal}, and HWSec-UNC
 verification-benchmarks~\cite{ahmad2024hwsec}.
 
-\textbf{Splitting and leakage control.}
-Instances are partitioned by design (not assertion) into training and held-out
-sets, so no module seen during RL appears at test time. Designs shared with the
-fine-tuning corpus stay in the training split, keeping the held-out set a clean
-measure of generalization to unseen designs.
+\textbf{Splitting and leakage control.} Instances are partitioned by design
+(not assertion) into training and held-out sets, so no module seen during RL
+appears at test time. Designs shared with the fine-tuning corpus stay in the
+training split, keeping the held-out set a clean measure of generalization to
+unseen designs.
 
 \subsection{Curriculum learning}
 \label{sec:curriculum}
 
-\textbf{Difficulty grading.}
-Each pair carries a static difficulty proxy---cone-of-influence state-bit count,
-hierarchy depth of the supporting module tree, and temporal depth of the
-property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
-operators)---calibrated against baseline single-shot proof time and timeout rate
-and binned into tiers consumed by the curriculum.
+\textbf{Difficulty grading.} Each pair carries a static difficulty
+proxy---cone-of-influence state-bit count, hierarchy depth, and temporal depth
+of the property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
+operators)---calibrated against baseline single-shot proof time and timeout
+rate and binned into tiers.
 
-We start the LLM on simple designs and assertions with low timeouts, and gradually increase the complexity of the designs and assertions, as well as the timeouts, as the LLM improves.
+Training starts on easy tiers with short timeouts and advances to harder
+tiers and longer timeouts as the agent improves.

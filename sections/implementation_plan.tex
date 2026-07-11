@@ -3,53 +3,43 @@
 
 \begin{itemize}
     \item \textbf{Phase 1: Environment and Prover Setup.}
-    Implement the typed action parser, proof-state ledger, prover adapter, and
-    trajectory logger on 20--50 small verified instances. The phase is complete
-    when runs are deterministic under fixed seeds, malformed actions are
-    rejected, and an independent replay check confirms that no target is
-    accepted with an unresolved obligation.
+    Implement the action parser, proof-state ledger, prover adapter, and
+    trajectory logger on 20--50 small verified instances. Done when runs are
+    deterministic, malformed actions are rejected, and replay confirms no
+    target is accepted with an unresolved obligation.
 
     \item \textbf{Phase 2: Dataset Construction and Baselines.}
-    Extract verified design--property pairs, normalize their build scripts,
-    deduplicate them by design, and freeze design-level training, validation,
-    and test splits. Run the prover alone, a single-shot frozen LLM, and a
-    frozen LLM with verifier feedback under identical time limits. The phase is
-    complete when every retained instance is reproducible and baseline proof
-    time, timeout status, and resource use have been recorded.
+    Extract and deduplicate verified design--property pairs and freeze
+    design-level splits. Run prover-only, single-shot frozen-LLM, and
+    frozen-LLM-with-feedback baselines under identical time limits, recording
+    proof time, timeouts, and resource use.
 
     \item \textbf{Phase 3: Supervised Fine-Tuning.}
-    Build the two-stage corpus described in Section~\ref{sec:finetuning} and
-    fine-tune the dense bring-up model first on SystemVerilog/SVA syntax and
-    then on assume-guarantee examples and valid proof actions. The phase is
-    complete when the fine-tuned model improves action-schema validity and
-    discharged-obligation rate over the frozen model on the validation split.
+    Fine-tune the bring-up model with the two-stage corpus of
+    Section~\ref{sec:finetuning}. Done when it improves action-schema validity
+    and discharged-obligation rate over the frozen model on validation.
 
     \item \textbf{Phase 4: Restricted RL Pilot.}
-    Train using only \texttt{ADD\_LEMMA} and \texttt{RETRACT} actions on small
-    designs with short timeouts. Tune the reward coefficients only on the
-    training and validation splits. The phase is complete when at least one
-    replicated run improves held-out validation solve rate or median proof time
-    over supervised fine-tuning alone without increasing unsound acceptances.
+    Train with only \texttt{ADD\_LEMMA} and \texttt{RETRACT} on small designs,
+    tuning reward coefficients on train/validation only. Done when a
+    replicated run improves held-out solve rate or median proof time over SFT
+    without unsound acceptances.
 
     \item \textbf{Phase 5: Hierarchical and Transformational Actions.}
     Add interface contracts, cutpoints, abstractions, and blackboxing one at a
-    time, together with the proof obligations required by
-    Section~\ref{sec:rl}. Each action is retained only if its adapter passes
-    soundness replay tests and improves validation performance; otherwise it is
-    excluded from the final action space.
+    time with the obligations of Section~\ref{sec:rl}. Retain an action only
+    if it passes soundness replay and improves validation performance.
 
     \item \textbf{Phase 6: Full Training Run.}
-    Scale the validated configuration to Qwen3.6-36B-A3B and the full curriculum.
-    Freeze the model, reward coefficients, prover configuration, and stopping
-    rule before test evaluation. Checkpoints are selected using validation
-    solve rate under a fixed end-to-end compute budget.
+    Scale to Qwen3.6-36B-A3B and the full curriculum. Freeze the model, reward
+    coefficients, prover configuration, and stopping rule before test
+    evaluation; select checkpoints by validation solve rate under a fixed
+    compute budget.
 
     \item \textbf{Phase 7: Final Evaluation.}
-    Compare the prover-only, frozen-agent, fine-tuned, restricted-RL, and full
-    systems on the untouched test designs. Report solve rate, end-to-end proof
-    time, verifier calls, CPU/GPU-hours per solved target, proof-DAG size, and
-    confidence intervals, together with ablations and a categorized failure
-    analysis. The project is complete when the experiment can be reproduced
-    from a clean environment and every reported successful proof passes
-    independent replay.
+    Compare all systems on the untouched test designs, reporting solve rate,
+    proof time, verifier calls, compute per solved target, proof-DAG size, and
+    confidence intervals, with ablations and failure analysis. Done when the
+    experiment reproduces from a clean environment and every successful proof
+    passes independent replay.
 \end{itemize}
