@@ -6,11 +6,59 @@ We train the fine-tuned LLM with PPO (Proximal Policy Optimization)~\citep{schul
 \subsection{The environment}
 \textbf{Initialization.} The environment starts with a SystemVerilog design and an assertion to prove.
 
-\textbf{Action.} The agent's action is a DAG of assertions rooted at the target, with helper assertions as descendants, together with cutpoint, abstraction, and blackboxing commands.
+\textbf{Action.} At each step, the agent emits one typed action rather than a
+complete proof DAG. The available actions are:
+\begin{itemize}[nosep]
+    \item \texttt{ADD\_LEMMA(property, lemma\_assertion)};
+    \item \texttt{ADD\_CUTPOINT(signal)};
+    \item \texttt{ADD\_BLACKBOX(module)};
+    \item \texttt{ADD\_COUNTER\_ABSTRACTION(module)};
+    \item \texttt{RETRACT(property)};
+\end{itemize}
+The environment rejects actions
+that do not match this schema, contain invalid SVA, refer to an unknown design
+object, or introduce a cycle. Accepted actions incrementally construct a DAG
+rooted at the target; edges point from a property to the helper properties or
+generated proof obligations on which it depends.
 
-\textbf{Environment mechanics.} Given an action, the environment applies the cutpoint, abstraction, and blackboxing commands to the design. It then verifies the assertions in the tree in topological order; when proving an assertion, it assumes its descendants properties are true.
+\textbf{Environment mechanics.} The environment maintains the current design,
+proof DAG, transformation history, and status of every proof obligation. It
+checks each proposed action before changing this state. It enforces the
+following conditions:
+\begin{enumerate}[nosep]
+    \item Helper properties are verified from the leaves upward: a property may
+    use a descendant as an assumption only after that descendant has been
+    proved.
+    \item Assumptions supplied by the benchmark are marked as external
+    premises; any assumption introduced by a generated interface contract
+    becomes a separate obligation that must be discharged at the enclosing
+    scope.
+    \item Cutpoints, abstractions, and blackboxes produce explicit equivalence
+    or interface obligations and are usable only after those obligations have
+    been proved.
+    \item Failed or timed-out obligations remain unresolved and cannot support
+    an ancestor.
+    \item The target is accepted only when it and every generated obligation in
+    its dependency closure have been proved, ensuring that neither an unproved
+    lemma nor a transformation can make an invalid proof appear successful.
+\end{enumerate}
 
-\textbf{Observation.} The agent observes the design and the target property. If the prover fails, the agent also observes which assertions failed and why (e.g., counterexample or timeout).
+\textbf{Observation.} After each step the agent observes the full proof state,
+serialized as text:
+\begin{itemize}[nosep]
+    \item the design source and the target property;
+    \item the current proof DAG: every helper property and generated
+    obligation, its dependencies, and its status (proved, failed, or timed out);
+    \item the applied transformations (cutpoints, abstractions, blackboxes)
+    and the obligations they introduced;
+    \item prover feedback for each failed obligation---a counterexample trace
+    projected onto the signals in the property's cone of influence, or a
+    timeout with the bound reached;
+    \item the reason an action was rejected, if the previous action was
+    invalid.
+\end{itemize}
+The design is pruned to the cone of influence of the open obligations and counterexample
+traces are truncated to the cycles surrounding the violation.
 
 \textbf{Termination.} The environment terminates when the target assertion is proven or when a maximum number of steps is reached.
 
@@ -47,7 +95,21 @@ native cutpoint/blackbox support---and EBMC as a fallback for designs outside
 the Verific flow.
 
 \subsection{Reward design}
-Each step receives a large positive reward when the target assertion is proved. Separately, every assertion in the tree incurs a penalty based on the time the engine spent checking it and on whether it was left unproven.
+The reward for step $t$ is
+\[
+  r_t =
+  R_{\mathrm{solve}}\,\mathbb{1}[\text{target proved}]
+  + \alpha\,\Delta P_t
+  - \beta\,\widetilde{T}_t
+  - \gamma\,U_t
+  - \delta\,I_t,
+\]
+where $\Delta P_t$ is the number of newly discharged obligations,
+$\widetilde{T}_t$ is verifier time normalized by the direct-proving baseline,
+$U_t$ is the number of unresolved obligations introduced by the action, and
+$I_t$ indicates an invalid or rejected action. $R_{\mathrm{solve}}$ is larger
+than the maximum cumulative shaping reward so completing a sound proof is
+always preferable to accumulating partial progress. Repeated prover queries are cached.
 
 \subsection{Designs and assertions for the environment}
 \label{sec:rl-instances}
