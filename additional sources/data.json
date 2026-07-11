@@ -1,0 +1,245 @@
+{
+  "input": "Find for me system verilog and system verilog assertions code which will be easy to download or in a dataset, that is similar to  code in real industrial uses. I need this code to fine tune an LLM that will learn to do assume guarantee workflow.",
+  "output": {
+    "executive_summary": "- **HierSVA-DS Is the Top Pick**: 342 hierarchical SystemVerilog modules paired with formally verified golden SVA, including English \"protocol obligations\" (assumptions) and \"explicit invariants\" (guarantees) -- the closest existing dataset to assume-guarantee reasoning. Available on HuggingFace ([executive_summary[0]] [64]) and GitHub (HierSVAAnon/HierSVACodeAndArtifacts), ArXiv: [executive_summary[1]] [75]. -> Start here for assume-guarantee fine-tuning; the protocol-obligation/invariant pairing directly models the assume-guarantee contract structure.\n\n- **OpenTitan Provides Industrial Assume/Guarantee Macros**: Google-backed open-source root-of-trust SoC with explicit ASSUME_FPV macros (for input constraints) and ASSERT macros (for guarantees), naming conventions (_M for assumptions, _A for assertions, _P for properties, _S for sequences), and bind-based modular assertion files. Clone from [executive_summary[2]] [66]. -> Extract the `hw/formal/` directory and `prim_assert.sv`/`prim_assert_standard_macros.svh` files; the assume/assert macro pairs are the closest open-source analog to industrial assume-guarantee workflows.\n\n- **VERT Offers 20K SVA Samples for LLM Training**: Approximately 20,000 SystemVerilog assertion samples, synthetically generated using variable names from BOOM-core (~500 vars), rocket-chip (~450 vars), and XiangShan (~450 vars), validated on CVA6, Pulpissimo, and OpenTitan. Available at [executive_summary[3]] [17], paper at [executive_summary[4]] [52]. -> Use as the primary volume dataset for teaching SVA syntax and structure; augment with assume-property examples from OpenTitan and HierSVA since VERT focuses on assert properties.\n\n- **Verixa-Dataset Delivers 105K Samples with SVA and Formal Verification**: 105,340 deduplicated, quality-filtered samples covering UVM verification, SVA, Verilog RTL, SystemC, EDA scripting, and formal verification for Ethernet and AXI4. 159 MB, Apache-2.0 license, on HuggingFace ([executive_summary[5]] [65]). -> The `formal` category samples (Ethernet, AXI4) likely contain assume/assert pairs; extract and label these for assume-guarantee training.\n\n- **HWSec-UNC Benchmarks Provide Real Security SVA**: 122+ SystemVerilog assertion properties across four real open-source SoC designs: OR1200 (71 properties), PULPissimo/Hack@DAC18 (20 properties), CVA6/OpenPiton/Hack@DAC19 (11 properties), and OpenPiton/Hack@DAC21 (20 properties), all CWE-tagged. Clone with `git clone --recursive https://github.com/HWSec-UNC/verification-benchmarks.git`. -> These are production-quality assertions from real silicon-destined designs; use them as high-quality demonstration examples in your fine-tuning mix.\n\n- **NVIDIA CVDP Benchmark Adds RTL+Testbench Pairs**: 649 SystemVerilog RTL modules and testbenches with design specifications in Markdown, covering AES encryption, AXI bridges, ALUs, and codecs. On HuggingFace ([executive_summary[6]] [71]). -> Useful for teaching the LLM the relationship between specifications, RTL implementation, and verification code.\n\n- **No Single Dataset Fully Covers Assume-Guarantee**: None of the existing datasets explicitly label assume-guarantee pairs as such. You must compose a training corpus from multiple sources, pairing `assume property` statements (from OpenTitan, HierSVA spec files, and the SVA process book patterns) with corresponding `assert property` guarantees. -> Build a two-stage fine-tuning pipeline: Stage 1 on general SVA syntax (VERT + Verixa), Stage 2 on assume-guarantee contract pairs (curated from OpenTitan + HierSVA + HWSec-UNC).\n\n- **Assume-Guarantee Workflow Defined**: In hardware formal verification, assume-guarantee (also called compositional verification) decomposes system-level proofs into local proofs per module: each module **assumes** constraints on its inputs (environment behavior) and **guarantees** properties on its outputs (design behavior). In SVA, `assume property` constrains the verifier's input space, while `assert property` specifies the obligation the design must meet given those assumptions. -> Your fine-tuning data must include paired assume/assert examples at module boundaries, not just standalone assertions.\n\n---",
+    "tier_1_datasets_most_directly_relevant_to_assume_guarantee": "### HierSVA-DS: Hierarchical SVA with Protocol Contracts\n\nHierSVA-DS ([tier_1_datasets_most_directly_relevant_to_assume_guarantee[0]] [64], GitHub, [tier_1_datasets_most_directly_relevant_to_assume_guarantee[1]] [75]) is the single most relevant dataset for your use case. It contains **342 hierarchical SystemVerilog modules** paired with **formally verified golden SVA assertions**. Each module comes with:\n\n- **`assertions.v` files**: Parameterized SVA assertions bound to parent RTL via `bind` constructs, proven non-vacuously by VC Formal while killing **100% of eligible mutation sets**.\n- **`spec/<module>.md` files**: English-language specifications describing \"protocol obligations\" and \"explicit invariants\" for each module. Protocol obligations correspond to assumptions about the environment (what inputs the module can expect), while explicit invariants correspond to guarantees (what the module must ensure).\n- **`json/<group>.json` manifests**: Hierarchy metadata specifying the top RTL file, hierarchy level, directly instantiated submodules, and the transitive-closure submodule set. Hierarchy depths range from **0 to 9**.\n- A **28-module deep evaluation subset** containing 21 LLM-injected synthetic bugs and 7 real bugs recovered from git history.\n\nThe dataset is built from the **BaseJump STL** open-source standard-cell library, giving it a realistic industrial flavor. The synthesis pipeline (HierSVA-SP) uses an RTL preprocessing toolchain paired with an LLM-in-the-loop formal verification flow, ensuring the assertions are both syntactically correct and functionally meaningful.\n\n**Why this is critical for assume-guarantee**: The \"protocol obligations\" in the spec files are natural-language descriptions of what the environment must provide (assumptions), and the \"explicit invariants\" describe what the module guarantees. By pairing the spec files with the corresponding `assertions.v` files, you can train an LLM to translate assume-guarantee contracts from natural language into SVA. The hierarchical structure (depths 0-9) also teaches the model how assertions compose across module boundaries -- the essence of compositional assume-guarantee reasoning.\n\n**Download**: `huggingface-cli download AnonymousHierSVA/HierSVA` or clone the GitHub repo.\n\n---\n\n### OpenTitan: Industrial-Grade Assume/Guarantee Macros\n\nOpenTitan ([tier_1_datasets_most_directly_relevant_to_assume_guarantee[2]] [66], [tier_1_datasets_most_directly_relevant_to_assume_guarantee[3]] [28]) is a Google-backed open-source silicon root of trust with extensive, production-quality SVA. It is the best source for **industrial assume-guarantee code patterns** because it explicitly uses separate SVA constructs for assumptions and guarantees:\n\n| Macro | Purpose | Assume-Guarantee Role |\n|---|---|---|\n| `ASSUME_FPV` | Constrain symbolic variables in formal verification | **Assumption** -- bounds input ranges, ensures stability |\n| `ASSERT()` | Generic concurrent assertion | **Guarantee** -- checks design correctness |\n| `ASSERT_KNOWN()` | Verify signal is not X after reset | **Guarantee** -- no unknown states |\n| `ASSERT_NEVER()` | Property must never occur | **Guarantee** -- forbidden behavior |\n| `ASSERT_INIT()` | Parameter checking in initial blocks | **Guarantee** -- design parameters valid |\n| `ASSERT_AT_RESET()` | Properties checked before/at reset | **Guarantee** -- reset behavior correct |\n| `COVER()` | Coverpoints for corner cases | **Coverage** -- ensure assumptions exercised |\n\nNaming conventions explicitly distinguish roles: **`_M`** postfix for assumptions, **`_A`** for assertions, **`_P`** for properties, **`_S`** for sequences. For example, `IsrcRange_M` is an assumption bounding a variable's range, while `IsrcStable_M` assumes a signal remains stable.\n\nAssertion files are organized in **`ip/hw/module_name/fpv/vip`** directories and reuse via **bind files** -- the standard industrial pattern for modular, composable verification. Generic protocol checkers (e.g., `tlul_assert.sv` for TileLink) are implemented as separate modules, exemplifying the interface-level assume-guarantee pattern where assumptions constrain the bus protocol inputs and assertions verify the design's protocol compliance.\n\nKey macro files: `prim_assert.sv` and `prim_assert_standard_macros.svh` in the repository root.\n\n**Download**: `git clone https://github.com/lowRISC/opentitan.git` (3.5k stars, actively maintained).\n\n---\n\n### HWSec-UNC/verification-benchmarks: Real SoC Security Assertions\n\nThis repository ([tier_1_datasets_most_directly_relevant_to_assume_guarantee[4]] [42]) provides **security-focused SystemVerilog Assertions for four real open-source processor/SoC designs**, each tagged with CWE (Common Weakness Enumeration) identifiers:\n\n| Design | Properties | Known Bugs | Source |\n|---|---|---|---|\n| OR1200 (OpenRISC CPU) | 71 | N/A | General security |\n| PULPissimo (Hack@DAC 2018) | 20 | 31 | Buggy SoC |\n| CVA6/OpenPiton (Hack@DAC 2019) | 11 | 66 | Buggy SoC |\n| OpenPiton (Hack@DAC 2021) | 20 | 99 | Buggy SoC |\n\nThe repository composition is **37.3% SystemVerilog, 30.6% Verilog, 9.2% C**, with TCL and VHDL making up the remainder. Each property is tagged with associated CWEs and a description of the bug it identifies. Properties were developed in two settings: (1) capturing desired secure behavior, and (2) catching known buggy behavior.\n\n**Why relevant for assume-guarantee**: Security assertions inherently embody assume-guarantee reasoning -- they assume the design is not under fault injection (or assume specific fault models) and guarantee that security alerts fire correctly. The accompanying paper ([tier_1_datasets_most_directly_relevant_to_assume_guarantee[5]] [36]) describes the methodology for writing these properties against real designs.\n\n**Download**: `git clone --recursive https://github.com/HWSec-UNC/verification-benchmarks.git` (submodules required for design RTL).\n\n---",
+    "tier_2_large_scale_sva_datasets_for_llm_fine_tuning": "### VERT: SystemVerilog Assertion Dataset (~20K Samples)\n\nVERT ([tier_2_large_scale_sva_datasets_for_llm_fine_tuning[0]] [17], [tier_2_large_scale_sva_datasets_for_llm_fine_tuning[1]] [52], [tier_2_large_scale_sva_datasets_for_llm_fine_tuning[2]] [54]) is an open-source dataset specifically designed to enhance LLM-based SVA generation. Authored by researchers at UT Dallas and Intel Corporation, it contains approximately **20,000 SystemVerilog assertion samples** constructed through:\n\n1. **Variable sourcing from industrial-grade projects**: BOOM-core (~500 variables), rocket-chip (~450 variables), XiangShan (~450 variables), plus randomly generated hardware-related variable names.\n2. **Structural logic diversity**: Assertions formulated using `if-else`, `case`, and ternary operators, with sensitivity from `always`, `always_ff`, and `always_comb` blocks.\n3. **Standardized temporal operators**: Overlapping implication (`|->`), non-overlapping implication (`|=>`), delay ranges (`##[m:n]`).\n4. **Synchronous and asynchronous variants**: Clock-driven, combinational, and sequential logic patterns.\n5. **RAG-enhanced variant**: A version augmented with Retrieval-Augmented Generation techniques.\n\nVERT was validated on industry-standard platforms including **CVA6**, **Pulpissimo SoCs**, and **OpenTitan**.\n\n**Limitation for assume-guarantee**: VERT focuses primarily on `assert property` generation. It does not explicitly include `assume property` statements or paired assume-guarantee contracts. You would need to augment VERT with assume-property examples from OpenTitan or HierSVA.\n\n**Download**: `git clone https://github.com/AnandMenon12/VERT.git`\n\n---\n\n### Verixa-Dataset: 105K Samples with SVA, UVM, and Formal Verification\n\nThe Verixa dataset ([tier_2_large_scale_sva_datasets_for_llm_fine_tuning[3]] [65]) provides **105,340 deduplicated, quality-filtered samples** covering:\n\n- **UVM verification**: `seq_item` components (e.g., I2C), `rtl_to_tb` components (env for crypto, uvm_base for RISC-V)\n- **SystemVerilog Assertions**: General SVA patterns\n- **Formal verification**: Properties for Ethernet and AXI4 protocols\n- **Verilog RTL, SystemC, EDA scripting, and engineering workflow reasoning**\n\nThe dataset is **159 MB** in Parquet format, released under **Apache-2.0 license**, making it freely usable for commercial fine-tuning. The `formal` category for Ethernet and AXI4 likely contains assume/assert pairs, since formal verification of protocol interfaces inherently requires both assumptions (on input protocol compliance) and guarantees (on output protocol compliance).\n\n**Download**: `load_dataset('vyomaalabs/verixa-dataset', split='train')`\n\n---\n\n### NVIDIA CVDP Benchmark: 649 RTL+Testbench+Spec Triples\n\nNVIDIA's Comprehensive Verilog Design Problems benchmark ([tier_2_large_scale_sva_datasets_for_llm_fine_tuning[4]] [71]) contains **649 rows** (60.5 MB) with:\n\n- **SystemVerilog RTL modules**: `decoder_8b10b.sv`, `aes_enc_top.sv`, `alu_core.sv`, `axi4lite_to_pcie_cfg_bridge.sv`\n- **SystemVerilog testbenches**: `tb_top_64b66b_codec.sv`, `tb_async_fifo.sv`\n- **Design specifications in Markdown**: `docs/specification.md`, `docs/alu_core_specification.md`\n- **Both agentic and non-agentic code generation tasks**: Implementing RTL from specs, enhancing existing designs, creating self-checking testbenches\n\nThe spec-to-RTL-to-testbench chain is valuable for teaching an LLM the full verification workflow, though it is not SVA-specific.\n\n**Download**: Available on HuggingFace.\n\n---",
+    "tier_3_supporting_code_repositories_and_reference_patterns": "### riscv-formal: RISC-V Formal Verification with Assume/Assert\n\nSymbioticEDA's riscv-formal ([tier_3_supporting_code_repositories_and_reference_patterns[0]] [35], 632 stars) provides a framework for formal verification of RISC-V processors. It uses **immediate assertions and assumptions** (for maximal tool compatibility) to verify all instructions from the RV32I and RV64I ISAs against the Spike ISA simulator. The repository is **81.7% Verilog, 8.4% SystemVerilog, 8.7% Python**, and provides the RISC-V Formal Interface (RVFI) specification.\n\n**Why relevant**: The assumption/assertion structure here models assume-guarantee at the ISA level -- assumptions constrain the processor inputs (instruction stream, register state), and assertions verify correct instruction execution. This is compositional verification in practice.\n\n**Download**: `git clone https://github.com/SymbioticEDA/riscv-formal.git`\n\n---\n\n### AssertionForge: NVIDIA's SVA Generation Tool\n\nAssertionForge ([tier_3_supporting_code_repositories_and_reference_patterns[1]] [2]) is a research prototype from NVIDIA Labs that generates SVA from natural-language specifications and RTL. It uses a two-stage workflow: (1) Knowledge Graph construction from spec PDFs and RTL `.v` files, and (2) Test Plan and SVA generation using GPT-4o. The repository includes an **OpenMSP430 example** with generated SVA code.\n\nWhile not a dataset per se, the example SVA code and the generation pipeline are useful for understanding how LLMs can be applied to SVA generation. The tool requires architectural signals (clk, reset, data_valid) for generation.\n\n**Download**: `git clone https://github.com/NVlabs/AssertionForge.git`\n\n---\n\n### Ben Cohen's SVA Process Chapter: Industrial Assume-Guarantee Patterns\n\nBen Cohen's chapter on \"SystemVerilog Assertions in the Design Process\" ([tier_3_supporting_code_repositories_and_reference_patterns[2]] [40]) provides explicit industrial assume-guarantee patterns:\n\n- **Interface assumptions** capture the environment's obligations (e.g., what inputs the design can expect, what protocol subsets are used).\n- **Assertions** verify the design's response within a range of cycles.\n- **Assumptions as constraint bases** for automatic stimulus generation -- the SVA assumptions serve as constraints for formal tools and constrained-random simulation.\n- **Specific industrial examples**: `pFirePyroSafe` (pyrotechnics relay with 5-cycle latency guarantee), latency properties for AHB-to-PCI bridges (100-500 cycle guarantees), and filter processing completion guarantees.\n\nThis is the most detailed public reference on how assume and assert properties are used together in industrial practice.\n\n---\n\n### Accellera SVA Tutorial 2016: Formal Verification Patterns\n\nThe Accellera tutorial ([tier_3_supporting_code_repositories_and_reference_patterns[3]] [38]) by AMIQ Consulting covers SVAUnit test patterns for formal verification, including:\n\n- **`assume property`**: Specify environment requirements and restrict models\n- **`assert property`**: Ensure design correctness via mathematical proof\n- **`cover property`**: Monitor if specific specifications were stimulated\n- **SVAUnit**: A unit-testing framework for verifying the assertions themselves\n\nThis tutorial provides the methodological framework for how industrial teams validate their assume-guarantee assertions.\n\n---\n\n### Other HuggingFace Datasets\n\n| Dataset | Size | SVA Content | Relevance |\n|---|---|---|---|\n| [tier_3_supporting_code_repositories_and_reference_patterns[4]] [61] | 109k rows | Verilog only, no SVA | Low - syntax familiarization only |\n| [tier_3_supporting_code_repositories_and_reference_patterns[5]] [63] | 4,098 rows | Verilog with testbenches | Low - includes tb files but no SVA |\n\n---",
+    "synthesis_building_an_assume_guarantee_training_corpus": "No single existing dataset fully satisfies the requirement for assume-guarantee workflow fine-tuning. The gap is clear: existing SVA datasets focus on assertion generation (assert properties) but rarely include the paired assume properties that define the environment constraints. To build an effective training corpus, you must compose data from multiple sources:\n\n### Recommended Composition Strategy\n\n| Data Source | Role in Training | Approximate Volume | Key Contribution |\n|---|---|---|---|\n| **HierSVA-DS** | Core assume-guarantee examples | 342 modules | Protocol obligations + invariants paired with SVA |\n| **OpenTitan** (hw/formal/) | Industrial assume/guarantee macro patterns | Hundreds of assertion files | ASSUME_FPV + ASSERT macro pairs, naming conventions |\n| **HWSec-UNC benchmarks** | High-quality real-design assertions | 122 properties | Production SoC security assertions |\n| **VERT** | SVA syntax and structure volume | ~20,000 samples | Diverse assertion patterns, industrial variable names |\n| **Verixa-dataset** | Broad verification code coverage | 105,340 samples | SVA + UVM + formal verification context |\n| **riscv-formal** | ISA-level assume/guarantee | ~100 proof files | Compositional processor verification |\n| **Ben Cohen / Accellera** | Methodological reference | Tutorial-scale | Industrial assume/guarantee patterns and best practices |\n\n### Two-Stage Fine-Tuning Pipeline\n\n**Stage 1 - SVA Foundation**: Fine-tune on VERT (~20K) + Verixa SVA subset to teach the model SystemVerilog assertion syntax, temporal operators, and common patterns. This gives the model fluency in writing syntactically correct SVA.\n\n**Stage 2 - Assume-Guarantee Specialization**: Fine-tune on curated assume/guarantee pairs extracted from:\n- OpenTitan's ASSUME_FPV/ASSERT macro pairs (extract from `prim_assert*.sv*` and `hw/formal/` directories)\n- HierSVA-DS spec files (`spec/<module>.md`) paired with `assertions.v` -- translate \"protocol obligations\" into `assume property` and \"explicit invariants\" into `assert property`\n- HWSec-UNC security properties (manually annotate assumption/guarantee roles)\n- riscv-formal ISA-level assumption/assertion pairs\n- Ben Cohen's interface assertion patterns (manually transcribed from the PDF)\n\n### Data Augmentation for Assume-Guarantee\n\nSince existing datasets under-represent `assume property` statements, consider:\n\n1. **Synthetic assume generation**: For each `assert property` in VERT, generate a corresponding `assume property` that constrains the inputs the assertion depends on (e.g., if an assertion checks `req |-> ##3 ack`, the assumption might be `assume property(@(posedge clk) req |-> !$isunknown(req));`).\n2. **Interface contract extraction**: From OpenTitan's protocol checkers (e.g., `tlul_assert.sv`), extract the implicit assumption/assertion pairs at module boundaries.\n3. **Spec-to-SVA translation**: Use HierSVA-DS's English spec files as input and the SVA files as output, training the model to translate natural-language assume-guarantee contracts into formal SVA.\n\n### Commercial Tools (No Public Datasets)\n\nTwo commercial tools are worth monitoring for future dataset releases:\n- **Caspia SVx** ([synthesis_building_an_assume_guarantee_training_corpus[0]] [49]): Generates SVA and SPV properties from natural-language security requirements. Uses an agentic framework for on-prem or cloud deployment. No public dataset available.\n- **SigmanticAI** ([synthesis_building_an_assume_guarantee_training_corpus[1]] [3], `pip install sigmanticai`): YC-backed platform generating SVA, UVM, RAL, and coverage via hierarchical multi-agent system. No public training dataset available.\n\n---"
+  },
+  "outputBasis": [
+    {
+      "field": "executive_summary",
+      "citations": [
+        {
+          "title": "AnonymousHierSVA/HierSVA · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/AnonymousHierSVA/HierSVA",
+          "excerpts": []
+        },
+        {
+          "title": "[2606.13706] HierSVA: A Data Synthesis Pipeline, Dataset, and ...",
+          "url": "https://arxiv.org/abs/2606.13706",
+          "excerpts": [
+            "HierSVA-SP pairs an RTL preprocessing toolchain with an LLM-in-the-loop formal verification flow to produce reference SystemVerilog Assertions (SVA) on hierarchical RTL."
+          ]
+        },
+        {
+          "title": "GitHub - lowRISC/opentitan: OpenTitan: Open source silicon root of trust · GitHub",
+          "url": "https://github.com/lowRISC/opentitan",
+          "excerpts": []
+        },
+        {
+          "title": "VERT: A SystemVerilog Assertion Dataset to ... - GitHub",
+          "url": "https://github.com/AnandMenon12/VERT",
+          "excerpts": [
+            "Comprehensive Assertion Generation VERT includes a broad collection of SystemVerilog assertions covering a range of conditional structures, enabling LLMs to learn and generate assertions for diverse logical flows within hardware designs."
+          ]
+        },
+        {
+          "title": "[2503.08923] Enhancing Large Language Models for ...",
+          "url": "https://arxiv.org/abs/2503.08923",
+          "excerpts": [
+            "[2503.08923] Enhancing Large Language Models for ...\nby A Menon · 2025 · Cited by 11 — To address these issues, we introduce **VERT**, an open-source dataset designed to enhance SystemVerilog assertion generation using LLMs."
+          ]
+        },
+        {
+          "title": "vyomaalabs/verixa-dataset · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/vyomaalabs/verixa-dataset",
+          "excerpts": []
+        },
+        {
+          "title": "nvidia/cvdp-benchmark-dataset · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset",
+          "excerpts": []
+        }
+      ],
+      "reasoning": "**Evaluating support for claims**\n\nI'm assessing whether a field answer is collectively supported by the excerpts provided. Even if excerpts only cover some aspects, I think it wouldn't be fully supported. So, I could argue it's partially supported, but the guideline specifies it should be considered true only if the answer is thoroughly supported. If there are multiple claims without support, it might be safest to classify it as false. I'll move ahead with the details in JSON format, noting my reasoning.",
+      "confidence": "medium"
+    },
+    {
+      "field": "tier_1_datasets_most_directly_relevant_to_assume_guarantee",
+      "citations": [
+        {
+          "title": "AnonymousHierSVA/HierSVA · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/AnonymousHierSVA/HierSVA",
+          "excerpts": []
+        },
+        {
+          "title": "[2606.13706] HierSVA: A Data Synthesis Pipeline, Dataset, and ...",
+          "url": "https://arxiv.org/abs/2606.13706",
+          "excerpts": [
+            "HierSVA-SP pairs an RTL preprocessing toolchain with an LLM-in-the-loop formal verification flow to produce reference SystemVerilog Assertions (SVA) on hierarchical RTL."
+          ]
+        },
+        {
+          "title": "GitHub - lowRISC/opentitan: OpenTitan: Open source silicon root of trust · GitHub",
+          "url": "https://github.com/lowRISC/opentitan",
+          "excerpts": []
+        },
+        {
+          "title": "Assertions - OpenTitan Documentation",
+          "url": "https://opentitan.org/book/hw/formal/index.html",
+          "excerpts": [
+            "OpenTitan’s security IP blocks have implemented assertions to check against common fault injections. These assertions ensure if the security prim module returns an error, a corresponding alert should fire immediately without any gating conditions."
+          ]
+        },
+        {
+          "title": "GitHub - HWSec-UNC/verification-benchmarks",
+          "url": "https://github.com/HWSec-UNC/verification-benchmarks",
+          "excerpts": [
+            "This repository contains security properties for the formal verification of open-source processors and SoCs. In the directory corresponding to each design is a set of properties written as SystemVerilog Assertions (SVA)."
+          ]
+        },
+        {
+          "title": "Security Properties for Open-Source Hardware Designs",
+          "url": "https://arxiv.org/html/2412.08769v2",
+          "excerpts": [
+            "We provide SystemVerilog Assertions for four common designs: OR1200, Hack@DAC 2018’s buggy PULPissimo SoC, Hack@DAC 2019’s CVA6, and Hack@DAC 2021’s buggy OpenPiton SoCs. The properties are organized by design and tagged with details about the security flaws and the implicated CWE."
+          ]
+        }
+      ],
+      "reasoning": "**Assessing dataset completeness**\n\nI need to generate output JSON based on the BasicFieldEvaluatorOutput schema, considering aspects like scratchpad, completeness, and support. The field description mentions \"tier_1_datasets_most_directly_relevant_to_assume_guarantee,\" and the field_answer contains a long summary that seems complete, addressing the top datasets and their relevance. Excerpts support this answer, mentioning various datasets like HierSVA and OpenTitan. So, I conclude the completeness is true and the support is also true. I'll prepare the scratchpad with reasoning notes as well.",
+      "confidence": "high"
+    },
+    {
+      "field": "tier_2_large_scale_sva_datasets_for_llm_fine_tuning",
+      "citations": [
+        {
+          "title": "VERT: A SystemVerilog Assertion Dataset to ... - GitHub",
+          "url": "https://github.com/AnandMenon12/VERT",
+          "excerpts": [
+            "Comprehensive Assertion Generation VERT includes a broad collection of SystemVerilog assertions covering a range of conditional structures, enabling LLMs to learn and generate assertions for diverse logical flows within hardware designs."
+          ]
+        },
+        {
+          "title": "[2503.08923] Enhancing Large Language Models for ...",
+          "url": "https://arxiv.org/abs/2503.08923",
+          "excerpts": [
+            "[2503.08923] Enhancing Large Language Models for ...\nby A Menon · 2025 · Cited by 11 — To address these issues, we introduce **VERT**, an open-source dataset designed to enhance SystemVerilog assertion generation using LLMs."
+          ]
+        },
+        {
+          "title": "VERT: A SystemVerilog Assertion Dataset to Improve ...",
+          "url": "https://openreview.net/forum?id=rZmQ2z7MPA",
+          "excerpts": [
+            "VERT: A SystemVerilog Assertion Dataset to Improve ...\nby A Menon · Cited by 1 — This paper introduces VERT, a novel dataset that automates SystemVerilog assertion generation for hardware verification using Large Language Models."
+          ]
+        },
+        {
+          "title": "vyomaalabs/verixa-dataset · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/vyomaalabs/verixa-dataset",
+          "excerpts": []
+        },
+        {
+          "title": "nvidia/cvdp-benchmark-dataset · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset",
+          "excerpts": []
+        }
+      ],
+      "reasoning": "**Evaluating support status**\n\nI’m thinking about whether some parts of an answer can be marked as supported. If not everything is supported by excerpts, it would make sense to mark it as false. The instructions indicate that I should only set true if the entire answer is supported, and it doesn’t mention partial support. Since the excerpts mainly discuss VERT and the rest of the content isn’t present, I’ll set it to false. Time to prepare JSON.",
+      "confidence": "medium"
+    },
+    {
+      "field": "tier_3_supporting_code_repositories_and_reference_patterns",
+      "citations": [
+        {
+          "title": "GitHub - SymbioticEDA/riscv-formal: RISC-V Formal ...",
+          "url": "https://github.com/SymbioticEDA/riscv-formal",
+          "excerpts": [
+            "The current focus is on implementing formal models of all instructions from the RISC-V RV32I and RV64I ISAs, and formally verifying those models against the models used in the RISC-V \"Spike\" ISA simulator."
+          ]
+        },
+        {
+          "title": "GitHub - NVlabs/AssertionForge",
+          "url": "https://github.com/NVlabs/AssertionForge",
+          "excerpts": [
+            "AssertionForge is a research prototype for generating high‑quality SystemVerilog Assertions (SVAs) from natural‑language specifications and RTL. It constructs a joint knowledge graph that bridges the semantic gap between spec and implementation, then leverages LLMs to produce a focused test plan and candidate SVAs."
+          ]
+        },
+        {
+          "title": "6 SYSTEMVERILOG ASSERTIONS IN THE DESIGN PROCESS",
+          "url": "http://systemverilog.us/svabk4_process.pdf",
+          "excerpts": [
+            "6 SYSTEMVERILOG ASSERTIONS IN THE DESIGN PROCESS\nThese assertions not only help in the documentation, understanding, and clarification of the interfaces, but also provide a verification mechanism of the design at the I/O interface level."
+          ]
+        },
+        {
+          "title": "SVA Advanced Topics: SVAUnit and Assertions for Formal Accellera https://www.accellera.org › resources › videos",
+          "url": "https://www.accellera.org/images/resources/videos/SystemVerilog_Assertions_Tutorial_2016.pdf",
+          "excerpts": [
+            "SVA Advanced Topics: SVAUnit and Assertions for Formal"
+          ]
+        },
+        {
+          "title": "shailja/Verilog_GitHub · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/shailja/Verilog_GitHub",
+          "excerpts": [
+            "For training [models (https://huggingface.co/shailja/fine-tuned-codegen-2B-Verilog)], we filtered entries with no of characters exceeding 20000 and duplicates (exact duplicates ignoring whitespaces). The dataset only contains a train split."
+          ]
+        },
+        {
+          "title": "ahmedallam/RTL-Repo · Datasets at Hugging Face",
+          "url": "https://huggingface.co/datasets/ahmedallam/RTL-Repo",
+          "excerpts": [
+            "This repository contains the data for the RTL-Repo benchmark introduced in the paper RTL-Repo: A Benchmark for Evaluating LLMs on Large-Scale RTL Design Projects. RTL-Repo is a benchmark for evaluating LLMs' effectiveness in generating Verilog code autocompletions within large, complex codebases."
+          ]
+        }
+      ],
+      "reasoning": "**Evaluating JSON output requirements**\n\nI need to prepare a JSON output using the BasicFieldEvaluatorOutput schema, focusing on scratchpad, completeness, and support. First, I have to assess completeness regarding field descriptions and answers. The field refers to tier_3_supporting_code_repositories_and_reference_patterns, while the answer contains several relevant repositories. It looks like the answer addresses the query about System Verilog easily and reasonably. \n\nNext, I’ll check if the answer is supported by excerpts like riscv-formal, AssertionForge, and others mentioned. If so, I’ll finalize the JSON accordingly.**Ensuring proper JSON structure**\n\nI need to make sure that the JSON output follows the BasicFieldEvaluatorOutput format, which includes a scratchpad string, a completeness boolean, and a supported boolean. I’ll confirm that I have all the necessary elements locked down. Then I can produce the JSON accordingly. It's essential to maintain clarity and accuracy in this output, so I'll double-check each part to make sure everything aligns correctly. Let's get this structured properly!",
+      "confidence": "high"
+    },
+    {
+      "field": "synthesis_building_an_assume_guarantee_training_corpus",
+      "citations": [
+        {
+          "title": "SVx - Caspia Technologies™",
+          "url": "https://caspiatechnologies.com/svx/",
+          "excerpts": [
+            "SVx generates clear, human-readable natural-language security requirements and automatically translates them into precise SystemVerilog Assertions. These SVAs plug directly into any industry-standard formal verification flow."
+          ]
+        },
+        {
+          "title": "SigmanticAI - Claude Code for Chip Design",
+          "url": "http://sigmanticai.com/",
+          "excerpts": [
+            "Behind a simple conversational interface, a hierarchical multi-agent system handles every concern: UVM testbenches, SVA assertions, coverage models, register abstractions, RTL, Makefiles, and iterative convergence."
+          ]
+        }
+      ],
+      "reasoning": "Assessment reasoning:\n- The field_answer provides a comprehensive plan to address the user's request: it explains why existing datasets are insufficient and outlines a two-stage fine-tuning strategy, plus a recommended set of data sources and data augmentation ideas. This covers the expected aspects of proposing a path to build an assume-guarantee training corpus and practical steps for implementation.\n- The excerpts given do not obviously substantiate the specific data sources or composition details listed in the field_answer (e.g., HierSVA-DS, OpenTitan datasets, HWSec-UNC, VERT, Verixa-dataset, riscv-formal, Ben Cohen/Accellera). The excerpts instead reference SVx and SigmanticAI at a high level about SVA generation and hierarchical multi-agent systems, which do not directly confirm the listed field content.\n- Therefore, completeness: true (the answer addresses the query with a full plan and actionable steps).\n- Excerpts support: false (the provided excerpts do not directly back the specific claims about the named data sources or the recommended composition).",
+      "confidence": "medium"
+    }
+  ],
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "executive_summary": {
+        "type": "string",
+        "title": "Executive Summary"
+      },
+      "tier_1_datasets_most_directly_relevant_to_assume_guarantee": {
+        "type": "string",
+        "title": "Tier 1: Datasets Most Directly Relevant to Assume-Guarantee"
+      },
+      "tier_2_large_scale_sva_datasets_for_llm_fine_tuning": {
+        "type": "string",
+        "title": "Tier 2: Large-Scale SVA Datasets for LLM Fine-Tuning"
+      },
+      "tier_3_supporting_code_repositories_and_reference_patterns": {
+        "type": "string",
+        "title": "Tier 3: Supporting Code Repositories and Reference Patterns"
+      },
+      "synthesis_building_an_assume_guarantee_training_corpus": {
+        "type": "string",
+        "title": "Synthesis: Building an Assume-Guarantee Training Corpus"
+      }
+    },
+    "required": [
+      "executive_summary",
+      "tier_1_datasets_most_directly_relevant_to_assume_guarantee",
+      "tier_2_large_scale_sva_datasets_for_llm_fine_tuning",
+      "tier_3_supporting_code_repositories_and_reference_patterns",
+      "synthesis_building_an_assume_guarantee_training_corpus"
+    ]
+  }
+}

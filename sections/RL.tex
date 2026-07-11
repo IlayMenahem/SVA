@@ -1,0 +1,83 @@
+\section{Reinforcement Learning}
+\label{sec:rl}
+
+We train the fine-tuned LLM with PPO (Proximal Policy Optimization)~\citep{schulman2017ppo} and Generalized Advantage Estimation (GAE)~\citep{schulman2016gae}.
+
+\subsection{The environment}
+\textbf{Initialization.} The environment starts with a SystemVerilog design and an assertion to prove.
+
+\textbf{Action.} The agent's action is a DAG of assertions rooted at the target, with helper assertions as descendants, together with cutpoint, abstraction, and blackboxing commands.
+
+\textbf{Environment mechanics.} Given an action, the environment applies the cutpoint, abstraction, and blackboxing commands to the design. It then verifies the assertions in the tree in topological order; when proving an assertion, it assumes its descendants properties are true.
+
+\textbf{Observation.} The agent observes the design and the target property. If the prover fails, the agent also observes which assertions failed and why (e.g., counterexample or timeout).
+
+\textbf{Termination.} The environment terminates when the target assertion is proven or when a maximum number of steps is reached.
+
+\subsection{Prover flow}
+\label{sec:prover}
+
+The environment requires a prover that parses SVA, discharges assertions
+unattended at scale, and supports the cutpoint, abstraction, and blackboxing
+commands of the action space. Candidate flows:
+
+\begin{itemize}
+  \item \textbf{SymbiYosys + Verific (Tabby CAD Suite)}~\cite{symbiyosys}:
+    Yosys-based flow with the industry-standard Verific frontend. Full IEEE
+    1800 SVA support; cutpoints and blackboxing map directly to Yosys passes;
+    engines include BMC, k-induction, and IC3 via SMT solvers and ABC.
+    Proprietary but free for academic use.
+  \item \textbf{SymbiYosys (open-source Yosys frontend)}~\cite{symbiyosys}:
+    same flow without Verific. Fully open source, but parses only a subset of
+    SVA (immediate and simple concurrent assertions), which would exclude the
+    temporally deep properties in our corpus.
+  \item \textbf{EBMC}~\cite{ebmc}: word-level bounded model checker with
+    k-induction from the CPROVER family. Native SystemVerilog frontend with
+    broader SVA coverage than open-source Yosys; free and dependency-light, so
+    trivial to deploy on a cluster, but weaker engine variety and no built-in
+    cutpoint support.
+  \item \textbf{Commercial tools (e.g., JasperGold, VC Formal)}: strongest
+    engines and full SVA, but license-server seats constrain the parallel,
+    unattended proof workers our RL loop requires (Section~\ref{sec:cost}).
+\end{itemize}
+
+We use SymbiYosys with the Verific frontend as the primary flow---it is the
+only free option that combines full SVA parsing with unattended operation and
+native cutpoint/blackbox support---and EBMC as a fallback for designs outside
+the Verific flow.
+
+\subsection{Reward design}
+Each step receives a large positive reward when the target assertion is proved. Separately, every assertion in the tree incurs a penalty based on the time the engine spent checking it and on whether it was left unproven.
+
+\subsection{Designs and assertions for the environment}
+\label{sec:rl-instances}
+
+Each instance pairs a SystemVerilog design with a target assertion that must
+satisfy \textbf{ground-truth provability}---the target is
+known to hold, so failures are attributable to the agent rather than to a false
+property (we use only formally verified SVA, never generated assertions of
+unknown status).
+
+\textbf{Sources.}
+We reuse the verified-SVA subset of the fine-tuning corpus
+(Section~\ref{sec:ft-sources}): HierSVA~\cite{hiersva2026},
+OpenTitan~\cite{opentitan}, riscv-formal~\cite{riscvformal}, and HWSec-UNC
+verification-benchmarks~\cite{ahmad2024hwsec}.
+
+\textbf{Splitting and leakage control.}
+Instances are partitioned by design (not assertion) into training and held-out
+sets, so no module seen during RL appears at test time. Designs shared with the
+fine-tuning corpus stay in the training split, keeping the held-out set a clean
+measure of generalization to unseen designs.
+
+\subsection{Curriculum learning}
+\label{sec:curriculum}
+
+\textbf{Difficulty grading.}
+Each pair carries a static difficulty proxy---cone-of-influence state-bit count,
+hierarchy depth of the supporting module tree, and temporal depth of the
+property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
+operators)---calibrated against baseline single-shot proof time and timeout rate
+and binned into tiers consumed by the curriculum.
+
+We start the LLM on simple designs and assertions with low timeouts, and gradually increase the complexity of the designs and assertions, as well as the timeouts, as the LLM improves.

@@ -1,0 +1,16 @@
+\section{Introduction}
+
+Formal Property Verification (FPV) establishes that a SystemVerilog design satisfies an assertion written in SystemVerilog Assertions (SVA), but its cost grows quickly with the size of the design's state space. Two complementary strategies are commonly used by verification engineers to mitigate this cost:
+
+\begin{itemize}
+    \item \textbf{Hierarchical lemma generation:} produce a DAG of assertions rooted at the target, with helper assertions as descendants. Each assertion should be easier to verify once its child properties are assumed to be true, decomposing a hard proof into a sequence of tractable ones.
+    \item \textbf{State-space reduction:} introduce cutpoints, abstractions, and blackboxing to shrink the space the verifier must explore.
+\end{itemize}
+
+We propose to train an LLM that accelerates FPV by interacting with the verifier in a closed loop: at each step it adds helper assertions, cutpoints, abstractions, and blackboxing, observes the verifier's feedback, and refines its next move accordingly.
+
+Can an agent trained to be an FPV engineer reduce the time or compute required to prove valid SVA properties, or even prove properties that are otherwise intractable, compared with direct proving and verifier-feedback prompting?
+
+This mirrors mathematical proof in Lean, yet SVA is more forgiving: there is no need to construct a full derivation from axioms, nor to formally derive each lemma from its dependencies. Verification also offers a far richer training signal than the binary success/failure of a Lean proof, since the time taken to discharge an assertion provides a graded measure of proof quality.
+
+These advantages suggest that generating helper assertions with an LLM is at least as promising as LLM-based proof generation in Lean, an approach that has already proven highly effective, especially in combination with reinforcement learning. AlphaProof reached silver-medal performance on IMO problems \cite{deepmind2024alphaproof}, while the DeepSeek-Prover series advanced Lean proving via RL from proof-assistant feedback \cite{xin2024deepseekproverv15} and, more recently, via RL for subgoal decomposition \cite{ren2025deepseekproverv2}---the latter being closely analogous to our helper-assertion generation.

@@ -1,0 +1,64 @@
+\section{Related Work and Novelty}
+
+\subsection{Formal Verification of Hardware}
+
+The dominant scalability bottleneck in industrial FPV is state-space explosion on deep, control-heavy properties.
+Engineers manually decompose end-to-end properties into helper lemmas, add cutpoints, black-box submodules, and write assume-guarantee contracts.
+This human effort is exactly the workflow we propose to automate.
+
+\subsection{LLMs for Hardware Design and Verification}
+
+Recent work has applied LLMs to RTL and verification artifacts, but predominantly to \emph{generation} rather than \emph{proof}:
+\sloppy
+\begin{itemize}
+  \item \textbf{RTL/code generation:} VerilogEval~\cite{liu2023verilogeval}, RTLCoder~\cite{liu2024rtlcoder}, ChipNeMo~\cite{liu2023chipnemo}, BetterV~\cite{pei2024betterv}.
+  \item \textbf{Assertion generation from English/RTL:} AssertLLM~\cite{fang2025assertllm}, ChIRAAG~\cite{mali2024chiraag}, SpecLLM~\cite{li2024specllm}, and NSPG~\cite{meng2024nspg}.
+  \item \textbf{Testbench and stimulus generation:} AutoBench~\cite{qiu2024autobench}, ChatEDA~\cite{he2024chateda}.
+\end{itemize}
+\fussy
+These works treat the LLM as a \emph{producer of properties to check}, leaving the proof of a given property to the engineer.
+
+\subsection{LLM-Driven Lemma Synthesis for Hardware Proofs}
+
+The closest prior work is the neurosymbolic lemma-mining framework of Peled et al.~\cite{peled2026lemmaminers}, which does close the loop with a model checker: an LLM proposes candidate invariants and a sound symbolic procedure (\textsc{FindIndStrength}) sifts them for a subset that forms an inductive strengthening of the target property, discharged with $k$-induction and BMC via EBMC.
+They compare a \emph{non-agentic} single few-shot prompt against an \emph{agentic} loop that re-prompts with verifier feedback, evaluate six SOTA LLMs on 109 SystemVerilog $(D,\varphi)$ verification tasks, and report that at least one prompting setup produces a provably correct inductive argument for $90\%$ of tasks, solving instances on which JasperGold, VC-Formal, and rIC3 time out.
+
+Our work shares this neurosymbolic loop---LLM proposes, sound oracle verifies, successful trajectories are reused---but differs in three respects.
+First, where~\cite{peled2026lemmaminers} relies purely on few-shot prompting of frozen models with a manually curated chain-of-thought pool, we \emph{fine-tune} a domain model (Section~\ref{sec:finetuning}) and refine its proof strategy with \emph{reinforcement learning} (Section~\ref{sec:rl}), removing the dependence on a hand-built example pool and letting the policy improve from its own verified trajectories.
+Second, we target the full assume-guarantee workflow---contracts at module boundaries, cutpoint insertion, and engine selection---rather than monolithic inductive strengthening of a single property.
+Third, we address hierarchical, compositional decomposition rather than flat invariant synthesis.
+
+\subsection{ML / LLMs for Theorem Proving}
+
+The closest methodological neighbours are neural theorem provers in interactive proof assistants: GPT-f and the OpenAI Lean work~\cite{polu2020gptf}, Llemma~\cite{azerbayev2024llemma}, ReProver/LeanDojo~\cite{yang2023leandojo}, Lean-STaR~\cite{lin2025leanstar}, DeepSeek-Prover (v1/v1.5/v2)~\cite{xin2024deepseekprover,xin2024deepseekproverv15,ren2025deepseekproverv2} with expert iteration and RL against the Lean kernel, and AlphaProof~\cite{deepmind2024alphaproof}.
+The shared recipe---LLM policy proposes proof steps, a sound oracle verifies, successful trajectories feed expert iteration---transfers naturally to FPV.
+The crucial structural difference is that SVA proofs do not require constructing a derivation from axioms: a \emph{single} well-chosen lemma whose conjunction with trivial facts implies the goal and is dischargeable by BMC/IC3 already closes the obligation.
+The branching factor of useful actions is therefore much smaller than in Lean, and partial credit is much easier to assign.
+
+\subsection{Loop and Class Invariant Generation}
+
+A related line generates loop or class invariants for software with LLMs, e.g.\ Microsoft's loop-invariant experiments~\cite{microsoft2024loopinv}, ClassInvGen~\cite{sun2025classinvgen}, and the studies of Janßen et al.~\cite{janssen2024chatgpt}, Wu et al.\ (Lemur)~\cite{wu2024lemur}, and Yao et al.~\cite{yao2023proofsynthesis}.
+These tasks are conceptually different: loop invariants are local to a loop body and need a state predicate preserved by one iteration, whereas inductive arguments for hardware proofs are global, may involve temporal operators, and capture facts about all reachable states of a transition system.
+Peled et al.~\cite{peled2026lemmaminers} adapt 47 such C loop-invariant examples into SystemVerilog finite-state machines, illustrating the gap between the two settings.
+
+\subsection{Algorithm / Engine Selection and Portfolio Solving}
+
+The ``select the best engine'' sub-task aligns with SATzilla~\cite{xu2008satzilla}, MachSMT~\cite{scott2021machsmt}, and per-instance algorithm-selection literature for SAT/SMT/CHC.
+
+\subsection{Cutpoints and Abstractions}
+
+Automatic abstraction for hardware model checking spans localization abstraction~\cite{kurshan1994localization}, CEGAR~\cite{clarke2000cegar}, predicate abstraction~\cite{graf1997predicate}, proof-based abstraction~\cite{mcmillan2003proofbased}, and signal/term abstraction in word-level model checkers (AVR~\cite{goel2020avr}, Pono~\cite{mann2021pono}).
+Manual cutpoint insertion remains a notoriously difficult task.
+
+\subsection{Hierarchical Lemma Generation}
+
+Existing LLM-based lemma synthesis for hardware operates on a single property and a flat transition system~\cite{peled2026lemmaminers}.
+Industrial proofs instead decompose across the module hierarchy, proving guarantees of submodules under environment assumptions and composing them into system-level properties.
+We target this hierarchical, compositional setting directly, mirroring the depth-structured assertions in datasets such as HierSVA (Section~\ref{sec:finetuning}).
+
+\subsection{SystemVerilog and SVA Benchmarks for LLMs}
+
+Benchmarks for LLM-based hardware verification remain small and generation-oriented.
+Peled et al.~\cite{peled2026lemmaminers} assemble 109 $(D,\varphi)$ proof tasks from 57 SystemVerilog designs (drawn from VCEGAR, NeuralMC, VIS, v2c, and parametrized FIFO/LRG/CAM designs), the only public benchmark targeting hardware \emph{proof} rather than property generation.
+For assertion generation, VERT~\cite{menon2025vert} provides $\sim$20{,}000 SVA samples and the Verixa corpus~\cite{verixa2025} 105{,}340 mixed verification samples, while NVIDIA CVDP~\cite{nvidiacvdp2025} pairs RTL with specifications and testbenches.
+None of these label assume-guarantee contracts or supply proof trajectories, motivating the corpus construction and augmentation of Section~\ref{sec:finetuning}.

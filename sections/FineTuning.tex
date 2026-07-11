@@ -1,0 +1,41 @@
+\section{Fine-Tuning}
+\label{sec:finetuning}
+
+Reinforcement learning explores efficiently only from a competent starting policy.
+We therefore fine-tune the base LLM on a domain corpus to give it fluency in
+SystemVerilog, SVA, and the assume-guarantee contract structure before the RL
+stage (Section~\ref{sec:rl}).
+
+\subsection{Data Sources}
+\label{sec:ft-sources}
+
+No single public dataset labels assume-guarantee pairs as such: existing SVA
+corpora emphasize \texttt{assert property} generation but rarely include the
+paired \texttt{assume property} statements that define environment constraints.
+We therefore compose the corpus from complementary sources.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llll}
+\hline
+Source & Purpose & Verified labels & Used for \\
+\hline
+HierSVA~\cite{hiersva2026} & Hierarchical contracts & Yes & SFT/RL \\
+OpenTitan~\cite{opentitan} & Assume-guarantee structure & Yes & SFT/RL \\
+HWSec-UNC~\cite{ahmad2024hwsec} & Security properties & Yes & SFT/RL \\
+riscv-formal~\cite{riscvformal} & Compositional verification & Yes & SFT/RL \\
+VERT~\cite{menon2025vert} & SVA syntax breadth & Mixed & SFT \\
+Verixa~\cite{verixa2025} & Verification context & Mixed & SFT \\
+NVIDIA CVDP~\cite{nvidiacvdp2025} & Specification and RTL & Mixed & SFT \\
+VerilogEval~\cite{liu2023verilogeval} & English and RTL & No & SFT \\
+\hline
+\end{tabular}
+\caption{Fine-tuning and reinforcement-learning data sources.}
+\label{tab:ft-sources}
+\end{table}
+
+\subsection{Staged Fine-Tuning}
+\label{sec:ft-stages}
+
+We fine-tune on this combined corpus in two stages: the first covers SystemVerilog and SVA syntax and temporal operators; the second covers the assume-guarantee contract structure. This grounding gives the model domain competence before reinforcement learning refines its assume-guarantee proof strategy.
