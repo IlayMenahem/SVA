@@ -1,9 +1,12 @@
 \section{Reinforcement Learning}
 \label{sec:rl}
 
-We train the fine-tuned LLM with PPO~\citep{schulman2017ppo} and GAE~\citep{schulman2016gae}.
+We train the fine-tuned LLM with GRPO, or PPO~\citep{schulman2017ppo} and GAE~\citep{schulman2016gae}.
 
 \subsection{The environment}
+
+The agent will do best first search, on the environment with the following mechanics:
+
 \begin{itemize}[nosep]
     \item \textbf{Initialization.} An episode starts from a SystemVerilog design and a target assertion to prove.
 
@@ -77,26 +80,16 @@ parsing, unattended operation, and native cutpoint/blackbox support---with
 EBMC as a fallback for designs outside the Verific flow.
 
 \subsection{Reward design}
-The reward at step $t$ is
+The task reward at step $t$ is
 \[
-  r_t =
-  R_{\mathrm{solve}}
-  + \alpha\,\Delta P_t
-  - \beta\,\widetilde{T}_t
-  - \gamma\,U_t
-  - \delta\,I_t,
+  r_t = R_{\mathrm{solve}}\cdot\mathbb{1}[\text{proved}] + \alpha\,\Delta P_t - \gamma\,U_t - \delta\,I_t,
 \]
-
-\begin{itemize}
-    \item $\alpha, \beta, \gamma, \delta > 0$ are hyperparameters;
-    \item $R_{\mathrm{solve}}$ is a large constant for completing the proof;
-    \item $\Delta P_t$ counts newly discharged obligations;
-    \item $\widetilde{T}_t$ is verifier time normalized by the direct-proving baseline;
-    \item $U_t$ counts unresolved obligations introduced by the action;
-    \item $I_t$ flags an invalid action.
-\end{itemize}
-
-$R_{\mathrm{solve}} >> \alpha \Delta P_t, \beta \widetilde{T}_t, \gamma U_t, \delta I_t$ ensures that the agent prioritizes completing the proof over incremental progress.
+with $\Delta P_t$ newly discharged obligations, $U_t$ unresolved obligations introduced, $I_t$ an invalid-action flag, and $R_{\mathrm{solve}} \gg \alpha, \gamma, \delta$. Verifier cost $c_t = \widetilde{T}_t$ (normalized prover time) is kept separate and bounded by a per-episode budget $B$ via Lagrangian relaxation:
+\[
+  r_t^{\lambda} = r_t - \lambda\,c_t, \qquad
+  \lambda \leftarrow \max\!\big(0,\ \lambda + \eta\,(\hat{\mathbb{E}}[\textstyle\sum_t c_t] - B)\big),
+\]
+where $\hat{\mathbb{E}}[\sum_t c_t]$ is the mean episode cost over the current rollout batch. $B$ rises with the curriculum (Section~\ref{sec:curriculum}), and $\lambda$ adapts automatically to hold expected verifier time near budget, replacing a hand-tuned time-penalty weight.
 
 \subsection{Designs and assertions for the environment}
 \label{sec:rl-instances}
@@ -118,5 +111,4 @@ of the property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
 operators)---calibrated against baseline single-shot proof time and timeout
 rate and binned into tiers.
 
-Training starts on easy tiers with short timeouts and advances to harder
-tiers and longer timeouts as the agent improves.
+We shall use adaptive curriculum learning~\cite{bengio2009curriculum} to gradually introduce the agent to more complex instances.
