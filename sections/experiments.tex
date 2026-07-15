@@ -2,19 +2,12 @@
 \label{sec:experiments}
 
 We evaluate whether the trained agent proves more properties, and more
-cheaply, than direct proving and prompting-based alternatives. All methods
-run on the held-out test designs frozen during the downloadables phase
-(Section~\ref{sec:implementation-plan}), under identical prover
-configurations and wall-clock budgets.
+cheaply, than direct proving and prompting-based alternatives.
 
 \subsection{Test Cases}
 \label{sec:exp-testcases}
 
-The test set is the held-out portion of the verified corpus
-(Section~\ref{sec:rl-instances}). Results are reported overall
-and per difficulty tier (Section~\ref{sec:curriculum}); the hardest tier ---
-instances the prover alone cannot discharge within budget --- measures
-capability gain rather than speedup.
+The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl-instances}).
 
 \subsection{Methods Compared}
 \label{sec:exp-methods}

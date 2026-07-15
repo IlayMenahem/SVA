@@ -1,18 +1,13 @@
 \section{Fine-Tuning}
 \label{sec:finetuning}
 
-Reinforcement learning explores efficiently only from a competent starting policy.
-We therefore fine-tune the base LLM on a domain corpus to give it fluency in
-SystemVerilog, SVA, and the assume-guarantee contract structure before the RL
+We fine-tune the base LLM on a domain corpus to give it fluency in SystemVerilog, SVA, and the assume-guarantee contract structure before the RL
 stage (Section~\ref{sec:rl}).
 
 \subsection{Data Sources}
 \label{sec:ft-sources}
 
-No single public dataset labels assume-guarantee pairs as such: existing SVA
-corpora emphasize \texttt{assert property} generation but rarely include the
-paired \texttt{assume property} statements that define environment constraints.
-We therefore compose the corpus from complementary sources.
+We compose the corpus from complementary sources.
 
 \begin{table}[h]
 \centering
@@ -35,7 +30,12 @@ VerilogEval~\cite{liu2023verilogeval} & English and RTL & No & SFT \\
 \label{tab:ft-sources}
 \end{table}
 
-\subsection{Staged Fine-Tuning}
-\label{sec:ft-stages}
+\subsection{Data augmentation}
+\label{sec:ft-augmentation}
 
-We fine-tune on this combined corpus in two stages: the first covers SystemVerilog and SVA syntax and temporal operators; the second covers the assume-guarantee contract structure.
+We expand each verified (specification, contract) pair along two axes:
+
+\begin{itemize}
+\item \textbf{Identifier renaming}: signal, port, and module names are substituted with sampled alternatives consistent with the design's naming conventions.
+\item \textbf{Syntactic paraphrasing}: system verilog and SVA code are transformed into semantically equivalent variants using rule-based methods, such as reordering conjuncts, De Morgan's laws, and equivalent temporal operators.
+\end{itemize}

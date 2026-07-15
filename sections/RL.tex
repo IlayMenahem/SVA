@@ -4,55 +4,52 @@
 We train the fine-tuned LLM with PPO~\citep{schulman2017ppo} and GAE~\citep{schulman2016gae}.
 
 \subsection{The environment}
-\textbf{Initialization.} An episode starts from a SystemVerilog design and a
-target assertion to prove.
-
-\textbf{Action.} At each step the agent emits one typed action:
 \begin{itemize}[nosep]
-    \item \texttt{ADD\_LEMMA(property, lemma\_assertion)};
-    \item \texttt{ADD\_CUTPOINT(signal)};
-    \item \texttt{ADD\_BLACKBOX(module)};
-    \item \texttt{ADD\_COUNTER\_ABSTRACTION(module)};
-    \item \texttt{RETRACT(property)};
+    \item \textbf{Initialization.} An episode starts from a SystemVerilog design and a target assertion to prove.
+
+    \item \textbf{Action.} At each step the agent emits one typed action:
+    \begin{itemize}[nosep]
+        \item \texttt{ADD\_LEMMA(property, lemma\_assertion)};
+        \item \texttt{ADD\_CUTPOINT(signal)};
+        \item \texttt{ADD\_BLACKBOX(module)};
+        \item \texttt{ADD\_COUNTER\_ABSTRACTION(module)};
+        \item \texttt{RETRACT(property)};
+    \end{itemize}
+    Actions that violate the schema, contain invalid SVA, reference unknown design
+    objects, or introduce a cycle are rejected.
+
+    \item \textbf{Soundness.} The environment tracks the design, proof DAG,
+    transformation history, and status of every obligation, and enforces:
+    \begin{enumerate}[nosep]
+        \item a property may use a descendant as an assumption only after that
+        descendant is proved;
+        \item benchmark-supplied assumptions are external premises; assumptions
+        from generated interface contracts become obligations discharged at the
+        enclosing scope;
+        \item cutpoints, abstractions, and blackboxes produce explicit equivalence
+        or interface obligations and are usable only once those are proved;
+        \item failed or timed-out obligations cannot support an ancestor;
+        \item the target is accepted only when its entire dependency closure is
+        proved.
+    \end{enumerate}
+
+    \item \textbf{Observation.} After each step the agent sees the full proof state,
+    serialized as text:
+    \begin{itemize}[nosep]
+        \item the design source and the target property;
+        \item the proof DAG: each obligation, its dependencies, and its status
+        (proved, failed, or timed out);
+        \item the applied transformations and the obligations they introduced;
+        \item prover feedback per failed obligation---a counterexample trace
+        projected onto the property's cone of influence, or the timeout bound
+        reached;
+        \item the rejection reason, if the last action was invalid.
+    \end{itemize}
+    The design is pruned to the cone of influence of the open obligations, and
+    counterexample traces are truncated to the cycles around the violation.
+
+    \item \textbf{Termination.} The episode ends when the target is proved or a step limit is reached.
 \end{itemize}
-Actions that violate the schema, contain invalid SVA, reference unknown design
-objects, or introduce a cycle are rejected. Accepted actions incrementally
-build a proof DAG rooted at the target, with edges from each property to the
-helper properties and generated obligations it depends on.
-
-\textbf{Soundness.} The environment tracks the design, proof DAG,
-transformation history, and status of every obligation, and enforces:
-\begin{enumerate}[nosep]
-    \item a property may use a descendant as an assumption only after that
-    descendant is proved;
-    \item benchmark-supplied assumptions are external premises; assumptions
-    from generated interface contracts become obligations discharged at the
-    enclosing scope;
-    \item cutpoints, abstractions, and blackboxes produce explicit equivalence
-    or interface obligations and are usable only once those are proved;
-    \item failed or timed-out obligations cannot support an ancestor;
-    \item the target is accepted only when its entire dependency closure is
-    proved.
-\end{enumerate}
-
-
-\textbf{Observation.} After each step the agent sees the full proof state,
-serialized as text:
-\begin{itemize}[nosep]
-    \item the design source and the target property;
-    \item the proof DAG: each obligation, its dependencies, and its status
-    (proved, failed, or timed out);
-    \item the applied transformations and the obligations they introduced;
-    \item prover feedback per failed obligation---a counterexample trace
-    projected onto the property's cone of influence, or the timeout bound
-    reached;
-    \item the rejection reason, if the last action was invalid.
-\end{itemize}
-The design is pruned to the cone of influence of the open obligations, and
-counterexample traces are truncated to the cycles around the violation.
-
-\textbf{Termination.} The episode ends when the target is proved or a step
-limit is reached.
 
 \subsection{Prover flow}
 \label{sec:prover}
@@ -73,7 +70,7 @@ actions. Candidates:
     but weaker engine variety and no built-in cutpoint support.
   \item \textbf{Commercial tools (e.g., JasperGold, VC Formal)}: strongest
     engines and full SVA, but license seats constrain the parallel proof
-    workers our RL loop requires (Section~\ref{sec:cost}).
+    workers our RL loop requires.
 \end{itemize}
 We use SymbiYosys with Verific---the only free option combining full SVA
 parsing, unattended operation, and native cutpoint/blackbox support---with
@@ -83,37 +80,34 @@ EBMC as a fallback for designs outside the Verific flow.
 The reward at step $t$ is
 \[
   r_t =
-  R_{\mathrm{solve}}\,\mathbb{1}[\text{target proved}]
+  R_{\mathrm{solve}}
   + \alpha\,\Delta P_t
   - \beta\,\widetilde{T}_t
   - \gamma\,U_t
   - \delta\,I_t,
 \]
-where $\Delta P_t$ counts newly discharged obligations, $\widetilde{T}_t$ is
-verifier time normalized by the direct-proving baseline, $U_t$ counts
-unresolved obligations introduced by the action, and $I_t$ flags an invalid
-action. $R_{\mathrm{solve}}$ exceeds the maximum cumulative shaping reward, so
-completing a sound proof always dominates accumulating partial progress.
-Repeated prover queries are cached.
+
+\begin{itemize}
+    \item $\alpha, \beta, \gamma, \delta > 0$ are hyperparameters;
+    \item $R_{\mathrm{solve}}$ is a large constant for completing the proof;
+    \item $\Delta P_t$ counts newly discharged obligations;
+    \item $\widetilde{T}_t$ is verifier time normalized by the direct-proving baseline;
+    \item $U_t$ counts unresolved obligations introduced by the action;
+    \item $I_t$ flags an invalid action.
+\end{itemize}
+
+$R_{\mathrm{solve}} >> \alpha \Delta P_t, \beta \widetilde{T}_t, \gamma U_t, \delta I_t$ ensures that the agent prioritizes completing the proof over incremental progress.
 
 \subsection{Designs and assertions for the environment}
 \label{sec:rl-instances}
 
 Each instance pairs a design with a target assertion satisfying
-\textbf{ground-truth provability}: the target is known to hold, so failures
-are attributable to the agent, not a false property (we use only formally
-verified SVA, never generated assertions of unknown status).
 
-\textbf{Sources.} We reuse the verified-SVA subset of the fine-tuning corpus
-(Section~\ref{sec:ft-sources}): HierSVA~\cite{hiersva2026},
-OpenTitan~\cite{opentitan}, riscv-formal~\cite{riscvformal}, and HWSec-UNC
-verification-benchmarks~\cite{ahmad2024hwsec}.
-
-\textbf{Splitting and leakage control.} Instances are partitioned by design
-(not assertion) into training and held-out sets, so no module seen during RL
-appears at test time. Designs shared with the fine-tuning corpus stay in the
-training split, keeping the held-out set a clean measure of generalization to
-unseen designs.
+\begin{itemize}
+    \item \textbf{ground-truth provability}: the target is known to hold, so failures are attributable to the agent.
+    \item \textbf{Sources.} We reuse the verified-SVA subset of the fine-tuning corpus Section~\ref{sec:ft-sources}.
+    \item \textbf{Splitting and leakage control.} Instances are partitioned by design (not assertion) into training and held-out sets. Designs for training and testing are the same for the fine-tuning and RL stages.
+\end{itemize}
 
 \subsection{Curriculum learning}
 \label{sec:curriculum}
