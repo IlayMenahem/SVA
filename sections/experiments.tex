@@ -3,10 +3,6 @@
 
 We evaluate whether the trained agent proves more properties, and more
 cheaply, than direct proving and prompting-based alternatives.
-
-\subsection{Test Cases}
-\label{sec:exp-testcases}
-
 The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl-instances}).
 
 \subsection{Methods Compared}
@@ -54,24 +50,6 @@ The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl
     \item \emph{Obligation discharge rate}: fraction of introduced
     obligations eventually proved, separating productive lemmas from
     speculative ones.
-\end{itemize}
-
-\subsection{Ablations}
-\label{sec:exp-ablations}
-
-On the validation split we ablate:
-\begin{itemize}[nosep]
-    \item \emph{Action classes}: the lemma-only policy from the environment
-    stage, and removing cutpoints, abstractions, and blackboxing individually
-    from the full agent (mirroring their staged introduction during RL
-    training).
-    \item \emph{Reward shaping}: solve-only reward versus the full shaped
-    reward of Section~\ref{sec:rl}.
-    \item \emph{Curriculum}: the full difficulty mix from the start versus
-    the graded curriculum of Section~\ref{sec:curriculum}.
-    \item \emph{Fine-tuning stages}: the SFT-only model
-    (Section~\ref{sec:finetuning}) without RL, and RL from the base model
-    versus from each fine-tuning stage.
 \end{itemize}
 
 \subsection{Failure Analysis}

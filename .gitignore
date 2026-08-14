@@ -29,3 +29,5 @@ _minted-*/
 
 # Compiled document (keep PDF source material elsewhere tracked)
 /sva.pdf
+
+.DS_Store

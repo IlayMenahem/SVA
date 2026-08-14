@@ -99,7 +99,11 @@ Each instance pairs a design with a target assertion satisfying
 \begin{itemize}
     \item \textbf{ground-truth provability}: the target is known to hold, so failures are attributable to the agent.
     \item \textbf{Sources.} We reuse the verified-SVA subset of the fine-tuning corpus Section~\ref{sec:ft-sources}.
-    \item \textbf{Splitting and leakage control.} Instances are partitioned by design (not assertion) into training and held-out sets. Designs for training and testing are the same for the fine-tuning and RL stages.
+    \item \textbf{Splitting and leakage control.} We create a fixed,
+    design-level partition and reuse it for both fine-tuning and RL. All
+    assertions, generated variants, and proof traces derived from a design
+    remain in the same partition: training uses only training designs, while
+    validation and testing use disjoint held-out designs.
 \end{itemize}
 
 \subsection{Curriculum learning}
@@ -111,4 +115,4 @@ of the property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
 operators)---calibrated against baseline single-shot proof time and timeout
 rate and binned into tiers.
 
-We shall use adaptive curriculum learning~\cite{bengio2009curriculum} to gradually introduce the agent to more complex instances.
+We shall use adaptive curriculum learning~\citep{bengio2009curriculum} to gradually introduce the agent to more complex instances.
