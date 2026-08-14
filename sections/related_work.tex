@@ -1,15 +1,15 @@
-\section{Related Work and Novelty}
+\section{Related work}
 
-\subsection{LLMs for Formal Proof}
+\subsection{LLMs for formal proof}
 
 Neural theorem provers such as GPT-f~\cite{polu2020gptf},
 LeanDojo~\cite{yang2023leandojo}, DeepSeek-Prover~\cite{xin2024deepseekproverv15,ren2025deepseekproverv2},
 and AlphaProof~\cite{deepmind2024alphaproof} combine an LLM policy with a
-sound verifier and reuse successful trajectories for training. We transfer
+sound verifier, then reuse successful trajectories for training. We apply
 this closed-loop approach to FPV, where verifier runtime and discharged proof
-obligations also provide graded feedback.
+obligations provide graded feedback.
 
-\subsection{LLMs for Hardware Verification}
+\subsection{LLMs for hardware verification}
 
 Most LLM work in hardware targets RTL generation
 \cite{liu2023verilogeval,liu2024rtlcoder}, assertion generation
@@ -22,24 +22,23 @@ policy using supervised fine-tuning and reinforcement learning and targets
 hierarchical assume-guarantee decomposition together with verified cutpoints,
 abstractions, and blackboxing.
 
-\subsection{Classical FPV Techniques}
+\subsection{Classical FPV techniques}
 
 Hardware model checking already uses localization abstraction
 \cite{kurshan1994localization}, CEGAR~\cite{clarke2000cegar}, predicate and
 proof-based abstraction~\cite{graf1997predicate,mcmillan2003proofbased}, and
 word-level abstraction~\cite{goel2020avr,mann2021pono}. In industrial FPV,
-engineers additionally create helper lemmas and module-level
+engineers also create helper lemmas and module-level
 assume-guarantee contracts. Our contribution is not a new proof rule, but an
 agent that learns to apply these sound, established transformations in a
 closed loop with the verifier.
 
-\subsection{Data and Evaluation Gap}
+\subsection{Data and evaluation gap}
 
 Existing datasets are primarily generation-oriented: VERT
 \cite{menon2025vert}, Verixa~\cite{verixa2025}, and NVIDIA CVDP
 \cite{nvidiacvdp2025} provide SVA or verification examples but do not supply
 verified hierarchical proof trajectories. Peled et
 al.~\cite{peled2026lemmaminers} provide 109 flat SystemVerilog proof tasks.
-This motivates our construction of design-level splits with verified
-assume-guarantee examples and replayable proof trajectories
-(Section~\ref{sec:finetuning}).
+We therefore construct design-level splits with verified assume-guarantee
+examples and replayable proof trajectories (Section~\ref{sec:finetuning}).

@@ -1,16 +1,16 @@
 \section{Introduction}
 
-Formal Property Verification (FPV) establishes that a SystemVerilog design satisfies an assertion written in SystemVerilog Assertions (SVA), but its cost grows quickly with the size of the design's state space. Two complementary strategies are commonly used by verification engineers to mitigate this cost:
+Formal Property Verification (FPV) establishes whether a SystemVerilog design satisfies a SystemVerilog Assertion (SVA). Its cost, however, grows quickly with the size of the design's state space. Verification engineers commonly use two complementary strategies to control this cost:
 
 \begin{itemize}
-    \item \textbf{Hierarchical lemma generation:} produce a DAG of assertions rooted at the target, with helper assertions as descendants. Each assertion should be easier to verify once its child properties are assumed to be true, decomposing a hard proof into a sequence of tractable ones.
+    \item \textbf{Hierarchical lemma generation:} construct a DAG of assertions rooted at the target, with helper assertions as descendants. Assuming proved child properties should make each parent assertion easier to verify, which decomposes a difficult proof into a sequence of tractable ones.
     \item \textbf{State-space reduction:} introduce cutpoints, abstractions, and blackboxing to shrink the space the verifier must explore.
 \end{itemize}
 
-We propose to train an LLM that accelerates FPV by interacting with the verifier in a closed loop: at each step it adds helper assertions, cutpoints, abstractions, and blackboxing, observes the verifier's feedback, and refines its next move accordingly.
+We propose an LLM agent that interacts with the verifier in a closed loop. At each step, it adds helper assertions, cutpoints, abstractions, or blackboxes, then uses the verifier's response to choose its next action.
 
-Can an agent trained to be an FPV engineer reduce the time or compute required to prove valid SVA properties, or even prove properties that are otherwise intractable, compared with direct proving and verifier-feedback prompting?
+We ask whether such agent can reduce the time or compute needed to prove valid SVA properties compared with direct proving and verifier-feedback prompting. We also test whether it can prove properties that these baselines cannot handle within the available budget.
 
-This mirrors mathematical proof in Lean, yet SVA is more forgiving: there is no need to construct a full derivation from axioms, nor to formally derive each lemma from its dependencies. Verification also offers a far richer training signal than the binary success/failure of a Lean proof, since the time taken to discharge an assertion provides a graded measure of proof quality.
+The approach resembles mathematical proof in Lean, but SVA does not require a complete derivation from axioms or a formal derivation of every lemma from its dependencies. It also supplies more than a binary success or failure signal: the time required to discharge an assertion provides a graded measure of proof quality.
 
-These advantages suggest that generating helper assertions with an LLM is at least as promising as LLM-based proof generation in Lean, an approach that has already proven highly effective, especially in combination with reinforcement learning. AlphaProof reached silver-medal performance on IMO problems \cite{deepmind2024alphaproof}, while the DeepSeek-Prover series advanced Lean proving via RL from proof-assistant feedback \cite{xin2024deepseekproverv15} and, more recently, via RL for subgoal decomposition \cite{ren2025deepseekproverv2}---the latter being closely analogous to our helper-assertion generation.
+These differences suggest that LLM-based helper-assertion generation may be at least as feasible as LLM-based proof generation in Lean, where reinforcement learning has already produced strong results. AlphaProof reached silver-medal performance on IMO problems \cite{deepmind2024alphaproof}. The DeepSeek-Prover series trained on proof-assistant feedback \cite{xin2024deepseekproverv15} and later applied reinforcement learning to subgoal decomposition \cite{ren2025deepseekproverv2}, a task closely related to generating helper assertions.

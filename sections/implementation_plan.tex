@@ -1,4 +1,4 @@
-\section{Implementation Plan}
+\section{Implementation plan}
 \label{sec:implementation-plan}
 
 \begin{figure}[h]
@@ -22,9 +22,9 @@
     \draw[dep] (rl) -- (eval);
     \draw[dep] (env) to[bend left=35] (eval);
 \end{tikzpicture}
-\caption{Dependencies between implementation phases. Evaluation compares the
-frozen policy (from the environment phase) and the RL-trained agent, so it
-depends on both.}
+\caption{Dependencies between implementation phases. Evaluation depends on the
+environment and RL phases because it compares the frozen policy with the
+RL-trained agent.}
 \label{fig:phase-dag}
 \end{figure}
 

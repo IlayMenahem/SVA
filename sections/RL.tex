@@ -1,11 +1,11 @@
-\section{Reinforcement Learning}
+\section{Reinforcement learning}
 \label{sec:rl}
 
-We train the fine-tuned LLM with GRPO, or PPO~\citep{schulman2017ppo} and GAE~\citep{schulman2016gae}.
+We train the fine-tuned LLM with either GRPO or PPO~\citep{schulman2017ppo} with GAE~\citep{schulman2016gae}.
 
 \subsection{The environment}
 
-The agent will do best first search, on the environment with the following mechanics:
+The agent performs best-first search in an environment with the following mechanics:
 
 \begin{itemize}[nosep]
     \item \textbf{Initialization.} An episode starts from a SystemVerilog design and a target assertion to prove.
@@ -18,8 +18,7 @@ The agent will do best first search, on the environment with the following mecha
         \item \texttt{ADD\_COUNTER\_ABSTRACTION(module)};
         \item \texttt{RETRACT(property)};
     \end{itemize}
-    Actions that violate the schema, contain invalid SVA, reference unknown design
-    objects, or introduce a cycle are rejected.
+    The environment rejects actions that violate the schema, contain invalid SVA, reference unknown design objects, or introduce a cycle.
 
     \item \textbf{Soundness.} The environment tracks the design, proof DAG,
     transformation history, and status of every obligation, and enforces:
@@ -43,8 +42,8 @@ The agent will do best first search, on the environment with the following mecha
         \item the proof DAG: each obligation, its dependencies, and its status
         (proved, failed, or timed out);
         \item the applied transformations and the obligations they introduced;
-        \item prover feedback per failed obligation---a counterexample trace
-        projected onto the property's cone of influence, or the timeout bound
+        \item prover feedback for each failed obligation, either a counterexample trace
+        projected onto the property's cone of influence or the timeout bound
         reached;
         \item the rejection reason, if the last action was invalid.
     \end{itemize}
@@ -57,9 +56,7 @@ The agent will do best first search, on the environment with the following mecha
 \subsection{Prover flow}
 \label{sec:prover}
 
-The environment needs a prover that parses SVA, discharges assertions
-unattended at scale, and supports the cutpoint, abstraction, and blackboxing
-actions. Candidates:
+The environment requires a prover that parses SVA, discharges assertions unattended at scale, and supports cutpoints, abstractions, and blackboxing. We consider four candidates:
 \begin{itemize}[nosep]
   \item \textbf{SymbiYosys + Verific (Tabby CAD Suite)}~\cite{symbiyosys}:
     full IEEE 1800 SVA via the Verific frontend; cutpoints and blackboxing map
@@ -71,35 +68,33 @@ actions. Candidates:
   \item \textbf{EBMC}~\cite{ebmc}: word-level BMC with k-induction; broader
     SVA coverage than open-source Yosys and trivial to deploy on a cluster,
     but weaker engine variety and no built-in cutpoint support.
-  \item \textbf{Commercial tools (e.g., JasperGold, VC Formal)}: strongest
-    engines and full SVA, but license seats constrain the parallel proof
-    workers our RL loop requires.
+  \item \textbf{Commercial tools (e.g., JasperGold, VC Formal)}: full SVA
+    support and the most capable engines, but license seats constrain the
+    parallel proof workers required by the RL loop.
 \end{itemize}
-We use SymbiYosys with Verific---the only free option combining full SVA
-parsing, unattended operation, and native cutpoint/blackbox support---with
-EBMC as a fallback for designs outside the Verific flow.
+We use SymbiYosys with Verific because it is the only free option that combines full SVA parsing, unattended operation, and native support for cutpoints and blackboxes. EBMC serves as a fallback for designs outside the Verific flow.
 
 \subsection{Reward design}
 The task reward at step $t$ is
 \[
   r_t = R_{\mathrm{solve}}\cdot\mathbb{1}[\text{proved}] + \alpha\,\Delta P_t - \gamma\,U_t - \delta\,I_t,
 \]
-with $\Delta P_t$ newly discharged obligations, $U_t$ unresolved obligations introduced, $I_t$ an invalid-action flag, and $R_{\mathrm{solve}} \gg \alpha, \gamma, \delta$. Verifier cost $c_t = \widetilde{T}_t$ (normalized prover time) is kept separate and bounded by a per-episode budget $B$ via Lagrangian relaxation:
+where $\Delta P_t$ is the number of newly discharged obligations, $U_t$ is the number of unresolved obligations introduced, $I_t$ is an invalid-action flag, and $R_{\mathrm{solve}} \gg \alpha, \gamma, \delta$. We treat the verifier cost $c_t = \widetilde{T}_t$ (normalized prover time) separately and bound it with a per-episode budget $B$ through Lagrangian relaxation:
 \[
   r_t^{\lambda} = r_t - \lambda\,c_t, \qquad
   \lambda \leftarrow \max\!\big(0,\ \lambda + \eta\,(\hat{\mathbb{E}}[\textstyle\sum_t c_t] - B)\big),
 \]
-where $\hat{\mathbb{E}}[\sum_t c_t]$ is the mean episode cost over the current rollout batch. $B$ rises with the curriculum (Section~\ref{sec:curriculum}), and $\lambda$ adapts automatically to hold expected verifier time near budget, replacing a hand-tuned time-penalty weight.
+Here, $\hat{\mathbb{E}}[\sum_t c_t]$ is the mean episode cost over the current rollout batch. The budget $B$ increases with the curriculum (Section~\ref{sec:curriculum}), while $\lambda$ adapts automatically to keep the expected verifier time near that budget. This removes the need for a hand-tuned time-penalty weight.
 
 \subsection{Designs and assertions for the environment}
 \label{sec:rl-instances}
 
-Each instance pairs a design with a target assertion satisfying
+Each instance pairs a design with a target assertion that meets these conditions:
 
 \begin{itemize}
-    \item \textbf{ground-truth provability}: the target is known to hold, so failures are attributable to the agent.
-    \item \textbf{Sources.} We reuse the verified-SVA subset of the fine-tuning corpus Section~\ref{sec:ft-sources}.
-    \item \textbf{Splitting and leakage control.} We create a fixed,
+    \item \textbf{Ground-truth provability}: the target is known to hold, so failures are attributable to the agent.
+    \item \textbf{Sources}: we reuse the verified-SVA subset of the fine-tuning corpus from Section~\ref{sec:ft-sources}.
+    \item \textbf{Splitting and leakage control}: we create a fixed,
     design-level partition and reuse it for both fine-tuning and RL. All
     assertions, generated variants, and proof traces derived from a design
     remain in the same partition: training uses only training designs, while
@@ -109,10 +104,6 @@ Each instance pairs a design with a target assertion satisfying
 \subsection{Curriculum learning}
 \label{sec:curriculum}
 
-\textbf{Difficulty grading.} Each pair carries a static difficulty
-proxy---cone-of-influence state-bit count, hierarchy depth, and temporal depth
-of the property (nesting of \texttt{\#\#}, \texttt{|->}, and unbounded
-operators)---calibrated against baseline single-shot proof time and timeout
-rate and binned into tiers.
+\textbf{Difficulty grading.} Each pair receives a static difficulty proxy based on the cone-of-influence state-bit count, hierarchy depth, and the property's temporal depth (the nesting of \texttt{\#\#}, \texttt{|->}, and unbounded operators). We calibrate the proxy against the baseline single-shot proof time and timeout rate, then divide the instances into tiers.
 
-We shall use adaptive curriculum learning~\citep{bengio2009curriculum} to gradually introduce the agent to more complex instances.
+We use adaptive curriculum learning~\citep{bengio2009curriculum} to introduce more complex instances gradually.

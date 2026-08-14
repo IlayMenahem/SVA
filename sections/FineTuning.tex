@@ -1,13 +1,12 @@
-\section{Fine-Tuning}
+\section{Fine-tuning}
 \label{sec:finetuning}
 
-We fine-tune the base LLM on a domain corpus to give it fluency in SystemVerilog, SVA, and the assume-guarantee contract structure before the RL
-stage (Section~\ref{sec:rl}).
+Before reinforcement learning, we fine-tune the base LLM on a domain corpus to teach it SystemVerilog, SVA, and the structure of assume-guarantee contracts (Section~\ref{sec:rl}).
 
-\subsection{Data Sources}
+\subsection{Data sources}
 \label{sec:ft-sources}
 
-We compose the corpus from complementary sources.
+The corpus combines the following sources.
 
 \begin{table}[h]
 \centering
@@ -33,9 +32,9 @@ VerilogEval~\cite{liu2023verilogeval} & English and RTL & No & SFT \\
 \subsection{Data augmentation}
 \label{sec:ft-augmentation}
 
-We expand each verified (specification, contract) pair along two axes:
+We augment each verified (specification, contract) pair in two ways:
 
 \begin{itemize}
-\item \textbf{Identifier renaming}: signal, port, and module names are substituted with sampled alternatives consistent with the design's naming conventions.
-\item \textbf{Syntactic paraphrasing}: system verilog and SVA code are transformed into semantically equivalent variants using rule-based methods, such as reordering conjuncts, De Morgan's laws, and equivalent temporal operators.
+\item \textbf{Identifier renaming}: substitute signal, port, and module names with sampled alternatives that follow the design's naming conventions.
+\item \textbf{Syntactic paraphrasing}: use rules to produce semantically equivalent SystemVerilog and SVA variants, for example by reordering conjuncts or applying De Morgan's laws and equivalent temporal operators.
 \end{itemize}

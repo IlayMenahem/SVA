@@ -1,20 +1,20 @@
 \section{Experiments}
 \label{sec:experiments}
 
-We evaluate whether the trained agent proves more properties, and more
-cheaply, than direct proving and prompting-based alternatives.
+We evaluate whether the trained agent proves more properties at lower cost
+than direct proving and prompting-based alternatives.
 The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl-instances}).
 
-\subsection{Methods Compared}
+\subsection{Methods compared}
 \label{sec:exp-methods}
 
 \begin{itemize}[nosep]
     \item \textbf{Prover-only.} SymbiYosys/Verific run directly on the
-    target assertion with the full budget and no transformations; the
-    baseline and the normalizer for relative proof time.
+    target assertion with the full budget and no transformations. This is the
+    baseline, and proof times for the other methods are reported relative to it.
     \item \textbf{Frozen LLM with verifier feedback.} The pretrained base
     model in the environment loop, observing counterexamples, timeouts, and
-    rejections over multiple steps --- the strongest training-free baseline.
+    rejections over multiple steps. This is the strongest training-free baseline.
     \item \textbf{Full agent.} The fully trained policy with the complete
     validated action space (lemmas, cutpoints, abstractions, blackboxing).
 \end{itemize}
@@ -30,14 +30,14 @@ The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl
     cannot discharge within the same budget.
 \end{itemize}
 
-\textbf{Efficiency} (on instances solved by both methods compared).
+\textbf{Efficiency} (on instances solved by both methods being compared).
 \begin{itemize}[nosep]
     \item \emph{End-to-end wall-clock time} to a completed sound proof;
     median and speedup relative to prover-only.
     \item \emph{Verifier time and calls}: cumulative prover CPU-time and
     obligations dispatched.
     \item \emph{Compute per solved target}: CPU- and GPU-hours per solve,
-    making the LLM's own cost visible.
+    including the LLM's computational cost.
 \end{itemize}
 
 \textbf{Proof and policy quality.}
@@ -52,9 +52,9 @@ The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl
     speculative ones.
 \end{itemize}
 
-\subsection{Failure Analysis}
+\subsection{Failure analysis}
 \label{sec:exp-failures}
 
 Unsolved instances are categorized by terminal state: prover timeout on a
 valid decomposition, step-budget exhaustion without a viable DAG, persistent
-invalid actions, or unproductive loops (repeated lemma--retract cycles).
+invalid actions, or unproductive loops with repeated lemma and retract cycles.
