@@ -1,0 +1,43 @@
+\section{Data}
+\label{sec:data}
+
+\subsection{Data sources}
+\label{sec:ft-sources}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llll}
+\hline
+Source & Purpose & Verified labels & Used for \\
+\hline
+HierSVA~\cite{hiersva2026} & Hierarchical contracts & Yes & SFT/RL \\
+OpenTitan~\cite{opentitan} & Assume-guarantee structure & Yes & SFT/RL \\
+HWSec-UNC~\cite{ahmad2024hwsec} & Security properties & Yes & SFT/RL \\
+riscv-formal~\cite{riscvformal} & Compositional verification & Yes & SFT/RL \\
+VERT~\cite{menon2025vert} & SVA syntax breadth & Mixed & SFT \\
+Verixa~\cite{verixa2025} & Verification context & Mixed & SFT \\
+NVIDIA CVDP~\cite{nvidiacvdp2025} & Specification and RTL & Mixed & SFT \\
+VerilogEval~\cite{liu2023verilogeval} & English and RTL & No & SFT \\
+\hline
+\end{tabular}
+\caption{Fine-tuning and reinforcement-learning data sources.}
+\label{tab:ft-sources}
+\end{table}
+
+\subsection{Data augmentation}
+\label{sec:ft-augmentation}
+
+We augment each verified pair of a specification and contract in two ways.
+For identifier renaming, we replace signal, port, and module names with sampled alternatives that follow the design's naming conventions.
+For syntactic paraphrasing, we apply rewrite rules to generate semantically equivalent SystemVerilog and SVA variants by reordering conjuncts or using De Morgan's laws and equivalent temporal operators.
+
+\subsection{Designs and assertions for the environment}
+\label{sec:rl-instances}
+
+Each instance consists of a design and a target assertion. We include only
+assertions known to hold, which lets us attribute failures to the agent.
+
+We use design-level Training, Validation, and Testing partitions.
+The partitions are the same for fine-tuning and RL.
+Every assertion, generated variant, and proof trace derived from a design stays in that design's partition.

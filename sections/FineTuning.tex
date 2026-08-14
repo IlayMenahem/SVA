@@ -3,38 +3,5 @@
 
 Before reinforcement learning, we fine-tune the base LLM on a domain corpus to teach it SystemVerilog, SVA, and the structure of assume-guarantee contracts (Section~\ref{sec:rl}).
 
-\subsection{Data sources}
-\label{sec:ft-sources}
-
-The corpus combines the following sources.
-
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{llll}
-\hline
-Source & Purpose & Verified labels & Used for \\
-\hline
-HierSVA~\cite{hiersva2026} & Hierarchical contracts & Yes & SFT/RL \\
-OpenTitan~\cite{opentitan} & Assume-guarantee structure & Yes & SFT/RL \\
-HWSec-UNC~\cite{ahmad2024hwsec} & Security properties & Yes & SFT/RL \\
-riscv-formal~\cite{riscvformal} & Compositional verification & Yes & SFT/RL \\
-VERT~\cite{menon2025vert} & SVA syntax breadth & Mixed & SFT \\
-Verixa~\cite{verixa2025} & Verification context & Mixed & SFT \\
-NVIDIA CVDP~\cite{nvidiacvdp2025} & Specification and RTL & Mixed & SFT \\
-VerilogEval~\cite{liu2023verilogeval} & English and RTL & No & SFT \\
-\hline
-\end{tabular}
-\caption{Fine-tuning and reinforcement-learning data sources.}
-\label{tab:ft-sources}
-\end{table}
-
-\subsection{Data augmentation}
-\label{sec:ft-augmentation}
-
-We augment each verified (specification, contract) pair in two ways:
-
-\begin{itemize}
-\item \textbf{Identifier renaming}: substitute signal, port, and module names with sampled alternatives that follow the design's naming conventions.
-\item \textbf{Syntactic paraphrasing}: use rules to produce semantically equivalent SystemVerilog and SVA variants, for example by reordering conjuncts or applying De Morgan's laws and equivalent temporal operators.
-\end{itemize}
+We first fine-tune on the full corpus, then run a second fine-tuning stage using
+only verified contracts.

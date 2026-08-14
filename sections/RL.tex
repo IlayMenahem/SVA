@@ -86,21 +86,6 @@ where $\Delta P_t$ is the number of newly discharged obligations, $U_t$ is the n
 \]
 Here, $\hat{\mathbb{E}}[\sum_t c_t]$ is the mean episode cost over the current rollout batch. The budget $B$ increases with the curriculum (Section~\ref{sec:curriculum}), while $\lambda$ adapts automatically to keep the expected verifier time near that budget. This removes the need for a hand-tuned time-penalty weight.
 
-\subsection{Designs and assertions for the environment}
-\label{sec:rl-instances}
-
-Each instance pairs a design with a target assertion that meets these conditions:
-
-\begin{itemize}
-    \item \textbf{Ground-truth provability}: the target is known to hold, so failures are attributable to the agent.
-    \item \textbf{Sources}: we reuse the verified-SVA subset of the fine-tuning corpus from Section~\ref{sec:ft-sources}.
-    \item \textbf{Splitting and leakage control}: we create a fixed,
-    design-level partition and reuse it for both fine-tuning and RL. All
-    assertions, generated variants, and proof traces derived from a design
-    remain in the same partition: training uses only training designs, while
-    validation and testing use disjoint held-out designs.
-\end{itemize}
-
 \subsection{Curriculum learning}
 \label{sec:curriculum}
 
