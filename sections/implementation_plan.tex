@@ -4,27 +4,82 @@
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    node distance=0.9cm and 1.2cm,
-    phase/.style={draw, rounded corners, align=center, minimum height=0.9cm, inner sep=6pt},
+    phase/.style={
+        draw,
+        rounded corners,
+        align=center,
+        text width=3.8cm,
+        minimum height=1.1cm,
+        inner sep=6pt
+    },
+    foundation/.style={phase, fill=blue!8, draw=blue!45!black},
+    dataphase/.style={phase, fill=green!10, draw=green!45!black},
+    training/.style={phase, fill=purple!9, draw=purple!45!black},
+    environment/.style={phase, fill=orange!12, draw=orange!55!black},
+    evaluation/.style={phase, fill=red!7, draw=red!40!black},
+    group/.style={
+        draw,
+        rounded corners,
+        inner sep=10pt
+    },
     dep/.style={-{Stealth}, thick}
 ]
-    \node[phase] (prereq) {Prerequisites \\ \textit{\footnotesize license, infrastructure}};
-    \node[phase, right=of prereq] (down) {Downloadables \\ \textit{\footnotesize LLM weights, datasets}};
-    \node[phase, below right=of prereq] (ft) {Fine-tuning};
-    \node[phase, below=of ft] (env) {Environment \\ \textit{\footnotesize basic action set, reward shaping,} \\ \textit{\footnotesize fine-tuned model as frozen policy}};
-    \node[phase, below left=of env] (rl) {RL \\ \textit{\footnotesize full action set, reward shaping}};
-    \node[phase, below right=of rl] (eval) {Evaluation \\ \textit{\footnotesize frozen and RL agents} \\ \textit{\footnotesize vs.\ prover-only baseline}};
+    \node[foundation] (model) at (-5,0)
+        {Model \\ \textit{\footnotesize Pretrained LLM}};
 
-    \draw[dep] (prereq) -- (ft);
-    \draw[dep] (down) -- (ft);
-    \draw[dep] (ft) -- (env);
-    \draw[dep] (env) -- (rl);
-    \draw[dep] (rl) -- (eval);
-    \draw[dep] (env) to[bend left=35] (eval);
+    \node[dataphase] (data-sources) at (5,0)
+        {Data sources \\ \textit{\footnotesize SFT and RL corpora}};
+    \node[dataphase] (data-augmentation) at (5,-2.7)
+        {Data augmentation \\ \textit{\footnotesize Renaming and rewrites}};
+    \node[dataphase] (data-split) at (5,-5.4)
+        {Data split \\ \textit{\footnotesize By design}};
+
+    \node[training] (ft) at (0,-5.4)
+        {Fine-tuning \\ \textit{\footnotesize Full corpus, then verified contracts}};
+    \node[foundation] (harness) at (-5,-3.7)
+        {Harness \\ \textit{\footnotesize Prompt skill and proof files}};
+
+    \node[environment] (env-action) at (-5,-8.1)
+        {Actions and state \\ \textit{\footnotesize Proof DAG and feedback}};
+    \node[environment] (env-prover) at (0,-8.1)
+        {Prover flow \\ \textit{\footnotesize SymbiYosys with Verific}};
+    \node[environment] (env-reward) at (5,-8.1)
+        {Reward design \\ \textit{\footnotesize Solve reward minus time}};
+
+    \node[training] (rl) at (0,-10.8)
+        {Reinforcement learning \\ \textit{\footnotesize GRPO or PPO; curriculum}};
+    \node[evaluation] (experiments) at (0,-13.5)
+        {Experiments \\ \textit{\footnotesize Methods, metrics;\\ failure analysis}};
+
+    \node[group, draw=green!45!black,
+        fit=(data-sources)(data-augmentation)(data-split)]
+        (data-group) {};
+    \node[fill=white, text=green!35!black, inner xsep=4pt]
+        at (data-group.north) {Data};
+
+    \node[group, draw=orange!55!black,
+        fit=(env-action)(env-prover)(env-reward)]
+        (environment-group) {};
+    \node[fill=white, text=orange!45!black, inner xsep=4pt]
+        at (environment-group.north)
+        {Environment};
+
+    \draw[dep] (data-sources) -- (data-augmentation);
+    \draw[dep] (data-augmentation) -- (data-split);
+    \draw[dep] (model) -- (ft);
+    \draw[dep] (model) -- (harness);
+    \draw[dep] (data-split) -- (ft);
+    \draw[dep] (harness) -- (env-action);
+    \draw[dep] (env-action) -- (env-prover);
+    \draw[dep] (env-prover) -- (env-reward);
+    \draw[dep, rounded corners=4pt]
+        (ft.south) -- (0,-6.6) -- (8,-6.6) -- (8,-10.8) -- (rl.east);
+    \draw[dep] (env-reward) -- (rl);
+    \draw[dep] (rl) -- (experiments);
 \end{tikzpicture}
-\caption{Dependencies between implementation phases. Evaluation depends on the
-environment and RL phases because it compares the frozen policy with the
-RL-trained agent.}
+\caption{Implementation dependencies from the model and data to the
+experiments. The graph expands data preparation and the environment into
+separate stages.}
 \label{fig:phase-dag}
 \end{figure}
 

@@ -75,6 +75,6 @@ We use SymbiYosys with Verific because it is the only free option that combines 
 \subsection{Reward design}
 The task reward at step $t$ is
 \[
-  r_t = R_{\mathrm{solve}}\cdot\mathbb{1}[\text{proved}] - \alpha c_t
+  r_t = R_{\mathrm{solve}} \cdot 1_{\text{proved}} - \alpha c_t
 \]
 where $c_t = \widetilde{T}_t$ is the normalized prover time, and $R_{\mathrm{solve}}$ is the reward for proving the property. $R_{\mathrm{solve}} \gg \alpha c_t$.

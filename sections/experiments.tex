@@ -9,14 +9,10 @@ The test set is the held-out portion of the verified corpus (Section~\ref{sec:rl
 \label{sec:exp-methods}
 
 \begin{itemize}[nosep]
-    \item \textbf{Prover-only.} SymbiYosys/Verific run directly on the
-    target assertion with the full budget and no transformations. This is the
-    baseline, and proof times for the other methods are reported relative to it.
-    \item \textbf{Frozen LLM with verifier feedback.} The pretrained base
-    model in the environment loop, observing counterexamples, timeouts, and
-    rejections over multiple steps. This is the strongest training-free baseline.
-    \item \textbf{Full agent.} The fully trained policy with the complete
-    validated action space (lemmas, cutpoints, abstractions, blackboxing).
+    \item \textbf{Prover-only. (baseline)} SymbiYosys/Verific run directly on the target assertion with the full budget and no transformations.
+    \item \textbf{Frozen LLM.} The pretrained base model in the environment.
+    \item \textbf{Frozen LLM + Full harness.} The pretrained base model in the environment, with a full harness (Section~\ref{sec:harness}).
+    \item \textbf{Full agent.} The fully trained policy in the environment with the full harness (Section~\ref{sec:harness}).
 \end{itemize}
 
 \subsection{Metrics}
