@@ -1,0 +1,6 @@
+interface:
+  display_name: "Accelerate SVA Proofs"
+  short_description: "Optimize SVA proofs with checked dependencies"
+  default_prompt: "Use $accelerate-sva-proofs to reduce the cost of this SVA proof while preserving its target and premises."
+policy:
+  allow_implicit_invocation: true
