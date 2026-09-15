@@ -31,3 +31,6 @@ _minted-*/
 /sva.pdf
 
 .DS_Store
+
+# Original upstream dataset snapshots
+/datasets/raw/
