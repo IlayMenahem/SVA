@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -39,8 +40,16 @@ data = {
     "flex": output("/opt/homebrew/opt/flex/bin/flex", "--version"),
     "node": output("node", "--version"),
     "pi_package": "@earendil-works/pi-coding-agent@0.85.1",
-    "headroom_python": "headroom-ai[proxy]==0.37.0",
-    "headroom_typescript": "headroom-ai@0.37.0",
+    "context_compression": "lean-ctx",
+    "lean_ctx_version": output(
+        os.environ.get("LEAN_CTX_BIN")
+        or (
+            "/opt/homebrew/bin/lean-ctx"
+            if Path("/opt/homebrew/bin/lean-ctx").exists()
+            else "lean-ctx"
+        ),
+        "--version",
+    ),
 }
 (ROOT / "setup/setup.json").write_text(json.dumps(data, indent=2) + "\n")
 print(json.dumps(data, indent=2))

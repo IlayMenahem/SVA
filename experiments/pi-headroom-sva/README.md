@@ -1,4 +1,4 @@
-# Pi + Headroom SVA campaign
+# Pi + lean-ctx SVA campaign
 
 This directory runs the 31 `hard` benchmarks without modifying the benchmark
 checkout. Every task gets an isolated Pi session, candidate store, work tree,
@@ -30,13 +30,10 @@ and executable SHA-256.
 python3 campaign.py prepare --run-root runs/campaign
 ```
 
-For the Headroom round trip, start the local service and then run the probe:
+For the lean-ctx compression round trip, verify the probe:
 
 ```sh
-HEADROOM_OFFLINE=true HEADROOM_TELEMETRY=off \
-  .venv/bin/headroom proxy --port 8787 --no-cache \
-  --no-subscription-tracking --stateless
-node setup/headroom_roundtrip.mjs
+node setup/lean_ctx_roundtrip.mjs
 ```
 
 ## Run and report
@@ -56,9 +53,9 @@ reconciles the recorded usage and charge afterward. The total cap is $25.
 Pi uses only the five tools registered by `pi-extension.ts`: task reading,
 candidate submission, EBMC invocation, evidence inspection, and retraction.
 Pi's automatic compaction is disabled through RPC. Large evidence reads go to
-Headroom's documented `/v1/compress` interface; classification and proof inputs
+lean-ctx compression; classification and proof inputs
 stay verbatim. Native evidence remains on disk and `inspect_evidence` can return
-the exact original by artifact ID. Headroom failure aborts the tool call.
+the exact original by artifact ID. Compression failure aborts the tool call.
 
-Without `OPENROUTER_API_KEY`, `prepare` and all verifier/Headroom validation can
+Without `OPENROUTER_API_KEY`, `prepare` and all verifier/lean-ctx validation can
 run, while `run` records a paused status before any model request.

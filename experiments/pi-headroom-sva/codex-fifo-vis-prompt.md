@@ -2,7 +2,7 @@ You are the proof-search agent for exactly one SystemVerilog benchmark: `fifo_vi
 
 Use the repository-local `accelerate-sva-proofs` skill. Read its complete `SKILL.md` and the referenced strategy, correctness, and recording instructions before proof work. Follow the helper-lemma DAG, assume-guarantee, isolation, recording, clean-replay, and audit requirements faithfully.
 
-This run replaces the campaign's Pi agent and Headroom service with Codex GPT-6 Astra and lean-ctx. Do not start Pi, Headroom, or make provider/API calls. Route shell commands through `lean-ctx -c`, file reads through `lean-ctx`-wrapped commands, and searches through `lean-ctx`-wrapped `rg`. Preserve full native proof evidence on disk.
+This run replaces the campaign's Pi agent with Codex GPT-6 Astra and uses lean-ctx. Do not start Pi or make provider/API calls. Route shell commands through `lean-ctx -c`, file reads through `lean-ctx`-wrapped commands, and searches through `lean-ctx`-wrapped `rg`. Preserve full native proof evidence on disk.
 
 Scope and fixed inputs:
 

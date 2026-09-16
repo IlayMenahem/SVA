@@ -12,7 +12,7 @@
     "api_cap_usd": "25",
     "max_prompt_usd_per_million": "0.75",
     "max_completion_usd_per_million": "3.75",
-    "headroom_url": "http://127.0.0.1:8787",
+    "context_compression": "lean-ctx",
     "compression_threshold_bytes": 4096,
     "compression_timeout_seconds": 30,
     "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",

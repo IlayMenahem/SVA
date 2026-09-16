@@ -1,8 +1,7 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
-import { compress } from "headroom-ai";
 import { spawnSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { randomUUID } from "node:crypto";
 
@@ -12,6 +11,7 @@ const runRoot=resolve(process.env.SVA_RUN_ROOT || join(here,"runs"));
 const task=process.env.SVA_TASK_ID || "";
 const cfg=JSON.parse(readFileSync(join(runRoot,"checkpoint.json"),"utf8")).config;
 const python=join(here,".venv/bin/python");
+const leanCtxBin=process.env.LEAN_CTX_BIN || (existsSync("/opt/homebrew/bin/lean-ctx") ? "/opt/homebrew/bin/lean-ctx" : "lean-ctx");
 const pending: Json[]=[];
 
 function backend(input:Json):Json {
@@ -45,11 +45,15 @@ export default function(pi:ExtensionAPI){
     const raw=event.details.original as string;
     if(Buffer.byteLength(raw)<cfg.compression_threshold_bytes) return;
     const started=performance.now();
-    const compressed=await compress([{role:"tool",tool_call_id:event.toolCallId,content:raw}],{model:cfg.model,baseUrl:cfg.headroom_url,timeout:cfg.compression_timeout_seconds*1000,fallback:false,retries:0,tokenBudget:Math.max(256,Math.floor(raw.length/8))});
-    const stats={artifact_id:event.details.artifact_id,latency_ms:performance.now()-started,tokens_before:compressed.tokensBefore,tokens_after:compressed.tokensAfter,transformations:compressed.transformsApplied};
+    const proc=spawnSync(leanCtxBin,["-c","cat"],{input:raw,encoding:"utf8",maxBuffer:64*1024*1024});
+    if(proc.status!==0||!proc.stdout) throw new Error(proc.stderr||"lean-ctx compression failed");
+    const compressed=proc.stdout;
+    const tokensBefore=raw.trim().split(/\s+/).length;
+    const tokensAfter=compressed.trim().split(/\s+/).length;
+    const stats={artifact_id:event.details.artifact_id,latency_ms:performance.now()-started,tokens_before:tokensBefore,tokens_after:tokensAfter,transformations:["lean-ctx -c cat"]};
     mkdirSync(join(runRoot,"compression"),{recursive:true});
     writeFileSync(join(runRoot,"compression",randomUUID()+".json"),JSON.stringify(stats,null,2)+"\n");
-    return {content:[event.content[0],{type:"text",text:(compressed.messages?.[0] as any)?.content||""}],details:{...event.details,original:undefined,compression:stats}};
+    return {content:[event.content[0],{type:"text",text:compressed}],details:{...event.details,original:undefined,compression:stats}};
   });
 
   pi.on("before_provider_request",(event)=>{

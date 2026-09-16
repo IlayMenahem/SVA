@@ -91,7 +91,7 @@ def main():
         "## Cost and compression",
         "",
         f"Reconciled API charges: `${cp.get('spent_usd', '0')}` across {len(cp.get('charges', []))} requests. Actual routed providers: {', '.join(providers) if providers else 'none recorded'}.",
-        f"Headroom compressed {len(compressions)} evidence retrievals; recorded tokens: {sum(x.get('tokens_before', 0) for x in compressions)} before and {sum(x.get('tokens_after', 0) for x in compressions)} after.",
+        f"lean-ctx compressed {len(compressions)} evidence retrievals; recorded tokens: {sum(x.get('tokens_before', 0) for x in compressions)} before and {sum(x.get('tokens_after', 0) for x in compressions)} after.",
         "",
         "## Per-task outcomes",
         "",

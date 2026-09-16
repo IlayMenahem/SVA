@@ -1,13 +1,13 @@
-"""Antigravity agent proof execution for ex51 in the pi-headroom-sva environment."""
+"""Antigravity agent proof execution for ex51 in the pi-sva environment."""
 
 from __future__ import annotations
 
 import json
 import os
 import shutil
+import subprocess
 import sys
 import time
-import urllib.request
 import uuid
 from pathlib import Path
 
@@ -21,20 +21,22 @@ from tool_backend import execute as tool_execute
 from verifier import Verifier
 
 
-def compress_with_headroom(content: str, model: str, headroom_url: str):
-    data = json.dumps(
-        {"messages": [{"role": "tool", "content": content}], "model": model}
-    ).encode("utf-8")
-    req = urllib.request.Request(
-        f"{headroom_url}/v1/compress",
-        data=data,
-        headers={"Content-Type": "application/json"},
-    )
+def compress_with_lean_ctx(content: str):
     t0 = time.perf_counter()
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        result = json.loads(resp.read().decode("utf-8"))
+    lean_ctx_bin = os.environ.get("LEAN_CTX_BIN") or (
+        "/opt/homebrew/bin/lean-ctx"
+        if Path("/opt/homebrew/bin/lean-ctx").exists()
+        else "lean-ctx"
+    )
+    proc = subprocess.run(
+        [lean_ctx_bin, "-c", "cat"],
+        input=content,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
     latency_ms = (time.perf_counter() - t0) * 1000
-    compressed_text = result["messages"][0]["content"]
+    compressed_text = proc.stdout if proc.returncode == 0 and proc.stdout else content
     tokens_before = len(content.split())
     tokens_after = len(compressed_text.split())
     return {
@@ -128,9 +130,7 @@ def main():
         )
         orig_text = evidence["original"]
         if len(orig_text) >= cfg["compression_threshold_bytes"]:
-            comp_stats = compress_with_headroom(
-                orig_text, cfg["model"], cfg["headroom_url"]
-            )
+            comp_stats = compress_with_lean_ctx(orig_text)
             comp_dir = run_root / "compression"
             comp_dir.mkdir(parents=True, exist_ok=True)
             atomic_json(
@@ -138,7 +138,7 @@ def main():
                 {"artifact_id": evidence["artifact_id"], **comp_stats},
             )
             print(
-                f"  Headroom compressed evidence: {comp_stats['tokens_before']} -> {comp_stats['tokens_after']} tokens"
+                f"  lean-ctx compressed evidence: {comp_stats['tokens_before']} -> {comp_stats['tokens_after']} tokens"
             )
 
     print("\n=== 3. Proving Original Target Property ===")
@@ -158,9 +158,7 @@ def main():
     )
     orig_text = evidence["original"]
     if len(orig_text) >= cfg["compression_threshold_bytes"]:
-        comp_stats = compress_with_headroom(
-            orig_text, cfg["model"], cfg["headroom_url"]
-        )
+        comp_stats = compress_with_lean_ctx(orig_text)
         comp_dir = run_root / "compression"
         comp_dir.mkdir(parents=True, exist_ok=True)
         atomic_json(
@@ -168,7 +166,7 @@ def main():
             {"artifact_id": evidence["artifact_id"], **comp_stats},
         )
         print(
-            f"  Headroom compressed evidence: {comp_stats['tokens_before']} -> {comp_stats['tokens_after']} tokens"
+            f"  lean-ctx compressed evidence: {comp_stats['tokens_before']} -> {comp_stats['tokens_after']} tokens"
         )
 
     discovery_seconds = time.monotonic() - started_time

@@ -2,7 +2,7 @@
 
 ## Status
 
-Campaign status: `prepared`. Method solves count only after clean replay and ledger audit.
+Campaign status: `not run`. Method solves count only after clean replay and ledger audit.
 
 | Method | Solved |
 |---|---:|
@@ -20,7 +20,7 @@ Campaign status: `prepared`. Method solves count only after clean replay and led
 ## Cost and compression
 
 Reconciled API charges: `$0` across 0 requests. Actual routed providers: none recorded.
-Headroom compressed 0 evidence retrievals; recorded tokens: 0 before and 0 after.
+lean-ctx compressed 0 evidence retrievals; recorded tokens: 0 before and 0 after.
 
 ## Per-task outcomes
 

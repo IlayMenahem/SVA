@@ -10,6 +10,6 @@
   "flex": "flex 2.6.4",
   "node": "v26.8.1",
   "pi_package": "@earendil-works/pi-coding-agent@0.85.1",
-  "headroom_python": "headroom-ai[proxy]==0.37.0",
-  "headroom_typescript": "headroom-ai@0.37.0"
+  "context_compression": "lean-ctx",
+  "lean_ctx_version": "lean-ctx 3.7.5 (official, https://github.com/yvgude/lean-ctx)"
 }

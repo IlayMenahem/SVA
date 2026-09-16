@@ -1,4 +1,4 @@
-"""Four-hour, two-worker Pi/Headroom/EBMC campaign orchestrator."""
+"""Four-hour, two-worker Pi/lean-ctx/EBMC campaign orchestrator."""
 
 from __future__ import annotations
 

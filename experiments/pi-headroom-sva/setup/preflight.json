@@ -2,9 +2,9 @@
   "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
   "machine": "arm64",
   "node": "/opt/homebrew/bin/node",
-  "credential_present": true,
-  "headroom_version": "0.37.0",
-  "headroom_python": ">=3.10",
+  "credential_present": false,
+  "context_compression": "lean-ctx",
+  "lean_ctx_version": "lean-ctx 3.7.5 (official, https://github.com/yvgude/lean-ctx)",
   "model": {
     "id": "google/gemini-3.8-flash",
     "canonical_slug": "google/gemini-3.8-flash-20260902",
