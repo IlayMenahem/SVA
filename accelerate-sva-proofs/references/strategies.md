@@ -10,6 +10,7 @@ Build a helper-lemma DAG around the expensive relationships in the target's cone
 | Initial-state detail dominates reasoning | Abstract initial values while retaining relevant relations | The abstract initial set includes every legal concrete initial state and preserves required cross-state relations. |
 | Wide counters dominate the cone | Prove bounds/relations and replace counters with smaller abstract representations | Wraparound, saturation, enable/reset priority, comparisons, and target-visible behavior. |
 | A large module contributes little relevant behavior | Blackbox its implementation behind an assume-guarantee contract | The module satisfies the contract under the enclosing premises. |
+| The module has large parameters | Write a proof that is independent of these parameters | --- |
 
 State each abstraction's concrete-to-abstract relation and why a proof of the abstract target implies the concrete target. Added behaviors may cause spurious counterexamples; removing legal behaviors can conceal failures.
 
