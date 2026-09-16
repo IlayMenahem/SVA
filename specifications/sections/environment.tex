@@ -21,28 +21,19 @@ The agent performs best-first search in an environment with the following mechan
     \item \textbf{Soundness.} The environment tracks the design, proof DAG,
     transformation history, and status of every obligation, and enforces:
     \begin{enumerate}[nosep]
-        \item a property may use a descendant as an assumption only after that
-        descendant is proved;
-        \item benchmark-supplied assumptions are external premises; assumptions
-        from generated interface contracts become obligations discharged at the
-        enclosing scope;
-        \item cutpoints, abstractions, and blackboxes produce explicit equivalence
-        or interface obligations and are usable only once those are proved;
-        \item failed or timed-out obligations cannot support an ancestor;
+        \item a property may be used in the final proof only after its descendant is proved;
+        \item benchmark-supplied assumptions are external premises;
+        \item assumptions from generated interface contracts become obligations discharged at the enclosing scope;
         \item the target is accepted only when its entire dependency closure is
         proved.
     \end{enumerate}
 
-    \item \textbf{Observation.} After each step the agent sees the full proof state,
-    serialized as text:
+    \item \textbf{Observation.} After each step the agent sees:
     \begin{itemize}[nosep]
         \item the design source and the target property;
-        \item the proof DAG: each obligation, its dependencies, and its status
-        (proved, failed, or timed out);
+        \item the current proof DAG: each obligation, its dependencies, and its status (proved, failed, or timed out);
         \item the applied transformations and the obligations they introduced;
-        \item prover feedback for each failed obligation, either a counterexample trace
-        projected onto the property's cone of influence or the timeout bound
-        reached;
+        \item prover feedback for each failed obligation, either a counterexample trace projected onto the property's cone of influence or the timeout bound reached;
         \item the rejection reason, if the last action was invalid.
     \end{itemize}
     The design is pruned to the cone of influence of the open obligations, and
