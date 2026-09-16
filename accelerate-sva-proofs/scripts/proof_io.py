@@ -25,8 +25,11 @@ def load_json(path):
     def invalid_constant(value):
         raise ValueError(f"invalid JSON number: {value}")
 
-    return json.loads(Path(path).read_text(encoding="utf-8"),
-                      object_pairs_hook=unique_keys, parse_constant=invalid_constant)
+    return json.loads(
+        Path(path).read_text(encoding="utf-8"),
+        object_pairs_hook=unique_keys,
+        parse_constant=invalid_constant,
+    )
 
 
 def write_json(path, value):

@@ -4,11 +4,11 @@
 import argparse
 import math
 import os
-from pathlib import Path
 import signal
 import subprocess
 import sys
 import time
+from pathlib import Path
 
 from proof_io import digest, load_json, resolve, write_json
 
@@ -36,11 +36,13 @@ def record(args):
         raise ValueError("cwd must be a directory")
     manifest = load_json(args.manifest)
     if not isinstance(manifest, dict) or not isinstance(manifest.get("files"), list):
-        raise ValueError("manifest must contain a files list")
-    if not manifest["files"] or any(not isinstance(p, str) or not p for p in manifest["files"]):
+        raise TypeError("manifest must contain a files list")
+    if not manifest["files"] or any(
+        not isinstance(p, str) or not p for p in manifest["files"]
+    ):
         raise ValueError("manifest files must be nonempty path strings")
     if not isinstance(manifest.get("settings", {}), dict):
-        raise ValueError("manifest settings must be an object")
+        raise TypeError("manifest settings must be an object")
     files = [resolve(cwd, p) for p in manifest["files"]]
     if len(set(files)) != len(files):
         raise ValueError("manifest contains duplicate resolved paths")
@@ -52,23 +54,41 @@ def record(args):
     if len(set(reports)) != len(reports):
         raise ValueError("duplicate report paths")
     if any(p.exists() for p in reports):
-        raise ValueError("report paths must be fresh; choose a new prover output location")
+        raise ValueError(
+            "report paths must be fresh; choose a new prover output location"
+        )
     output = Path(args.output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     started = time.time()
     timer = time.monotonic()
     result = {
-        "schema_version": 1, "command": command, "cwd": str(cwd),
-        "timeout_seconds": args.timeout, "tool_version": args.tool_version,
-        "manifest": manifest, "inputs_before": before,
-        "started_at": started, "status": "launch_error", "exit_code": None,
-        "errors": [], "evidence": {},
+        "schema_version": 1,
+        "command": command,
+        "cwd": str(cwd),
+        "timeout_seconds": args.timeout,
+        "tool_version": args.tool_version,
+        "manifest": manifest,
+        "inputs_before": before,
+        "started_at": started,
+        "status": "launch_error",
+        "exit_code": None,
+        "errors": [],
+        "evidence": {},
     }
     process = None
-    with (output / "stdout.log").open("xb") as stdout, (output / "stderr.log").open("xb") as stderr:
+    with (
+        (output / "stdout.log").open("xb") as stdout,
+        (output / "stderr.log").open("xb") as stderr,
+    ):
         try:
-            process = subprocess.Popen(command, cwd=cwd, stdout=stdout, stderr=stderr,
-                                       stdin=subprocess.DEVNULL, start_new_session=True)
+            process = subprocess.Popen(
+                command,
+                cwd=cwd,
+                stdout=stdout,
+                stderr=stderr,
+                stdin=subprocess.DEVNULL,
+                start_new_session=True,
+            )
             result["exit_code"] = process.wait(timeout=args.timeout)
             result["status"] = "completed"
         except subprocess.TimeoutExpired:
@@ -114,24 +134,40 @@ def record(args):
         except OSError as exc:
             result["errors"].append(f"could not archive report {report}: {exc}")
     write_json(output / "run.json", result)
-    print(f"{output / 'run.json'}\nsha256={digest(output / 'run.json')}\n"
-          f"execution={result['status']} exit_code={result['exit_code']} (proof outcome not inferred)")
+    print(
+        f"{output / 'run.json'}\nsha256={digest(output / 'run.json')}\n"
+        f"execution={result['status']} exit_code={result['exit_code']} (proof outcome not inferred)"
+    )
     if result["status"] == "timeout":
         return 124
     if result["status"] == "interrupted":
         return 130
-    return 0 if (result["status"] == "completed" and result["exit_code"] == 0
-                 and result["inputs_unchanged"] and not result["errors"]) else 1
+    return (
+        0
+        if (
+            result["status"] == "completed"
+            and result["exit_code"] == 0
+            and result["inputs_unchanged"]
+            and not result["errors"]
+        )
+        else 1
+    )
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cwd", required=True)
     parser.add_argument("--manifest", required=True)
-    parser.add_argument("--output", required=True, help="new directory; never overwrite")
+    parser.add_argument(
+        "--output", required=True, help="new directory; never overwrite"
+    )
     parser.add_argument("--timeout", required=True, type=positive_timeout)
-    parser.add_argument("--tool-version", default="", help="recorded verbatim; not probed")
-    parser.add_argument("--report", action="append", default=[], help="report path relative to cwd")
+    parser.add_argument(
+        "--tool-version", default="", help="recorded verbatim; not probed"
+    )
+    parser.add_argument(
+        "--report", action="append", default=[], help="report path relative to cwd"
+    )
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     try:
