@@ -1,0 +1,15 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "ebmc_version": "6.0 (ebmc-6.0)",
+  "ebmc_sha256": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+  "ebmc_git": "ebmc-6.0",
+  "cbmc_submodule": "7483d0de40b2f39850f4f5ba5dd9c6e38f959e31 lib/cbmc (cbmc-5.95.1-1549-g7483d0de40)",
+  "build_command": "make -C vendor/hw-cbmc/src -j2 YACC=/opt/homebrew/opt/bison/bin/bison LEX=/opt/homebrew/opt/flex/bin/flex",
+  "bison": "bison (GNU Bison) 3.8.2",
+  "flex": "flex 2.6.4",
+  "node": "v26.8.1",
+  "pi_package": "@earendil-works/pi-coding-agent@0.85.1",
+  "headroom_python": "headroom-ai[proxy]==0.37.0",
+  "headroom_typescript": "headroom-ai@0.37.0"
+}

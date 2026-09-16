@@ -1,0 +1,4905 @@
+{
+  "tool": "inspect_evidence",
+  "rows": [
+    {
+      "cycle": 0,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 1,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 2,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 3,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 4,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 5,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 6,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 7,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 8,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 9,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 10,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 11,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 12,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 13,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 14,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 15,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 16,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 17,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 18,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 19,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 20,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 21,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 22,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 23,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 24,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 25,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 26,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 27,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 28,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 29,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 30,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 31,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 32,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 33,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 34,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 35,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 36,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 37,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 38,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 39,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 40,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 41,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 42,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 43,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 44,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 45,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 46,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 47,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 48,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 49,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 50,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 51,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 52,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 53,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 54,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 55,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 56,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 57,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 58,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 59,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 60,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 61,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 62,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 63,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 64,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 65,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 66,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 67,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 68,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 69,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 70,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 71,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 72,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 73,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 74,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 75,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 76,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 77,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 78,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 79,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 80,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 81,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 82,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 83,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 84,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 85,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 86,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 87,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 88,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 89,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 90,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 91,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 92,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 93,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 94,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 95,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 96,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 97,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 98,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 99,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 100,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 101,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 102,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 103,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 104,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 105,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 106,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 107,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 108,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 109,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 110,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 111,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 112,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 113,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 114,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 115,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 116,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 117,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 118,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 119,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 120,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 121,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 122,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 123,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 124,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 125,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 126,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 127,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 128,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 129,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 130,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 131,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 132,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 133,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 134,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 135,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 136,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 137,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 138,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 139,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 140,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 141,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 142,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 143,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 144,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 145,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 146,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 147,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 148,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 149,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 150,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 151,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 152,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 153,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 154,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 155,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 156,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 157,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 158,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 159,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 160,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 161,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 162,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 163,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 164,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 165,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 166,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 167,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 168,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 169,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 170,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 171,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 172,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 173,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 174,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 175,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 176,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 177,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 178,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 179,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 180,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 181,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 182,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 183,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 184,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 185,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 186,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 187,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 188,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 189,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 190,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 191,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 192,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 193,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 194,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 195,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 196,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 197,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 198,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 199,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 200,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 201,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 202,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 203,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 204,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 205,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 206,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 207,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 208,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 209,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 210,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 211,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 212,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 213,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 214,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 215,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 216,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 217,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 218,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 219,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 220,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 221,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 222,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 223,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 224,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 225,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 226,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 227,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 228,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 229,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 230,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 231,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 232,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 233,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 234,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 235,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 236,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 237,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 238,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 239,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 240,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 241,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 242,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 243,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 244,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 245,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 246,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 247,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 248,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 249,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 250,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 251,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 252,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 253,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 254,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 255,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 256,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 257,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 258,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 259,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 260,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 261,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 262,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 263,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 264,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 265,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 266,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 267,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 268,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 269,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 270,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 271,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 272,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 273,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 274,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 275,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 276,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 277,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 278,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 279,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 280,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 281,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 282,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 283,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 284,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 285,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 286,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 287,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 288,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 289,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 290,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 291,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 292,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 293,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 294,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 295,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 296,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 297,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 298,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 299,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 300,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 301,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 302,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 303,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 304,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 305,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 306,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 307,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 308,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 309,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 310,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 311,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 312,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 313,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 314,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 315,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 316,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 317,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 318,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 319,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 320,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 321,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 322,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 323,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 324,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 325,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 326,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 327,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 328,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 329,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 330,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 331,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 332,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 333,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 334,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 335,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 336,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 337,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 338,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 339,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 340,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 341,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 342,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 343,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 344,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 345,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 346,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 347,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 348,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 349,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 350,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 351,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 352,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 353,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 354,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 355,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 356,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 357,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 358,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 359,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 360,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 361,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 362,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 363,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 364,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 365,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 366,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 367,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 368,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 369,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 370,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 371,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 372,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 373,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 374,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 375,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 376,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 377,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 378,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 379,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 380,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 381,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 382,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 383,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 384,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 385,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 386,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 387,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 388,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 389,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 390,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 391,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 392,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 393,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 394,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 395,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 396,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 397,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 398,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 399,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 400,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 401,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 402,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 403,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 404,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 405,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 406,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 407,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 408,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 409,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 410,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 411,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 412,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 413,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 414,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 415,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 416,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 417,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 418,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 419,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 420,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 421,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 422,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 423,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 424,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 425,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 426,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 427,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 428,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 429,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 430,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 431,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 432,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 433,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 434,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 435,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 436,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 437,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 438,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 439,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 440,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 441,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 442,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 443,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 444,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 445,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 446,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 447,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 448,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 449,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 450,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 451,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 452,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 453,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 454,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 455,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 456,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 457,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 458,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 459,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 460,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 461,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 462,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 463,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 464,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 465,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 466,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 467,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 468,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 469,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 470,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 471,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 472,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 473,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 474,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 475,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 476,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 477,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 478,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 479,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 480,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 481,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 482,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 483,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 484,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 485,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 486,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 487,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 488,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 489,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 490,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 491,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 492,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 493,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 494,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 495,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 496,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 497,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 498,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 499,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 500,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 501,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 502,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 503,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 504,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 505,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 506,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 507,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 508,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 509,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 510,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 511,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 512,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 513,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 514,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 515,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 516,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 517,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 518,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 519,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 520,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 521,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 522,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 523,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 524,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 525,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 526,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 527,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 528,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 529,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 530,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 531,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 532,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 533,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 534,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 535,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 536,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 537,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 538,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 539,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 540,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 541,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 542,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 543,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 544,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 545,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 546,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 547,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 548,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 549,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 550,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 551,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 552,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 553,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 554,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 555,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 556,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 557,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 558,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 559,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 560,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 561,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 562,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 563,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 564,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 565,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 566,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 567,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 568,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 569,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 570,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 571,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 572,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 573,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 574,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 575,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 576,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 577,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 578,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 579,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 580,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 581,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 582,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 583,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 584,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 585,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 586,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 587,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 588,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 589,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 590,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 591,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 592,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 593,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 594,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 595,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 596,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 597,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 598,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 599,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 600,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 601,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 602,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 603,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 604,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 605,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 606,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 607,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 608,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 609,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 610,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 611,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 612,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 613,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 614,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 615,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 616,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 617,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 618,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 619,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 620,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 621,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 622,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 623,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 624,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 625,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 626,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 627,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 628,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 629,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 630,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 631,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 632,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 633,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 634,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 635,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 636,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 637,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 638,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 639,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 640,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 641,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 642,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 643,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 644,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 645,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 646,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 647,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 648,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 649,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 650,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 651,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 652,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 653,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 654,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 655,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 656,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 657,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 658,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 659,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 660,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 661,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 662,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 663,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 664,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 665,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 666,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 667,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 668,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 669,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 670,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 671,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 672,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 673,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 674,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 675,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 676,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 677,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 678,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 679,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 680,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 681,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 682,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 683,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 684,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 685,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 686,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 687,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 688,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 689,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 690,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 691,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 692,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 693,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 694,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 695,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    },
+    {
+      "cycle": 696,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 0
+    },
+    {
+      "cycle": 697,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 1
+    },
+    {
+      "cycle": 698,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 2
+    },
+    {
+      "cycle": 699,
+      "status": "diagnostic",
+      "warning": "repeated wide arithmetic cone",
+      "signal": "counter_state",
+      "value": 3
+    }
+  ]
+}

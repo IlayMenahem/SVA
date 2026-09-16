@@ -1,0 +1,13 @@
+import { compress } from "headroom-ai";
+import { readFileSync, writeFileSync } from "node:fs";
+const rows=Array.from({length:700},(_,i)=>({cycle:i,status:"diagnostic",warning:"repeated wide arithmetic cone",signal:"counter_state",value:i%4}));
+const original=JSON.stringify({tool:"inspect_evidence",rows},null,2);
+const result=await compress([{role:"tool",tool_call_id:"validation",content:original}],{model:"google/gemini-3.8-flash",baseUrl:"http://127.0.0.1:8787",fallback:false,retries:0,timeout:30000,tokenBudget:2000});
+const compressed=result.messages[0].content;
+writeFileSync("setup/headroom-roundtrip-original.txt",original);
+writeFileSync("setup/headroom-roundtrip-compressed.txt",compressed);
+const retrieved=readFileSync("setup/headroom-roundtrip-original.txt","utf8");
+const stats={tokens_before:result.tokensBefore,tokens_after:result.tokensAfter,transformations:result.transformsApplied,compressed:result.tokensAfter<result.tokensBefore,exact_original_retrieval:retrieved===original};
+writeFileSync("setup/headroom-roundtrip.json",JSON.stringify(stats,null,2)+"\n");
+if(!stats.compressed||!stats.exact_original_retrieval) throw new Error(JSON.stringify(stats));
+console.log(JSON.stringify(stats));

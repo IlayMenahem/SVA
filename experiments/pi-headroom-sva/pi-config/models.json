@@ -1,0 +1,63 @@
+{
+  "providers": {
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "$OPENROUTER_API_KEY",
+      "api": "openai-completions",
+      "compat": {
+        "thinkingFormat": "openrouter"
+      },
+      "models": [
+        {
+          "id": "z-ai/glm-5.3-flash",
+          "name": "Z.ai GLM 5.3 Flash",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1310720,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.075,
+            "output": 0.25,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "google/gemini-3.8-flash",
+          "name": "Google Gemini 3.8 Flash",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1048576,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.75,
+            "output": 3.75,
+            "cacheRead": 0.075,
+            "cacheWrite": 0.0416666667
+          }
+        },
+        {
+          "id": "z-ai/glm-5.3",
+          "name": "GLM 5.3",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 202752,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}

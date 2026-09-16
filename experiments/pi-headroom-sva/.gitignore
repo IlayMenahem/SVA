@@ -1,0 +1,11 @@
+node_modules/
+.venv/
+.cache/
+vendor/
+runs/
+__pycache__/
+setup/*.log
+setup/openrouter-models.json
+pi-config/auth.json
+pi-config/models-store.json
+.env

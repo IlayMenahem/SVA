@@ -1,0 +1,9 @@
+{
+  "tokens_before": 28518,
+  "tokens_after": 10858,
+  "transformations": [
+    "router:mixed:0.38"
+  ],
+  "compressed": true,
+  "exact_original_retrieval": true
+}

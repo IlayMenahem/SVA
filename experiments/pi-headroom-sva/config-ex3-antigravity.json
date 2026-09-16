@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "model": "antigravity",
+  "workers": 1,
+  "campaign_seconds": 1020,
+  "replay_reserve_seconds": 300,
+  "task_seconds": 720,
+  "verifier_seconds": 120,
+  "filter_bound": 30,
+  "max_output_tokens": 16384,
+  "api_cap_usd": "25",
+  "max_prompt_usd_per_million": "1.4",
+  "max_completion_usd_per_million": "4.4",
+  "headroom_url": "http://127.0.0.1:8787",
+  "compression_threshold_bytes": 4096,
+  "compression_timeout_seconds": 30,
+  "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+  "direct_engine": "k-induction",
+  "direct_induction_bound": 1,
+  "allowed_engines": [
+    "k-induction",
+    "ic3"
+  ],
+  "transformations": [
+    "helper_assertions",
+    "proved_helper_assumptions",
+    "joint_conjunction",
+    "retraction"
+  ],
+  "thinking": "high",
+  "task": "ex3"
+}

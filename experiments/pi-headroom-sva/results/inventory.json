@@ -1,0 +1,2115 @@
+{
+  "config": {
+    "schema_version": 1,
+    "model": "z-ai/glm-5.3-flash",
+    "workers": 2,
+    "campaign_seconds": 14400,
+    "replay_reserve_seconds": 1800,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "0.75",
+    "max_completion_usd_per_million": "3.75",
+    "headroom_url": "http://127.0.0.1:8787",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "buffer_128",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/buffer_128_ebmc.sv",
+      "source_sha256": "507d460614dd9e71834adb16228c3b07e40bb5a9109d0710367cb225fbbb7fe8",
+      "top": "main",
+      "target": "property prop;\n    (count <= SIZE);\n  endproperty",
+      "target_body": "\n    (count <= SIZE);\n  ",
+      "insert_offset": 1491,
+      "reset": null,
+      "premises": [],
+      "clocks": [
+        "@(posedge clock)",
+        "@(posedge clock)"
+      ],
+      "reset_behavior": {
+        "signal": null,
+        "property_disable_iff": []
+      },
+      "initialization": {
+        "initial_blocks": [
+          "initial begin\n    for (i = 0; i < SIZE; i = i + 1) busy[i] = 0;\n    count = 0;\n    alloc = 0;\n    free = 0;\n    free_addr = 0;\n  end"
+        ],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter SIZE = 128",
+          "parameter LOGSIZE = 7\n"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.06,
+          "raw": {
+            "time": 0.06
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "buffer_32",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/buffer_32_ebmc.sv",
+      "source_sha256": "a43d46dc874a7a0d765835531a95d3e138dbebcdcd0f2750bca64c2b5633e89e",
+      "top": "main",
+      "target": "property prop;\n    (count <= SIZE);\n  endproperty",
+      "target_body": "\n    (count <= SIZE);\n  ",
+      "insert_offset": 1490,
+      "reset": null,
+      "premises": [],
+      "clocks": [
+        "@(posedge clock)",
+        "@(posedge clock)"
+      ],
+      "reset_behavior": {
+        "signal": null,
+        "property_disable_iff": []
+      },
+      "initialization": {
+        "initial_blocks": [
+          "initial begin\n    for (i = 0; i < SIZE; i = i + 1) busy[i] = 0;\n    count = 0;\n    alloc = 0;\n    free = 0;\n    free_addr = 0;\n  end"
+        ],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter SIZE = 32",
+          "parameter LOGSIZE = 5\n"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.01,
+          "raw": {
+            "time": 0.01
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 188.0,
+          "raw": {
+            "error": null,
+            "time": 188.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "buffer_64",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/buffer_64_ebmc.sv",
+      "source_sha256": "36abdbaadd9ed83ea182151867124c22bda8b50b6790b694baf45dffc4978590",
+      "top": "main",
+      "target": "property prop;\n    (count <= SIZE);\n  endproperty",
+      "target_body": "\n    (count <= SIZE);\n  ",
+      "insert_offset": 1490,
+      "reset": null,
+      "premises": [],
+      "clocks": [
+        "@(posedge clock)",
+        "@(posedge clock)"
+      ],
+      "reset_behavior": {
+        "signal": null,
+        "property_disable_iff": []
+      },
+      "initialization": {
+        "initial_blocks": [
+          "initial begin\n    for (i = 0; i < SIZE; i = i + 1) busy[i] = 0;\n    count = 0;\n    alloc = 0;\n    free = 0;\n    free_addr = 0;\n  end"
+        ],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter SIZE = 64",
+          "parameter LOGSIZE = 6\n"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.03,
+          "raw": {
+            "time": 0.03
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 435.0,
+          "raw": {
+            "error": null,
+            "time": 435.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "counter_66",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/counter_66_ebmc.sv",
+      "source_sha256": "77b1bb425d8863aa27c798c65edde548f2baba1ec565ea7dd3bf2fac269f9b92",
+      "top": "main",
+      "target": "property prop;\n  @(posedge clk) disable iff (rst) c < 7800;\nendproperty",
+      "target_body": "\n  @(posedge clk) disable iff (rst) c < 7800;\n",
+      "insert_offset": 250,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 15.0,
+          "raw": "00:00:15"
+        }
+      }
+    },
+    {
+      "id": "dp",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/dp_ebmc.sv",
+      "source_sha256": "de758a43c6125b8e048c31151ba91077864156ec85bd7b9394b4d95bb2a97b3e",
+      "top": "main",
+      "target": "property prop;\n @(posedge clk) disable iff (rst) (y <= x);\nendproperty",
+      "target_body": "\n @(posedge clk) disable iff (rst) (y <= x);\n",
+      "insert_offset": 490,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@ (posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH=64"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 6.0,
+          "raw": {
+            "error": null,
+            "time": 6.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "ex15",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex15_ebmc.sv",
+      "source_sha256": "7f532d57743b94ae2c254bd2fdb4b20abc1839e0d8ff9d6861af4f403be6bd42",
+      "top": "ex15",
+      "target": "property prop;\n     @(posedge clk) disable iff (rst) (state != DONE || n <= 0 || m < n);\n    endproperty",
+      "target_body": "\n     @(posedge clk) disable iff (rst) (state != DONE || n <= 0 || m < n);\n    ",
+      "insert_offset": 1193,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset ex15.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "ex15"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 32"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 187.0,
+          "raw": {
+            "error": null,
+            "time": 187.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "ex3",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex3_ebmc.sv",
+      "source_sha256": "7bb7290a87a6293af540bdae14e8dc690fa1a107de36e0fb8c7f250c4c1c9fca",
+      "top": "main",
+      "target": "property prop;\n   @(posedge clk) disable iff (rst) (flag < 1 || (y == -2 && x == 99));\n  endproperty",
+      "target_body": "\n   @(posedge clk) disable iff (rst) (flag < 1 || (y == -2 && x == 99));\n  ",
+      "insert_offset": 506,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 54.0,
+          "raw": {
+            "error": null,
+            "time": 54.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "ex4",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex4_ebmc.sv",
+      "source_sha256": "418a6eb634a0908188fc6672b2ed68e2c19bd65bf28206f143016a3397778aad",
+      "top": "main",
+      "target": "property prop;\n      @(posedge clk) disable iff (rst) (x > 0 || y == n);\n  endproperty",
+      "target_body": "\n      @(posedge clk) disable iff (rst) (x > 0 || y == n);\n  ",
+      "insert_offset": 381,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": [
+          "wire [WIDTH-1:0] n = 100;"
+        ]
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH=32"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 3.0,
+          "raw": {
+            "error": null,
+            "time": 3.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "ex51_57_1",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex51_57_1_ebmc.sv",
+      "source_sha256": "dcf65359847ae479d63e286c6d789b729e1d54cead69636f1e8a77546e62ff34",
+      "top": "ex_51_57",
+      "target": "property prop;\n     @(posedge clk) disable iff (rst) (d == 1 || d == 0|| state != DONE || c != d);\n    endproperty",
+      "target_body": "\n     @(posedge clk) disable iff (rst) (d == 1 || d == 0|| state != DONE || c != d);\n    ",
+      "insert_offset": 1323,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset ex_51_57.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "ex_51_57"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 6.0,
+          "raw": {
+            "error": null,
+            "time": 6.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "ex51",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex51_ebmc.sv",
+      "source_sha256": "7e8fc21b75e94261f053ee774b2c685640d143eba073550f829073a7cd6feaf8",
+      "top": "loop_c_behavior",
+      "target": "property prop;\n     @(posedge clk) disable iff (rst) (c <= d);\n    endproperty",
+      "target_body": "\n     @(posedge clk) disable iff (rst) (c <= d);\n    ",
+      "insert_offset": 1283,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset loop_c_behavior.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "loop_c_behavior"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 32"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 4.0,
+          "raw": {
+            "error": null,
+            "time": 4.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 2.0,
+          "raw": "00:00:02"
+        }
+      }
+    },
+    {
+      "id": "ex80",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex80_ebmc.sv",
+      "source_sha256": "015167af781dc767c76403b9f275363b2260b76a60387c24d35659ae6456463d",
+      "top": "inv_80",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) ( state != DONE || i <= x);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) ( state != DONE || i <= x);\n    ",
+      "insert_offset": 1242,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset inv_80.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "inv_80"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 32"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 2340.0,
+          "raw": {
+            "error": null,
+            "time": 2340.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "fifo_ref_16",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/fifo_ref_16_ebmc.sv",
+      "source_sha256": "312eaeb277f14a7f1b287cd04ae555125e3b839a61600495d99490dfbd10de1c",
+      "top": "fv_env",
+      "target": "property prop; \n      @(posedge clk) disable iff (rst) pop && (!ALLOW_BYPASS || (fifo_size > 0) ) |-> data_out == ref_fifo[ref_fifo_head];\n\n   endproperty",
+      "target_body": " \n      @(posedge clk) disable iff (rst) pop && (!ALLOW_BYPASS || (fifo_size > 0) ) |-> data_out == ref_fifo[ref_fifo_head];\n\n   ",
+      "insert_offset": 5293,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset fv_env.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "fv_env"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": [
+          "parameter  bit ALLOW_BYPASS = 0,"
+        ]
+      },
+      "parameters": {
+        "declarations": [
+          "parameter  DEPTH = 16",
+          "parameter  ALLOW_BYPASS = 0",
+          "parameter      DEPTH        = 16",
+          "parameter  bit ALLOW_BYPASS = 0",
+          "parameter      DEPTH        = 16",
+          "parameter      ALLOW_BYPASS = 1"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.04,
+          "raw": {
+            "time": 0.04
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "fifo_ref_64",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/fifo_ref_64_ebmc.sv",
+      "source_sha256": "2d0d2e706b441a87c47c7e5b4f30ee87a1ae7b4303ed1965b79020330bdca55d",
+      "top": "fv_env",
+      "target": "property prop; \n      @(posedge clk) disable iff (rst) pop && (!ALLOW_BYPASS || (fifo_size > 0) ) |-> data_out == ref_fifo[ref_fifo_head];\n\n   endproperty",
+      "target_body": " \n      @(posedge clk) disable iff (rst) pop && (!ALLOW_BYPASS || (fifo_size > 0) ) |-> data_out == ref_fifo[ref_fifo_head];\n\n   ",
+      "insert_offset": 5293,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset fv_env.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "fv_env"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": [
+          "parameter  bit ALLOW_BYPASS = 0,"
+        ]
+      },
+      "parameters": {
+        "declarations": [
+          "parameter  DEPTH = 16",
+          "parameter  ALLOW_BYPASS = 0",
+          "parameter      DEPTH        = 64",
+          "parameter  bit ALLOW_BYPASS = 0",
+          "parameter      DEPTH        = 64",
+          "parameter      ALLOW_BYPASS = 1"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.15,
+          "raw": {
+            "time": 0.15
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "fifo_vis",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/fifo_vis.sv",
+      "source_sha256": "4a94e6b07fb63a1efaeb9fc2ff307c565ea92febcd330638751d3ad6bde742ca",
+      "top": "main",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (equal == 1); \n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (equal == 1); \n    ",
+      "insert_offset": 1310,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@ (posedge clk)",
+        "@ (posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter\t   MSBD = 3",
+          "parameter\t   LAST = 15",
+          "parameter\t   MSBA = 3",
+          "parameter\t    MSBD = 3",
+          "parameter\t    LAST = 15",
+          "parameter\t    MSBA = 3",
+          "parameter\t    MSBD = 3",
+          "parameter\t    LAST = 15",
+          "parameter\t    MSBA = 3"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 619.63,
+          "raw": {
+            "time": 619.63
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 1580.0,
+          "raw": {
+            "error": null,
+            "time": 1580
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 8664.0,
+          "raw": "02:24:24"
+        }
+      }
+    },
+    {
+      "id": "gr2006",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gr2006_ebmc.sv",
+      "source_sha256": "c9d6e2f6dcd0a0816902b532066b3db0f05a610172ecb24340de2b1de6251cd9",
+      "top": "main",
+      "target": "property prop;\n    @(posedge clk) disable iff (rst) x <= 101;\n  endproperty",
+      "target_body": "\n    @(posedge clk) disable iff (rst) x <= 101;\n  ",
+      "insert_offset": 511,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 275.51,
+          "raw": {
+            "time": 275.51
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 820.0,
+          "raw": {
+            "error": null,
+            "time": 820.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2_1",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_1_ebmc.sv",
+      "source_sha256": "cc1429a3f536a80318eeee733815eb1c7bf976cb629de5bf4f1dbf60f78b8cb3",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) ((x > n) |-> c < 400);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) ((x > n) |-> c < 400);\n    ",
+      "insert_offset": 1191,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 123.82,
+          "raw": {
+            "time": 123.82
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 287.0,
+          "raw": {
+            "error": null,
+            "time": 287.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2_2",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_2_ebmc.sv",
+      "source_sha256": "ecf9151691dac05e502f6814b05416bb5a5275b3c9731e9d9449e6c232ce10ae",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) ((x > n) |-> c < 537);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) ((x > n) |-> c < 537);\n    ",
+      "insert_offset": 1190,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 119.36,
+          "raw": {
+            "time": 119.36
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 356.0,
+          "raw": {
+            "error": null,
+            "time": 356.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2_3",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_3_ebmc.sv",
+      "source_sha256": "4b4e32147137cd62daff15f239405a6202dea16211176fafb83f1c6fa8fe2a48",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (x < n |-> c < 600);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (x < n |-> c < 600);\n    ",
+      "insert_offset": 1321,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 233.0,
+          "raw": {
+            "error": null,
+            "time": 233.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2_4",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_4_ebmc.sv",
+      "source_sha256": "2246090ea4960c588107835423a5e416596ddb026d1293529cfbbd47b76cb0ac",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (x < n |-> c < 777);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (x < n |-> c < 777);\n    ",
+      "insert_offset": 1323,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 218.0,
+          "raw": {
+            "error": null,
+            "time": 218.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2_5",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_5_ebmc.sv",
+      "source_sha256": "1116bbfd03ba2dbdede8ff4cde31fbc4440d5c4bf79d48cf9828d06565061b0a",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (x < n |-> c < 139);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (x < n |-> c < 139);\n    ",
+      "insert_offset": 1320,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 128"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_cegar2",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_cegar2_ebmc.sv",
+      "source_sha256": "a1c71d4f9cb2cec97a285db18b23b485b6b0413f94ed65825312e8a85483bf6f",
+      "top": "gulwani_cegar2",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state != DONE || (m < n));\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state != DONE || (m < n));\n    ",
+      "insert_offset": 989,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_cegar2.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_cegar2"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 32"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 187.0,
+          "raw": {
+            "error": null,
+            "time": 187.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "gulwani_fig1a_2",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_fig1a_2_ebmc.sv",
+      "source_sha256": "3bb60b34ab2a706ddb0c77e486eb685e8b6191c560acdcd70e381b04edd54238",
+      "top": "gulwani_fig1a",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    ",
+      "insert_offset": 988,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_fig1a.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_fig1a"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 853.0,
+          "raw": {
+            "error": null,
+            "time": 853.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "gulwani_fig1a_4",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_fig1a_4_ebmc.sv",
+      "source_sha256": "a0dfeffc594a415d3dbe5d692e9234b731a8df421030f74e558b16f474675624",
+      "top": "gulwani_fig1a",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    ",
+      "insert_offset": 987,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_fig1a.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_fig1a"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 613.0,
+          "raw": {
+            "error": null,
+            "time": 613.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "gulwani_fig1a_5",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_fig1a_5_ebmc.sv",
+      "source_sha256": "b84cdd2196b33b78439df7f53abd7a2a8314d3e03406e0e5563cfe1afb957760",
+      "top": "gulwani_fig1a",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    ",
+      "insert_offset": 989,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_fig1a.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_fig1a"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 192.0,
+          "raw": {
+            "error": null,
+            "time": 192.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "gulwani_fig1a_6",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_fig1a_6_ebmc.sv",
+      "source_sha256": "254fd3c080138073a37039dffc4e0cf805ab6b34c4005ea192a704020015dd25",
+      "top": "gulwani_fig1a",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    ",
+      "insert_offset": 991,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_fig1a.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_fig1a"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "error": null,
+            "time": "TIMEOUT"
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "gulwani_fig1a",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/gulwani_fig1a_ebmc.sv",
+      "source_sha256": "51391f6ebde0cb8a76c2f0b75938f236793d2276b8944c7527b746b4a0173506",
+      "top": "gulwani_fig1a",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (state == DONE |-> y > 0);\n    ",
+      "insert_offset": 985,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset gulwani_fig1a.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "gulwani_fig1a"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter WIDTH = 1024"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 192.0,
+          "raw": {
+            "error": null,
+            "time": 192.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "lrg_arb_lrg_16",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/lrg_arb_lrg_16_ebmc.sv",
+      "source_sha256": "ead38cc1046af1792f852f9777226abe9cd7641736daf9df37e7e1f2fd30212e",
+      "top": "main",
+      "target": "property prop;\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\nendproperty",
+      "target_body": "\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\n",
+      "insert_offset": 4065,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter  NUM_REQ   = 16"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": {
+            "time": "timeout"
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 907.0,
+          "raw": {
+            "error": null,
+            "time": 907.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 750.0,
+          "raw": "00:12:30"
+        }
+      }
+    },
+    {
+      "id": "lrg_arb_lrg_4",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/lrg_arb_lrg_4_ebmc.sv",
+      "source_sha256": "77c2c69a64c19c0172f4fbf0097c14fa8d997a0797361f54d19f43434e063661",
+      "top": "main",
+      "target": "property prop;\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\nendproperty",
+      "target_body": "\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\n",
+      "insert_offset": 4064,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter  NUM_REQ   = 4"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.02,
+          "raw": {
+            "time": 0.02
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 3.0,
+          "raw": {
+            "error": null,
+            "time": 3.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 1.0,
+          "raw": "00:00:01"
+        }
+      }
+    },
+    {
+      "id": "lrg_arb_lrg_8",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/lrg_arb_lrg_8_ebmc.sv",
+      "source_sha256": "f3eb32fced78661ea7489f9bec3422f6c047bded76fedefdfcb189a54fc10d70",
+      "top": "main",
+      "target": "property prop;\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\nendproperty",
+      "target_body": "\n   @(posedge clk) disable iff (rst)  chosen & o_grant_vec_ref[arbitrary_requester] \n        |-> (~in_req_vec[another_arbitrary_requester] || (ranks[arbitrary_requester] < ranks[another_arbitrary_requester]));\n",
+      "insert_offset": 4064,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk or posedge rst)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter  NUM_REQ   = 8"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 2.55,
+          "raw": {
+            "time": 2.55
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 5.0,
+          "raw": {
+            "error": null,
+            "time": 5.0
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 2.0,
+          "raw": "00:00:02"
+        }
+      }
+    },
+    {
+      "id": "simple_cam_16",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/simple_cam_16_ebmc.sv",
+      "source_sha256": "464547d28d9e1e6e766aec32b86c3bcd6856c4d79966fdc7ea8d4c74cf300785",
+      "top": "simple_cam",
+      "target": "property prop;\n        disable iff (rst) (chosen & chosen_not_popped & (lookup_id == chosen_push_id) |-> |lookup_match);\n    endproperty",
+      "target_body": "\n        disable iff (rst) (chosen & chosen_not_popped & (lookup_id == chosen_push_id) |-> |lookup_match);\n    ",
+      "insert_offset": 5351,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset simple_cam.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "simple_cam"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter USE_BIT_VECTOR       = 0",
+          "parameter SUPPORT_MULTI_PUSH   = 1",
+          "parameter DUT_MASTER           = 1'b1",
+          "parameter NUM_OF_ENTRIES       = 16",
+          "parameter NUM_OF_MATCHES       = USE_BIT_VECTOR?1:NUM_OF_ENTRIES",
+          "parameter ID_WIDTH             = NUM_OF_ENTRIES==1 ? 1 : $clog2(NUM_OF_ENTRIES",
+          "parameter NUM_OF_POPS          = 1",
+          "parameter NUM_OF_POPS_WIDTH    = NUM_OF_POPS==1 ? 1 : $clog2(NUM_OF_POPS+1"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.06,
+          "raw": {
+            "time": 0.06
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 188.0,
+          "raw": {
+            "error": null,
+            "time": 188.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    },
+    {
+      "id": "simple_cam_8",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/simple_cam_8_ebmc.sv",
+      "source_sha256": "714388af750e15236ff4945f12f4f80dae8a98a1c16da313760e50cc8df18376",
+      "top": "simple_cam",
+      "target": "property prop;\n        disable iff (rst) (chosen & chosen_not_popped & (lookup_id == chosen_push_id) |-> |lookup_match);\n    endproperty",
+      "target_body": "\n        disable iff (rst) (chosen & chosen_not_popped & (lookup_id == chosen_push_id) |-> |lookup_match);\n    ",
+      "insert_offset": 5350,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset simple_cam.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "simple_cam"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)",
+        "@(posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter USE_BIT_VECTOR       = 0",
+          "parameter SUPPORT_MULTI_PUSH   = 1",
+          "parameter DUT_MASTER           = 1'b1",
+          "parameter NUM_OF_ENTRIES       = 8",
+          "parameter NUM_OF_MATCHES       = USE_BIT_VECTOR?1:NUM_OF_ENTRIES",
+          "parameter ID_WIDTH             = NUM_OF_ENTRIES==1 ? 1 : $clog2(NUM_OF_ENTRIES",
+          "parameter NUM_OF_POPS          = 1",
+          "parameter NUM_OF_POPS_WIDTH    = NUM_OF_POPS==1 ? 1 : $clog2(NUM_OF_POPS+1"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 0.03,
+          "raw": {
+            "time": 0.03
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 187.0,
+          "raw": {
+            "error": null,
+            "time": 187.0
+          }
+        },
+        "vcf": {
+          "outcome": "timeout",
+          "seconds": null,
+          "raw": "TIMEOUT"
+        }
+      }
+    }
+  ]
+}
