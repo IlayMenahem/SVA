@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "model": "antigravity",
+  "model": "Gemini 3.8 Flash",
+  "agent": "antigravity",
   "workers": 1,
   "campaign_seconds": 1020,
   "replay_reserve_seconds": 300,
@@ -9,8 +10,8 @@
   "filter_bound": 30,
   "max_output_tokens": 16384,
   "api_cap_usd": "25",
-  "max_prompt_usd_per_million": "1.4",
-  "max_completion_usd_per_million": "4.4",
+  "max_prompt_usd_per_million": "0.15",
+  "max_completion_usd_per_million": "0.60",
   "context_compression": "lean-ctx",
   "compression_threshold_bytes": 4096,
   "compression_timeout_seconds": 30,
@@ -29,5 +30,5 @@
     "retraction"
   ],
   "thinking": "high",
-  "task": "ex3"
+  "task": "fifo_vis"
 }

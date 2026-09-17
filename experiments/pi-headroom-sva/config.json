@@ -17,6 +17,6 @@
   "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
   "direct_engine": "k-induction",
   "direct_induction_bound": 1,
-  "allowed_engines": ["k-induction", "ic3"],
+  "allowed_engines": ["k-induction", "ic3", "bdd"],
   "transformations": ["helper_assertions", "proved_helper_assumptions", "joint_conjunction", "retraction"]
 }

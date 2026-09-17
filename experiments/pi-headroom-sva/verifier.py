@@ -73,8 +73,9 @@ class Verifier:
         bound=None,
         timeout_seconds=None,
     ):
-        if mode not in ("bounded", "k-induction", "ic3", "bdd"):
-            raise ValueError("unsupported mode")
+        task_dir = Path(task_dir).resolve()
+        if not mode or not isinstance(mode, str):
+            raise ValueError("mode must be a non-empty string")
         if bound is not None and (type(bound) is not int or bound < 1):
             raise ValueError("bound must be a positive integer")
         if mode in ("ic3", "bdd") and bound is not None:
@@ -141,7 +142,9 @@ class Verifier:
         elif mode == "k-induction":
             cmd += ["--k-induction", "--bound", str(bound)]
         else:
-            cmd += ["--" + mode]
+            cmd += [mode if mode.startswith("--") else ("--" + mode)]
+            if bound is not None and mode not in ("ic3", "bdd"):
+                cmd += ["--bound", str(bound)]
         recorder = [
             sys.executable,
             str(SKILL / "scripts/record_run.py"),

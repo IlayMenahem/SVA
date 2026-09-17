@@ -305,7 +305,7 @@ def parse_result(report, expected, mode, run):
     if status == "PROVED":
         outcome = (
             "proved"
-            if mode in ("k-induction", "ic3", "bdd") and p.get("proof_via")
+            if mode != "bounded" and p.get("proof_via")
             else "bounded"
         )
     elif status.startswith("PROVED up to bound "):

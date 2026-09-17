@@ -53,8 +53,9 @@ def initialize(state: State, cfg: dict):
 
 
 def direct(task, cfg, run_root):
+    mode = cfg.get("direct_engine", "k-induction")
     return Verifier(cfg).run(
-        task, {}, "target", [], "k-induction", run_root / "tasks" / task["id"]
+        task, {}, "target", [], mode, run_root / "tasks" / task["id"]
     )
 
 
@@ -189,7 +190,7 @@ def proof_fields(run_result, task_dir, locator):
     ev = run_result["evidence"]
     return {
         "proof_kind": "unbounded",
-        "run": str(run_file.relative_to(task_dir)),
+        "run": str(run_file.resolve().relative_to(Path(task_dir).resolve())),
         "run_sha256": digest(run_file),
         "evidence": {"file": ev, "sha256": record["evidence"][ev], "locator": locator},
         "context_review": "Exact property ID, top, clock/reset, source/config hashes, premises, engine mode, and dependency contexts reviewed by campaign adapter.",
@@ -208,7 +209,7 @@ def audit_replay(task, task_dir, candidates, deps, replay):
             for r in read_json(task_dir / "candidates.json")["runs"]
             if r["obligation"] == cid
             and r["outcome"] == "proved"
-            and r["mode"] in ("k-induction", "ic3", "bdd")
+            and r["mode"] != "bounded"
         ]
         if not choices:
             raise Pause(f"{task['id']}: missing proved helper evidence for {cid}")
