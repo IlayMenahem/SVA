@@ -5,22 +5,25 @@
 Neural theorem provers such as GPT-f~\cite{polu2020gptf},
 LeanDojo~\cite{yang2023leandojo}, DeepSeek-Prover~\cite{xin2024deepseekproverv15,ren2025deepseekproverv2},
 and AlphaProof~\cite{deepmind2024alphaproof} combine an LLM policy with a
-sound verifier, then reuse successful trajectories for training. We apply
-this closed-loop approach to FPV, where verifier runtime and discharged proof
-obligations provide graded feedback.
+sound verifier, then reuse successful trajectories for training.
 
 \subsection{LLMs for hardware verification}
 
-Most LLM work in hardware targets RTL generation
+LLM applications to hardware include RTL generation
 \cite{liu2023verilogeval,liu2024rtlcoder}, assertion generation
-\cite{fang2025assertllm,mali2024chiraag}, or testbench generation
-\cite{qiu2024autobench}, rather than proving a given property. The closest
-prior work is the lemma-mining framework of Peled et
-al.~\cite{peled2026lemmaminers}, in which an LLM proposes invariants and a
-model checker selects an inductive strengthening. Our work instead trains the
-policy using supervised fine-tuning and reinforcement learning and targets
-hierarchical assume-guarantee decomposition together with verified cutpoints,
-abstractions, and blackboxing.
+\cite{fang2025assertllm,mali2024chiraag}, and testbench generation
+\cite{qiu2024autobench}. Three closely related approaches address helper
+lemmas, RTL abstraction, and hierarchical contracts.
+
+Large Lemma Miners~\cite{peled2026lemmaminers} generates helper lemmas for a property.
+
+NeuroAbs~\cite{yan2026neuroabs} generates abstractions with LLMs,
+checks overapproximation using SMT, and refines coarse abstractions through
+counterexamples.
+
+HierSVA~\cite{hiersva2026} synthesizes SVA contracts bottom-up, uses
+child guarantees as assumptions, discharges child assumptions at the parent,
+and blackboxes deeper submodules.
 
 \subsection{Classical FPV techniques}
 
@@ -38,7 +41,7 @@ closed loop with the verifier.
 Existing datasets are primarily generation-oriented: VERT
 \cite{menon2025vert}, Verixa~\cite{verixa2025}, and NVIDIA CVDP
 \cite{nvidiacvdp2025} provide SVA or verification examples but do not supply
-verified hierarchical proof trajectories. Peled et
-al.~\cite{peled2026lemmaminers} provide 109 flat SystemVerilog proof tasks.
-We therefore construct design-level splits with verified assume-guarantee
-examples and replayable proof trajectories (Section~\ref{sec:finetuning}).
+verified hierarchical proof trajectories. The revised Large Lemma Miners
+benchmark~\cite{peled2026lemmaminers} contains 110 SystemVerilog proof
+tasks. HierSVA~\cite{hiersva2026} supplies hierarchical modules and verified
+contracts, but its evaluation focuses on generated assertion quality.

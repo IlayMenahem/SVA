@@ -1,6 +1,8 @@
 \section{Introduction}
 
-Formal Property Verification (FPV) establishes whether a SystemVerilog design satisfies a SystemVerilog Assertion (SVA). Its cost, however, grows quickly with the size of the design's state space. Verification engineers commonly use two complementary strategies to control this cost:
+Formal Property Verification (FPV) establishes whether a SystemVerilog design satisfies a SystemVerilog Assertion (SVA).
+Its cost, however, grows quickly with the size of the design's state space.
+Verification engineers commonly use two complementary strategies to control this cost:
 
 \begin{itemize}
     \item \textbf{Hierarchical lemma generation:} construct a DAG of assertions rooted at the target, with helper assertions as descendants. Assuming proved child properties should make each parent assertion easier to verify, which decomposes a difficult proof into a sequence of tractable ones.
