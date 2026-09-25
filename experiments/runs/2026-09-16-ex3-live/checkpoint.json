@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/config.json": "275ba741defefb3e506b9e4074b64839ec32d58b470e3f1c9370306d5a2c6fef",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/package-lock.json": "eed158ebc30f901295f89bbda47d6cb03f8a706b4934e449c91369f123a0e61a",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/uv.lock": "ed1fd712dd597567ee54395f95aa04be14887f787709145cbd0d3b239cb42fe9",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/pi-extension.ts": "3d65abbcd0377f3350a65e6c5cff73324d8cd07997fb5d5a677248dae29d9a46",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/campaign.py": "7d961d074da20348c0ae2a38017e74de3adc5b78068c3139edf18aa2aa37facc",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/core.py": "ff77cca0900568d6fefc669375df1a222b0d1a5606aeaf0a2bbfe1158e1c9b53",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/verifier.py": "e589e3e13f7909d4348258101e3a8c20a64c75e48458bc6cd5d40fc6205c7c28",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/tool_backend.py": "4cf43bfe6f58f803eddc47826014d394ea4fed9b85b7ce293c2b83e6276c490c",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/accelerate-sva-proofs/SKILL.md": "d0575bc9e316af2f86b817cf92e9b41c8a52ccfd55cefb406acf97a912022ef6",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/vendor/hw-cbmc/src/ebmc/ebmc": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex3_ebmc.sv": "7bb7290a87a6293af540bdae14e8dc690fa1a107de36e0fb8c7f250c4c1c9fca"
+  },
+  "config": {
+    "schema_version": 1,
+    "model": "z-ai/glm-5.3",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "1.4",
+    "max_completion_usd_per_million": "4.4",
+    "headroom_url": "http://127.0.0.1:8787",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ],
+    "thinking": "high",
+    "task": "ex3"
+  },
+  "started_at": 1789511903.553131,
+  "deadline": 1789512923.553131,
+  "discovery_deadline": 1789512623.553131,
+  "last_operation_at": 1789511957.3378181,
+  "spent_usd": "0.062547199999999999",
+  "reservations": {
+    "abfa4927-b53d-4c15-88de-96898f5059b5": {
+      "usd": "0.156889",
+      "at": 1789511957.3378181
+    }
+  },
+  "charges": [
+    {
+      "id": "7ea59d5e-160d-408b-8626-7f097abb4131",
+      "usd": "0.0105454",
+      "usage": {
+        "input": 7479,
+        "output": 17,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 7496,
+        "cost": {
+          "input": 0.0104706,
+          "output": 7.48e-05,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.0105454
+        },
+        "model": "z-ai/glm-5.3",
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-expose-headers": "X-Generation-Id,X-Provider-Name,request-id,cf-ray",
+            "cache-control": "no-cache",
+            "cf-ray": "a3bb1f19da77d25a-FRA",
+            "connection": "keep-alive",
+            "content-type": "text/event-stream",
+            "date": "Tue, 15 Sep 2026 22:38:24 GMT",
+            "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+            "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+            "server": "cloudflare",
+            "set-cookie": "__cf_bm=ZdESc98JqPUZIz0ycsjBL0PoRNTbpvLWBooCzvvQkG8-1789511904.2957006-1.0.1.1-kGooBwgPTawZDKsewXDHcqpX5CQ0NNksc6bBOEpkPHKTZ.NRXjjhLYXzfHZEYRBtr5MxmR.fuJzsR2S3ToQSxLOE.6QJ8o_isuZG2.Sb4l0jggXa9l.0wx_zjrd_MF7u; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 15 Sep 2026 23:08:24 GMT",
+            "transfer-encoding": "chunked",
+            "x-content-type-options": "nosniff",
+            "x-generation-id": "gen-1789511904-HIa30vbCWMz8WQM92oeE"
+          }
+        },
+        "cost_source": "conservative_reservation"
+      }
+    },
+    {
+      "id": "8960e640-6404-4c06-ad86-9f08b99eec3c",
+      "usd": "0.02959096",
+      "usage": {
+        "input": 8354,
+        "output": 4052,
+        "cacheRead": 256,
+        "cacheWrite": 0,
+        "reasoning": 3941,
+        "totalTokens": 12662,
+        "cost": {
+          "input": 0.011695599999999999,
+          "output": 0.017828800000000002,
+          "cacheRead": 6.656e-05,
+          "cacheWrite": 0,
+          "total": 0.02959096
+        },
+        "model": "z-ai/glm-5.3",
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-expose-headers": "X-Generation-Id,X-Provider-Name,request-id,cf-ray",
+            "cache-control": "no-cache",
+            "cf-ray": "a3bb1f219fa7d25a-FRA",
+            "connection": "keep-alive",
+            "content-type": "text/event-stream",
+            "date": "Tue, 15 Sep 2026 22:38:26 GMT",
+            "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+            "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+            "server": "cloudflare",
+            "set-cookie": "__cf_bm=dKoN.3MZBdEUzDTJWGcTMO8EcsnsC6KusTsE_Kf9LZw-1789511905.5385523-1.0.1.1-rD3ln6vGQUkHO1muxidRtV4rXvzaq1pSWYif5_KD7zAQDBaZbss1SJPzh7wXOAlmA2YnSFp823H9DeXgnfxjHh1tFN5NStoaX2r08vY9G2akfNTbzZmUaXISvgfyQiAk; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 15 Sep 2026 23:08:26 GMT",
+            "transfer-encoding": "chunked",
+            "x-content-type-options": "nosniff",
+            "x-generation-id": "gen-1789511905-cOG2CRELshoyBIrVplhD"
+          }
+        },
+        "cost_source": "conservative_reservation"
+      }
+    },
+    {
+      "id": "37718ea3-d717-46a9-88c6-587d72d47a20",
+      "usd": "0.010874479999999999",
+      "usage": {
+        "input": 5944,
+        "output": 81,
+        "cacheRead": 8448,
+        "cacheWrite": 0,
+        "reasoning": 19,
+        "totalTokens": 14473,
+        "cost": {
+          "input": 0.0083216,
+          "output": 0.00035640000000000004,
+          "cacheRead": 0.00219648,
+          "cacheWrite": 0,
+          "total": 0.010874479999999999
+        },
+        "model": "z-ai/glm-5.3",
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-expose-headers": "X-Generation-Id,X-Provider-Name,request-id,cf-ray",
+            "cache-control": "no-cache",
+            "cf-ray": "a3bb202fbabfd25a-FRA",
+            "connection": "keep-alive",
+            "content-type": "text/event-stream",
+            "date": "Tue, 15 Sep 2026 22:39:09 GMT",
+            "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+            "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+            "server": "cloudflare",
+            "set-cookie": "__cf_bm=FYzNQmko0Fach2r_iVsAy5L2Qo1IDu5b5RYq.KBGTX0-1789511948.7570672-1.0.1.1-HAbVLiN5IEI2xFuPiCeEm3bbxS_dkaRrJadSAeJTzmFGrojkHRWo1guzHSagh89wfgjrIZOd6JNgS52zZ5HVwagNokPaBKVXvPzu3Ikw32mRPO3JPljlSNUnsomwyV6F; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 15 Sep 2026 23:09:09 GMT",
+            "transfer-encoding": "chunked",
+            "x-content-type-options": "nosniff",
+            "x-generation-id": "gen-1789511948-JbMEtXtjRj39ziPvN3av"
+          }
+        },
+        "cost_source": "conservative_reservation"
+      }
+    },
+    {
+      "id": "cb3e1d4f-7c24-431f-b5d5-f50a9f48973d",
+      "usd": "0.00594216",
+      "usage": {
+        "input": 1032,
+        "output": 175,
+        "cacheRead": 14336,
+        "cacheWrite": 0,
+        "reasoning": 18,
+        "totalTokens": 15543,
+        "cost": {
+          "input": 0.0014448,
+          "output": 0.0007700000000000001,
+          "cacheRead": 0.00372736,
+          "cacheWrite": 0,
+          "total": 0.00594216
+        },
+        "model": "z-ai/glm-5.3",
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-expose-headers": "X-Generation-Id,X-Provider-Name,request-id,cf-ray",
+            "cache-control": "no-cache",
+            "cf-ray": "a3bb203e1accd25a-FRA",
+            "connection": "keep-alive",
+            "content-type": "text/event-stream",
+            "date": "Tue, 15 Sep 2026 22:39:11 GMT",
+            "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+            "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+            "server": "cloudflare",
+            "set-cookie": "__cf_bm=YC2eU7Yb8dbpwRl0Cdzr2VIArMJQ92JsYDjA2gEpZfk-1789511951.0552557-1.0.1.1-f_0c_NoG9JASTT0wNT69OffG21p1MPyuFwgvRso7dvyHxtSVcYfHn95vqJUCKKiCVP_cbaACwSiVcJlf3DtiE1ZMFfeIS.IPLtYPxYblfDFLqjoFSKShSMRCLvACS8M8; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 15 Sep 2026 23:09:11 GMT",
+            "transfer-encoding": "chunked",
+            "x-content-type-options": "nosniff",
+            "x-generation-id": "gen-1789511951-clhue0kqjsAA55hwgBpp"
+          }
+        },
+        "cost_source": "conservative_reservation"
+      }
+    },
+    {
+      "id": "5116bdb5-3a61-48c7-bc14-a1308e0ed3db",
+      "usd": "0.0055942",
+      "usage": {
+        "input": 257,
+        "output": 282,
+        "cacheRead": 15360,
+        "cacheWrite": 0,
+        "reasoning": 157,
+        "totalTokens": 15899,
+        "cost": {
+          "input": 0.00035979999999999996,
+          "output": 0.0012408,
+          "cacheRead": 0.0039936,
+          "cacheWrite": 0,
+          "total": 0.0055942
+        },
+        "model": "z-ai/glm-5.3",
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-expose-headers": "X-Generation-Id,X-Provider-Name,request-id,cf-ray",
+            "cache-control": "no-cache",
+            "cf-ray": "a3bb204dec87d25a-FRA",
+            "connection": "keep-alive",
+            "content-type": "text/event-stream",
+            "date": "Tue, 15 Sep 2026 22:39:14 GMT",
+            "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+            "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+            "server": "cloudflare",
+            "set-cookie": "__cf_bm=issAx2SePfVEhYPlCJuGyBUUKB.9GwK4PUnCwhs7CA8-1789511953.5857732-1.0.1.1-1vmfgMsH83p0k83HzLn66__giLEKFOKkZsgQeMdScx.N75ztM6OS4g_EUSvYUwWfs0VgxT.CXk2Zmhmsb5e_WbzGKmNqcXeiSPc57eIc4enWKJpbLhMzZcdXJiV0HzIV; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 15 Sep 2026 23:09:14 GMT",
+            "transfer-encoding": "chunked",
+            "x-content-type-options": "nosniff",
+            "x-generation-id": "gen-1789511953-V7htZfEB7aljWx4hjcA2"
+          }
+        },
+        "cost_source": "conservative_reservation"
+      }
+    }
+  ],
+  "tasks": {},
+  "operations": [
+    {
+      "at": 1789511903.553995,
+      "kind": "task_start",
+      "task": "ex3"
+    }
+  ],
+  "status": "running"
+}

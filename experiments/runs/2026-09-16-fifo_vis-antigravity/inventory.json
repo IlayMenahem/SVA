@@ -1,0 +1,113 @@
+{
+  "config": {
+    "schema_version": 1,
+    "model": "Gemini 3.8 Flash",
+    "agent": "antigravity",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "0.15",
+    "max_completion_usd_per_million": "0.60",
+    "context_compression": "lean-ctx",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3",
+      "bdd"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ],
+    "thinking": "high",
+    "task": "fifo_vis"
+  },
+  "tasks": [
+    {
+      "id": "fifo_vis",
+      "source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/fifo_vis.sv",
+      "source_sha256": "4a94e6b07fb63a1efaeb9fc2ff307c565ea92febcd330638751d3ad6bde742ca",
+      "top": "main",
+      "target": "property prop;\n        @(posedge clk) disable iff (rst) (equal == 1); \n    endproperty",
+      "target_body": "\n        @(posedge clk) disable iff (rst) (equal == 1); \n    ",
+      "insert_offset": 1310,
+      "reset": "rst",
+      "premises": [
+        {
+          "id": "published_reset",
+          "kind": "supplied",
+          "statement": "EBMC --reset main.rst",
+          "source": "pinned src/evaluation.py reset policy, qualified for EBMC 6.0",
+          "scope": "main"
+        }
+      ],
+      "clocks": [
+        "@(posedge clk)",
+        "@ (posedge clk)",
+        "@ (posedge clk)"
+      ],
+      "reset_behavior": {
+        "signal": "rst",
+        "property_disable_iff": [
+          "disable iff (rst)"
+        ]
+      },
+      "initialization": {
+        "initial_blocks": [],
+        "declaration_initializers": []
+      },
+      "parameters": {
+        "declarations": [
+          "parameter\t   MSBD = 3",
+          "parameter\t   LAST = 15",
+          "parameter\t   MSBA = 3",
+          "parameter\t    MSBD = 3",
+          "parameter\t    LAST = 15",
+          "parameter\t    MSBA = 3",
+          "parameter\t    MSBD = 3",
+          "parameter\t    LAST = 15",
+          "parameter\t    MSBA = 3"
+        ],
+        "overrides": []
+      },
+      "semantic_checks": {
+        "reset": "published harness flag; backend semantics validated in smoke tests",
+        "vacuity": "unresolved: no complete antecedent reachability audit",
+        "premise_consistency": "unresolved: no complete reachability audit"
+      },
+      "baselines": {
+        "ric3": {
+          "outcome": "proved",
+          "seconds": 619.63,
+          "raw": {
+            "time": 619.63
+          }
+        },
+        "jasper": {
+          "outcome": "proved",
+          "seconds": 1580.0,
+          "raw": {
+            "error": null,
+            "time": 1580
+          }
+        },
+        "vcf": {
+          "outcome": "proved",
+          "seconds": 8664.0,
+          "raw": "02:24:24"
+        }
+      }
+    }
+  ]
+}

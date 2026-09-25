@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/config.json": "275ba741defefb3e506b9e4074b64839ec32d58b470e3f1c9370306d5a2c6fef",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/package-lock.json": "eed158ebc30f901295f89bbda47d6cb03f8a706b4934e449c91369f123a0e61a",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/uv.lock": "ed1fd712dd597567ee54395f95aa04be14887f787709145cbd0d3b239cb42fe9",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/pi-extension.ts": "3d65abbcd0377f3350a65e6c5cff73324d8cd07997fb5d5a677248dae29d9a46",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/campaign.py": "7d961d074da20348c0ae2a38017e74de3adc5b78068c3139edf18aa2aa37facc",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/core.py": "ff77cca0900568d6fefc669375df1a222b0d1a5606aeaf0a2bbfe1158e1c9b53",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/verifier.py": "e589e3e13f7909d4348258101e3a8c20a64c75e48458bc6cd5d40fc6205c7c28",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/tool_backend.py": "4cf43bfe6f58f803eddc47826014d394ea4fed9b85b7ce293c2b83e6276c490c",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/accelerate-sva-proofs/SKILL.md": "d0575bc9e316af2f86b817cf92e9b41c8a52ccfd55cefb406acf97a912022ef6",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/vendor/hw-cbmc/src/ebmc/ebmc": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex51_ebmc.sv": "7e8fc21b75e94261f053ee774b2c685640d143eba073550f829073a7cd6feaf8"
+  },
+  "config": {
+    "schema_version": 1,
+    "model": "antigravity",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "1.4",
+    "max_completion_usd_per_million": "4.4",
+    "headroom_url": "http://127.0.0.1:8787",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ],
+    "thinking": "high",
+    "task": "ex51"
+  },
+  "started_at": 1789512300.514488,
+  "deadline": 1789513320.514488,
+  "discovery_deadline": 1789513020.514488,
+  "last_operation_at": 1789512300.748746,
+  "spent_usd": "0",
+  "reservations": {},
+  "charges": [],
+  "tasks": {
+    "ex51": {
+      "task": "ex51",
+      "direct": {
+        "obligation": "target",
+        "dependencies": [],
+        "mode": "k-induction",
+        "bound": 1,
+        "timeout_seconds": 120,
+        "outcome": "induction_failure",
+        "property_identifier": "Verilog::$root.loop_c_behavior.assert.1",
+        "run": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/proof-runs/1789512300514804000-k-induction",
+        "elapsed_seconds": 0.009991124970838428,
+        "run_status": "completed",
+        "evidence": "reports/000-result.json",
+        "candidate_source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/work/1789512300514804000-k-induction/candidate.sv"
+      },
+      "outcome": "proved",
+      "candidate_target": {
+        "obligation": "target",
+        "dependencies": [
+          "inv_d"
+        ],
+        "mode": "k-induction",
+        "bound": 1,
+        "timeout_seconds": 120,
+        "outcome": "proved",
+        "property_identifier": "Verilog::$root.loop_c_behavior.assert.2",
+        "run": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/proof-runs/1789512300645086000-k-induction",
+        "elapsed_seconds": 0.009177708998322487,
+        "run_status": "completed",
+        "evidence": "reports/000-result.json",
+        "candidate_source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/work/1789512300645086000-k-induction/candidate.sv"
+      },
+      "discovery_seconds": 0.16895312501583248,
+      "replay": {
+        "obligation": "target",
+        "dependencies": [
+          "inv_d"
+        ],
+        "mode": "k-induction",
+        "bound": 1,
+        "timeout_seconds": 120,
+        "outcome": "proved",
+        "property_identifier": "Verilog::$root.loop_c_behavior.assert.2",
+        "run": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/proof-runs/1789512300683805000-k-induction",
+        "elapsed_seconds": 0.010269375052303076,
+        "run_status": "completed",
+        "evidence": "reports/000-result.json",
+        "candidate_source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex51-antigravity/tasks/ex51/work/1789512300683805000-k-induction/candidate.sv"
+      },
+      "audit": {
+        "bookkeeping_ok": true,
+        "formal_validity": "not_certified",
+        "target": "target",
+        "closure": [
+          "inv_d",
+          "target"
+        ],
+        "errors": []
+      }
+    }
+  },
+  "operations": [],
+  "status": "completed"
+}

@@ -1,0 +1,34 @@
+{
+  "model": "Gemini 3.8 Flash",
+  "agent": "antigravity",
+  "thinking": "high",
+  "outcome": "proved",
+  "discovery_seconds": 29.323290833970532,
+  "recorded_api_usd": "0",
+  "requests": 0,
+  "reasoning_tokens": 0,
+  "verifier_calls": 10,
+  "verifier_elapsed_seconds": 29.43978079291992,
+  "clean_replay_seconds": 0.23990162496920675,
+  "target_replay_seconds": 0.07174808403942734,
+  "dependencies": [
+    "inv_control",
+    "inv_data"
+  ],
+  "semantic_checks": {
+    "reset": "published harness flag; backend semantics validated in smoke tests",
+    "vacuity": "unresolved: no complete antecedent reachability audit",
+    "premise_consistency": "unresolved: no complete reachability audit"
+  },
+  "audit": {
+    "bookkeeping_ok": true,
+    "formal_validity": "not_certified",
+    "target": "target",
+    "closure": [
+      "inv_control",
+      "inv_data",
+      "target"
+    ],
+    "errors": []
+  }
+}

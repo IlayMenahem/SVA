@@ -1,0 +1,27 @@
+{
+  "model": "Gemini 3.8 Flash",
+  "agent": "antigravity",
+  "thinking": "high",
+  "outcome": "timeout",
+  "discovery_seconds": 1210.8853652080288,
+  "recorded_api_usd": "0",
+  "requests": 0,
+  "reasoning_tokens": 0,
+  "verifier_calls": 4,
+  "verifier_elapsed_seconds": 1210.6794759170152,
+  "clean_replay_seconds": 0.0,
+  "target_replay_seconds": null,
+  "dependencies": [],
+  "semantic_checks": {
+    "reset": "published harness flag; backend semantics validated in smoke tests",
+    "vacuity": "unresolved: no complete antecedent reachability audit",
+    "premise_consistency": "unresolved: no complete reachability audit"
+  },
+  "unresolved_obligations": [
+    {
+      "obligation": "target",
+      "status": "unresolved (timeout)",
+      "reason": "EBMC Verilog synthesis scales as Theta(6^N) on the nested always_comb loops with in-place array updates (N=4: 0.01s, N=8: 10s, N=16: ~194 days). Alternative unbounded engines fail internally in EBMC (IC3 fails with 'Latch 62 not found', BDD fails with 'Invariant check failed: BDDs[i].is_initialized()'). Published baselines confirm this benchmark's extreme hardness: RIC3 timed out, JasperGold required 907s, and VC Formal required 750s."
+    }
+  ]
+}

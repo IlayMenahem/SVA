@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/config.json": "275ba741defefb3e506b9e4074b64839ec32d58b470e3f1c9370306d5a2c6fef",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/package-lock.json": "eed158ebc30f901295f89bbda47d6cb03f8a706b4934e449c91369f123a0e61a",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/uv.lock": "ed1fd712dd597567ee54395f95aa04be14887f787709145cbd0d3b239cb42fe9",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/pi-extension.ts": "3d65abbcd0377f3350a65e6c5cff73324d8cd07997fb5d5a677248dae29d9a46",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/campaign.py": "c807e03547ffc878229b92b08cbff6b0ac4ea9bfc94497efc99d008bb5af7736",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/core.py": "b15fddea6d61f4667f25ca54c64b489e69ea398fb2eae6e40d2f97411c8611d2",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/verifier.py": "84d314d456a51fe2b6502dc3d28fdd0f0db738ae2e7a35a21dc194672fe6ed8e",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/tool_backend.py": "50ab007ebc07b7da833369f12cf9c0f1f036ba0f173a16a8600779e79829820c",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/accelerate-sva-proofs/SKILL.md": "e356a9e85a84f30f8d2381a15348f0a91999f3ca95a7ad77a6ab05769f74aefe",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/vendor/hw-cbmc/src/ebmc/ebmc": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/fifo_vis.sv": "4a94e6b07fb63a1efaeb9fc2ff307c565ea92febcd330638751d3ad6bde742ca"
+  },
+  "config": {
+    "schema_version": 1,
+    "model": "gpt-6-astra",
+    "agent": "codex-cli",
+    "reasoning_effort": "high",
+    "context_compression": "lean-ctx",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "10",
+    "max_completion_usd_per_million": "50",
+    "headroom_url": null,
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ],
+    "task": "fifo_vis"
+  },
+  "started_at": null,
+  "deadline": null,
+  "discovery_deadline": null,
+  "last_operation_at": 1789557717.2538,
+  "spent_usd": "0",
+  "reservations": {},
+  "charges": [],
+  "tasks": {},
+  "operations": [],
+  "status": "prepared"
+}

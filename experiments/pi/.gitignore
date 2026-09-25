@@ -1,0 +1,6 @@
+node_modules/
+.venv/
+.env
+pi-config/auth.json
+pi-config/models-store.json
+validation/.scratch/

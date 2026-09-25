@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/config.json": "275ba741defefb3e506b9e4074b64839ec32d58b470e3f1c9370306d5a2c6fef",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/package-lock.json": "eed158ebc30f901295f89bbda47d6cb03f8a706b4934e449c91369f123a0e61a",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/uv.lock": "ed1fd712dd597567ee54395f95aa04be14887f787709145cbd0d3b239cb42fe9",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/pi-extension.ts": "57c3c0e300f952734626491e91469239e011cad1ed5e0e81ee3fccd5855e44ce",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/accelerate-sva-proofs/SKILL.md": "7e7336d38a5c8dc69b4c62863933d9c04337d915d34d698166ce57be1c3c4384",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/vendor/hw-cbmc/src/ebmc/ebmc": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/ex3_ebmc.sv": "7bb7290a87a6293af540bdae14e8dc690fa1a107de36e0fb8c7f250c4c1c9fca"
+  },
+  "config": {
+    "schema_version": 1,
+    "model": "z-ai/glm-5.3",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "max_output_tokens": 16384,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "1.4",
+    "max_completion_usd_per_million": "4.4",
+    "headroom_url": "http://127.0.0.1:8787",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 1,
+    "allowed_engines": [
+      "k-induction",
+      "ic3"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "retraction"
+    ],
+    "thinking": "high",
+    "task": "ex3"
+  },
+  "started_at": 1789500813.91581,
+  "deadline": 1789501833.91581,
+  "discovery_deadline": 1789501533.91581,
+  "last_operation_at": 1789500814.4121711,
+  "spent_usd": "0",
+  "reservations": {},
+  "charges": [
+    {
+      "id": "cc8ead1c-76ba-418f-bf24-e8bc9a8a321f",
+      "usd": "0",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        },
+        "model": "z-ai/glm-5.3",
+        "cost_source": "conservative_reservation"
+      }
+    }
+  ],
+  "tasks": {
+    "ex3": {
+      "task": "ex3",
+      "direct": {
+        "obligation": "target",
+        "dependencies": [],
+        "mode": "k-induction",
+        "outcome": "induction_failure",
+        "property_identifier": "Verilog::$root.main.assert.1",
+        "run": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex3-glm53-high/tasks/ex3/proof-runs/1789500813917990000-k-induction",
+        "elapsed_seconds": 0.07489854202140123,
+        "run_status": "completed",
+        "evidence": "reports/000-result.json",
+        "candidate_source": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex3-glm53-high/tasks/ex3/work/1789500813917990000-k-induction/candidate.sv"
+      },
+      "outcome": "induction_failure",
+      "pi": {
+        "exit_code": 143,
+        "transcript": "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/runs/ex3-glm53-high/tasks/ex3/pi-rpc.jsonl"
+      },
+      "candidate_target": null,
+      "discovery_seconds": 0.493756250012666
+    }
+  },
+  "operations": [
+    {
+      "at": 1789500626.7096488,
+      "kind": "paused",
+      "reason": "missing OPENROUTER_API_KEY"
+    },
+    {
+      "at": 1789500813.916805,
+      "kind": "task_start",
+      "task": "ex3"
+    }
+  ],
+  "status": "completed",
+  "pause_reason": "missing OPENROUTER_API_KEY"
+}

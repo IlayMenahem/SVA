@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/config.json": "d3cc254b730cbc484d22a1308b676329db6c7aa5eff73ad3a63db1c3b19fd0e5",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/package-lock.json": "514156052711a18bcb23feb952e01ead878f207e7d4dae5c57797b9447fccbf5",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/uv.lock": "d2a1b6846882bc74806727659494cbe1ac1746003ee835af844121833831bfde",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/pi-extension.ts": "119786bf25354214b0b43940092d08a3e6e275599b371444ba5199c8152b50a6",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/campaign.py": "892972c1ab65f3a28d65bc57f9a9bb68f3c37fa4ee61fb84c13ee08d1e54f228",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/core.py": "f8f50fc9016261c6bc071d69e1ea4df5ad6d4885c88274844b93c866efb19e31",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/verifier.py": "c357725c76caa9631d2f60ff67e4901e2804be60b6a461bc1b39234af2b7d2b6",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/tool_backend.py": "50ab007ebc07b7da833369f12cf9c0f1f036ba0f173a16a8600779e79829820c",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/accelerate-sva-proofs/SKILL.md": "8a154022a5befee270fe7611b3b3fdb8e7b451dc9a514f765b410549726a4a3b",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/pi-headroom-sva/vendor/hw-cbmc/src/ebmc/ebmc": "7216e0a73e39855a5e5b6f2dd089ba01516700ec98601518b09735ec8d8bae52",
+    "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/datasets/raw/large-lemma-miners/benchmarks/hard/lrg_arb_lrg_16_ebmc.sv": "ead38cc1046af1792f852f9777226abe9cd7641736daf9df37e7e1f2fd30212e"
+  },
+  "config": {
+    "schema_version": 1,
+    "model": "claude-opus-5-5",
+    "agent": "claude-code-cli",
+    "reasoning_effort": "high",
+    "context_compression": "lean-ctx",
+    "workers": 1,
+    "campaign_seconds": 1020,
+    "replay_reserve_seconds": 300,
+    "task_seconds": 720,
+    "verifier_seconds": 120,
+    "filter_bound": 30,
+    "api_cap_usd": "25",
+    "max_prompt_usd_per_million": "10",
+    "max_completion_usd_per_million": "50",
+    "compression_threshold_bytes": 4096,
+    "compression_timeout_seconds": 30,
+    "reset_policy": "published evaluation.py find_reset; qualify reset as <top>.rst for EBMC 6.0",
+    "direct_engine": "k-induction",
+    "direct_induction_bound": 4,
+    "allowed_engines": [
+      "k-induction",
+      "ic3",
+      "bdd"
+    ],
+    "transformations": [
+      "helper_assertions",
+      "proved_helper_assumptions",
+      "joint_conjunction",
+      "source_level_semantics_preserving_rewrite",
+      "retraction"
+    ],
+    "task": "lrg_arb_lrg_16"
+  },
+  "started_at": null,
+  "deadline": null,
+  "discovery_deadline": null,
+  "last_operation_at": 1790351783.210619,
+  "spent_usd": "0",
+  "reservations": {},
+  "charges": [],
+  "tasks": {},
+  "operations": [],
+  "status": "prepared"
+}

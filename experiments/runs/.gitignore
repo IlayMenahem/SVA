@@ -1,0 +1,6 @@
+# Track each run's definition and summary; bulk evidence (tasks/, requests/, clean-replay/, N*/) stays local.
+/*/*
+!/*/*.json
+!/*/*.md
+!/*/*.py
+!/*/figures/
