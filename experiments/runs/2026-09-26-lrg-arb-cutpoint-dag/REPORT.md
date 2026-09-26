@@ -73,7 +73,7 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
 - The speedup is about 34× in wall time and about 180× in CPU.
 - The dataset's reference time for N = 16 is 907 s.
 
-## Scaling (sweep.txt, DAG sessions only, controls excluded)
+## Scaling (sweep.txt, kept local per runs/.gitignore; DAG sessions only, controls excluded)
 
 | N | sessions | lemmas proven | wall | verifier CPU |
 |---|---|---|---|---|
@@ -81,10 +81,10 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
 | 32 | 7 | 1618 | 7.2 s | 19.9 s |
 | 64 | 19 | 6306 | 22.3 s | 140.8 s |
 | 128 | 65 | 24898 | 143.5 s | 1762 s |
-| 256 | N256_SESSIONS | N256_LEMMAS | N256_WALL | N256_CPU |
+| 256 | 277 | 98946 | 1121 s | 16360 s |
 
 - There are Θ(N²) obligations, each over a model whose size is polynomial in N.
-- Measured CPU grows roughly like N^3 to N^3.6. Most of it is in L5: each A_j assumes N-1 Q lemmas and muxes over `a`.
+- Measured CPU grows roughly like N^3 (N^2.8, N^3.6, N^3.2 per doubling from 32 to 256). Most of it is in L5: each A_j assumes N-1 Q lemmas and muxes over `a`.
 - The baseline has no such bound. At N = 16 it already costs 1850 CPU-s.
 
 ## Discovery vs reusable cost
@@ -99,8 +99,8 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
   - D without R: proved in 4.2 s.
   - So R and D are cost helpers, not logical necessities.
 - Sweep 2, with auto engines and 16 concurrent sessions: 62.7 s wall / 779 CPU-s for N = 16–64. N = 128 was aborted and later cleaned up.
-- Sweep 3, the final settings: about 180 s wall / 1930 CPU-s for N = 16–128, plus N = 256.
-- Roughly 1 h of wall time on the shared host overall.
+- Sweep 3, the final settings: about 1300 s wall / 18 300 CPU-s for N = 16–256.
+- Roughly 1.5 h of wall time on the shared host overall.
 
 **Agent cost**:
 - This is an estimate, not a metered API bill.
