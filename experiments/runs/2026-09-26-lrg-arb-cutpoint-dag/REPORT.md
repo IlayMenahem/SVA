@@ -152,3 +152,73 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
   - F1 and F4 stay at Jasper startup cost.
   - Wall time is roughly max(F2, F3), because sessions run in parallel.
 - Raw logs: `sweep_free.txt` and `sweep_free_big.txt`, kept local.
+
+## Toward N log N (gen_nlogn.py, `VARIANT=nlogn sh sweep_free.sh`)
+
+In gen_free.py, D (an N-state induction over `ranks[free_i]`) and M (an N-step transitivity chain behind `chosen_priority`) dominate. Engine and cut choices (e.g. `Hp` with `stopat ranks` for G/M) buy a constant factor, not a better slope.
+
+### Localised lemmas
+
+Both global arguments become local, O(1)-step arguments over auxiliary harness logic. The RTL is unchanged.
+
+- **D via shadows.** `sh_i` and `sh_j` equal `free_i` and `free_j` in the first cycle after reset. After that they apply the RTL's per-index update, `rank_upd(r, cp)`.
+  - Jasper leaves no-reset registers X during reset, so a reset-loaded shadow is unrelated to `free_i`. The shadow is therefore selected by a `started` flag.
+  - S_i and S_j (`ranks[free_x] == sh_x`) are single-index inductions.
+  - DS says the 2-register shadow system stays distinct and in range.
+  - D then follows combinationally from S and DS.
+- **M via a snapshot walker.** `min_chain` is the RTL's comparator chain as a module. It is instantiated twice:
+  - on (`ranks`, `in_req_vec`), giving `rpm`, with EQ: `rpm[N] == cp` (ranks cut; structural);
+  - on frozen symbolic snapshots (`snap_r`, `snap_q`: no-reset hold registers, like `free_i`), giving `spm`.
+
+  A walker (`wk`, `wacc`) folds the snapshot one position per cycle. This turns the N-step transitivity into the 1-step invariant WI:
+  `wk<=N && wacc==spm[wk] && (free_j<wk && snap_q[free_j] -> wacc<=snap_r[free_j])`.
+  - MS: at `wk==N`, `spm[N] <= snap_r[free_j]` for requesting `free_j`.
+  - The snapshot is an arbitrary constant, and `wk` reaches N deterministically. So MS gives the combinational fact PHI(v, y) for every valuation v. PHI is assumed at v = (`ranks`, `in_req_vec`), y = `free_j`. This is the same instantiation rule already used for `free_i`/`free_j`.
+  - M is then combinational from EQ and PHI.
+
+| session | asserts | assumes | model |
+|---|---|---|---|
+| P_C | C | none | cp cut |
+| P_Si, P_Sj | S_i, S_j | none | cp cut |
+| P_DS | DS | none | cp cut |
+| P_D | D(i,j) | S_i, S_j, DS | cp cut |
+| P_G | G(i) | none | ranks cut |
+| P_EQ | EQ | none | ranks cut |
+| P_WI | WI | none | concrete |
+| P_MS | MS | WI | concrete |
+| P_M | M(j) | EQ, PHI(real, j) | ranks cut |
+| P_T | target, cover W_grant_req | G(a), M(b), D(a,b), C | cp cut |
+
+- Engine: `Hp` for all DAG sessions.
+- Controls are cex at every N:
+  - X1 (`ranks[free_i] < N-1`);
+  - X3 (target without M);
+  - X4 (MS with a strict `<`, which checks that the walker invariant is not vacuous).
+- The X4 cover `wk == N` is reached, and so is the target's cover W_grant_req.
+
+### Result (sweep_nlogn.txt, kept local; CPU s; DAG sessions only; JOBS=6)
+
+| N | total CPU | exp | P_Si | P_Sj | P_WI | max other | wall (incl. controls) |
+|---|---|---|---|---|---|---|---|
+| 16 | 7.9 | | 0.8 | 0.8 | 0.7 | 0.8 | 9.5 |
+| 32 | 8.4 | 0.08 | 0.9 | 0.9 | 0.9 | 0.8 | 9.6 |
+| 64 | 9.7 | 0.22 | 1.2 | 1.2 | 1.1 | 0.8 | 9.7 |
+| 128 | 13.2 | 0.44 | 2.2 | 2.2 | 1.8 | 1.0 | 10.3 |
+| 256 | 30.2 | 1.19 | 8.1 | 8.1 | 4.7 | 1.3 | 14.7 |
+| 512 | 56.8 | 0.91 | 14.2 | 14.2 | 12.2 | 2.7 | 22.3 |
+| 1024 | 190.2 | 1.74 | 52.3 | 52.0 | 49.4 | 7.0 | 58.3 |
+
+- **Against gen_free.py at N=256:** CPU drops from 443.5 s to 30.2 s (14.7×). Wall drops from 104.4 s to 14.7 s.
+- **N=512 and N=1024** were out of reach before, and now take 22 s and 58 s wall.
+- **Growth.** Over 256→1024, total CPU grows 6.3×, which is an exponent of 1.33. N log N predicts 5× (1.16) and N² predicts 16×.
+  - Up to N=512 the measurements are consistent with N log N.
+  - The 512→1024 doubling is 1.74.
+- **Not strictly N log N yet.**
+  - Eight of the eleven sessions (C, DS, D, G, EQ, MS, M, T) stay at 7 s or less at N=1024. From 256 to 1024 they grow about N^1, which is Jasper startup/elaboration of the O(N log N) netlist.
+  - The residual super-N log N term comes from the three sessions that still induct through a symbolically indexed mux: S_i and S_j (`ranks[free_i]`), and WI (`spm[wk]`, `snap_r[wk]`). Each grows about N^1.9 from 512 to 1024.
+- **Tried: per-index split of S.**
+  - The split is N asserts `free_i==k |-> ranks[k]==sh_i`, each with an O(log N) cone of influence, and D is then proven from the 2N instances.
+  - It is sound, and D stays cheap (10.0 s at 1024).
+  - The split session costs 1.6 / 6.5 / 11.9 / 38.9 s at N = 64 / 256 / 512 / 1024, i.e. the same slope.
+  - The remaining term therefore appears to be Jasper's per-design/per-property overhead on the O(N log N) netlist, not the proof itself. The mux form was kept.
+  - `Ht` on the split did not finish within 600 s at N=64.

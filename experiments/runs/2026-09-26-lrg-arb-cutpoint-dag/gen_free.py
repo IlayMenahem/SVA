@@ -55,6 +55,7 @@ class Level:
     covers: dict[str, str]
     prove_target: bool
     engines: str = DAG_ENGINES
+    extra_cuts: tuple[str, ...] = ()
 
 
 def rng(n: int, x: str) -> str:
@@ -122,6 +123,15 @@ def control_levels(n: int) -> list[Level]:
             Level("X3", (no_min,), True, {}, True, CONTROL_ENGINES)]
 
 
+def explore_levels(n: int) -> list[Level]:
+    """Engine/cut variants of the expensive sessions (F2, F3), for choosing the cheapest sound setup."""
+    ob: dict[str, Obligation] = {o.name: o for o in obligations(n)}
+    f2: list[Level] = [Level(f"E2_{e}", (ob["D"],), True, {}, False, e) for e in ("Hp", "N", "Mp")]
+    f3: list[Level] = [Level(f"E3_{e}", (ob["G"], ob["M"]), False, {}, False, e, ("ranks",))
+                       for e in ("Hp", "N", "Mp")]
+    return f2 + f3
+
+
 def tcl_text(n: int, level: Level) -> str:
     assumed: dict[str, str] = {d.name: d.expr for ob in level.asserts for d in ob.deps}
     own: tuple[Obligation, ...] = tuple(o for o in level.asserts if o.expr != "prop")
@@ -135,6 +145,7 @@ def tcl_text(n: int, level: Level) -> str:
     ]
     lines += [f"set_engine_mode {{{level.engines}}}"] if level.engines else []
     lines += [f"stopat {CP}"] if level.cut_cp else []
+    lines += [f"stopat {c}" for c in level.extra_cuts]
     lines += [f"assume -name {k} {{{v}}}" for k, v in sorted(assumed.items())]
     lines += [f"assert -name {o.name} {{{o.expr}}}" for o in own]
     lines += [f"cover -name {k} {{{v}}}" for k, v in level.covers.items()]
@@ -152,7 +163,7 @@ def tcl_text(n: int, level: Level) -> str:
 def main(argv: list[str]) -> None:
     n: int = int(argv[1])
     out: pathlib.Path = HERE / "work" / "free" / f"N{n}"
-    for level in dag_levels(n) + control_levels(n):
+    for level in dag_levels(n) + control_levels(n) + explore_levels(n):
         d: pathlib.Path = out / level.name
         d.mkdir(parents=True, exist_ok=True)
         (d / "harness.sv").write_text(free_harness_text(n))
