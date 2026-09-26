@@ -107,3 +107,34 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
 - About 2 context windows and roughly 300 tool calls.
 - Order of 15–20 M cached input tokens and about 0.15 M output tokens.
 - At Opus-class list pricing this is roughly US$30–50.
+
+## Free-variable variant (gen_free.py, sweep_free.sh)
+
+- The harness gets two symbolic constants `free_i`, `free_j`: registers with no reset that hold their arbitrary initial value forever.
+- A lemma proven at `free_i`/`free_j` holds for every index. It can therefore be assumed at any index expression; the target assumes it at its own `a`, `b`.
+- This replaces the per-index enumeration. Obligations go from Θ(N²) to **6**, and Q/A are no longer needed.
+
+| session | asserts | assumes | model |
+|---|---|---|---|
+| F1 | R(i): `i<N \|-> ranks[i]<N`, C | none | cp cut |
+| F2 | D(i,j): `i,j<N && i!=j \|-> ranks[i]!=ranks[j]` | R(i), R(j) | cp cut |
+| F3 | G(i), M(j) | none | **concrete** |
+| F4 | target, cover W_grant_req | G(a), M(b), D(a,b), C | cp cut |
+
+- Controls (both cex at every N):
+  - X1: `ranks[free_i] < N-1`. This shows `free_i` really ranges over the indices.
+  - X3: the target without M(b). This shows the cp relation lost by the cut is needed.
+  - Dropping G instead is *not* a valid control. G holds structurally even with cp cut, and the target still proves without it.
+
+### Benchmark: free-variable vs enumerated DAG (DAG sessions only, same host, `{Hp Mp N}`, JOBS=6)
+
+| N | free: obligations | free: wall | free: CPU | enumerated: lemmas | enumerated: wall | enumerated: CPU |
+|---|---|---|---|---|---|---|
+| 16 | 6 | 3.3 s | 3.5 s | 426 | 6.5 s | 6.8 s |
+| 32 | 6 | 4.0 s | 5.6 s | 1618 | 7.2 s | 19.9 s |
+| 64 | 6 | 8.2 s | 19.7 s | 6306 | 22.3 s | 140.8 s |
+
+- At N=64 the free-variable version is about 7× cheaper in CPU and 2.7× faster in wall time.
+- Most of the wall time at small N is Jasper startup, about 3 s per session.
+- The bottleneck is now F2, the induction for D(i,j) over symbolically indexed `ranks`: 1.2 → 2.9 → 15.4 CPU-s, about N^2.4 per doubling from 32 to 64.
+- Raw log: `sweep_free.txt`, kept local.
