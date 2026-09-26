@@ -1,0 +1,810 @@
+[
+  {
+    "name": "mut_iter_min",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.006646415975410491,
+    "cpu_s": 0.005359,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_mut_iter_min.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_update",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.008265874988865107,
+    "cpu_s": 0.007026999999999999,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_mut_iter_update.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_block",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.03381754196016118,
+    "cpu_s": 0.032527999999999994,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_mut_block.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L1",
+    "num_req": 4,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.00914525002008304,
+    "cpu_s": 0.007956999999999999,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_L3_without_L1.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L2",
+    "num_req": 4,
+    "expected": "proved",
+    "verdict": "proved",
+    "wall_s": 0.0093384999781847,
+    "cpu_s": 0.008099000000000002,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_L3_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L2",
+    "num_req": 4,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.010091250005643815,
+    "cpu_s": 0.008926000000000003,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_target_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L3",
+    "num_req": 4,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.009292208007536829,
+    "cpu_s": 0.008049,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_target_without_L3.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_helpers",
+    "num_req": 4,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.008745625033043325,
+    "cpu_s": 0.007526999999999992,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_target_without_helpers.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_target",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.01714425004320219,
+    "cpu_s": 0.01592500000000001,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_mut_target.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_target_antecedent",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.016725457971915603,
+    "cpu_s": 0.015602999999999992,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_witness_target_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_L3_antecedent",
+    "num_req": 4,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.015431999985594302,
+    "cpu_s": 0.014182,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N4/controls/ctl_witness_L3_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_min",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.006975958007387817,
+    "cpu_s": 0.005823999999999996,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_mut_iter_min.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_update",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.009139458008576185,
+    "cpu_s": 0.00794499999999998,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_mut_iter_update.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_block",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.1662113339989446,
+    "cpu_s": 0.16429300000000005,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_mut_block.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L1",
+    "num_req": 5,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.011728791985660791,
+    "cpu_s": 0.01039699999999999,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_L3_without_L1.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L2",
+    "num_req": 5,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.01107275002868846,
+    "cpu_s": 0.009871999999999936,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_L3_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L2",
+    "num_req": 5,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.011556832992937416,
+    "cpu_s": 0.010350000000000026,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_target_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L3",
+    "num_req": 5,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.010783125006128103,
+    "cpu_s": 0.009533000000000014,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_target_without_L3.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_helpers",
+    "num_req": 5,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.009986417018808424,
+    "cpu_s": 0.00897899999999996,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_target_without_helpers.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_target",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.021651834016665816,
+    "cpu_s": 0.02021400000000001,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_mut_target.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_target_antecedent",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.02108816703548655,
+    "cpu_s": 0.019992999999999983,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_witness_target_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_L3_antecedent",
+    "num_req": 5,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.019844124966766685,
+    "cpu_s": 0.018294000000000032,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N5/controls/ctl_witness_L3_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_min",
+    "num_req": 10,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.014045583026017994,
+    "cpu_s": 0.012669000000000041,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_mut_iter_min.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_update",
+    "num_req": 10,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.01702670898521319,
+    "cpu_s": 0.01564899999999997,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_mut_iter_update.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L1",
+    "num_req": 10,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.020878707990050316,
+    "cpu_s": 0.019629000000000008,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_L3_without_L1.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L2",
+    "num_req": 10,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.020718833024147898,
+    "cpu_s": 0.019579999999999986,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_L3_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L2",
+    "num_req": 10,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.021314666024409235,
+    "cpu_s": 0.020311000000000023,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_target_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L3",
+    "num_req": 10,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.021124624996446073,
+    "cpu_s": 0.01988499999999993,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_target_without_L3.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_helpers",
+    "num_req": 10,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.022272500034887344,
+    "cpu_s": 0.020909000000000066,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_target_without_helpers.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_target",
+    "num_req": 10,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.053711957996711135,
+    "cpu_s": 0.05220800000000003,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_mut_target.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_target_antecedent",
+    "num_req": 10,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.05384008301189169,
+    "cpu_s": 0.05233699999999997,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_witness_target_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_L3_antecedent",
+    "num_req": 10,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.049350916990078986,
+    "cpu_s": 0.047999000000000014,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N10/controls/ctl_witness_L3_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_min",
+    "num_req": 16,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.027394208998885006,
+    "cpu_s": 0.026177999999999924,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_mut_iter_min.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_iter_update",
+    "num_req": 16,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.036943792016245425,
+    "cpu_s": 0.035580000000000056,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_mut_iter_update.sv",
+      "--top",
+      "main",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L1",
+    "num_req": 16,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.04495358298299834,
+    "cpu_s": 0.04350200000000004,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_L3_without_L1.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "L3_without_L2",
+    "num_req": 16,
+    "expected": "proved",
+    "verdict": "proved",
+    "wall_s": 0.1549598330166191,
+    "cpu_s": 0.15359,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_L3_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L2",
+    "num_req": 16,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.05081683298340067,
+    "cpu_s": 0.04946399999999984,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_target_without_L2.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_L3",
+    "num_req": 16,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.04492358397692442,
+    "cpu_s": 0.043486000000000136,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_target_without_L3.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "target_without_helpers",
+    "num_req": 16,
+    "expected": "inconclusive",
+    "verdict": "inconclusive",
+    "wall_s": 0.04480562498793006,
+    "cpu_s": 0.04314399999999985,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_target_without_helpers.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--k-induction",
+      "--bound",
+      "1"
+    ],
+    "ok": true
+  },
+  {
+    "name": "mut_target",
+    "num_req": 16,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.12800462503219023,
+    "cpu_s": 0.12654200000000015,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_mut_target.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_target_antecedent",
+    "num_req": 16,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.12875687499763444,
+    "cpu_s": 0.12736999999999998,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_witness_target_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  },
+  {
+    "name": "witness_L3_antecedent",
+    "num_req": 16,
+    "expected": "refuted",
+    "verdict": "refuted",
+    "wall_s": 0.12234545801766217,
+    "cpu_s": 0.12069200000000002,
+    "command": [
+      "/Users/ilaymenahem/Documents/university.nosync/Reasearch/SVA/experiments/ebmc/hw-cbmc/src/ebmc/ebmc",
+      "N16/controls/ctl_witness_L3_antecedent.sv",
+      "--top",
+      "main",
+      "--reset",
+      "main.rst",
+      "--bound",
+      "8"
+    ],
+    "ok": true
+  }
+]
