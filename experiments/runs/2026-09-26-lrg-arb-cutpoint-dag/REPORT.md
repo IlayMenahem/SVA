@@ -133,8 +133,22 @@ sh sweep.sh "16 32 64 128 256" X1 X3 > sweep.txt && python3 summarize.py sweep.t
 | 16 | 6 | 3.3 s | 3.5 s | 426 | 6.5 s | 6.8 s |
 | 32 | 6 | 4.0 s | 5.6 s | 1618 | 7.2 s | 19.9 s |
 | 64 | 6 | 8.2 s | 19.7 s | 6306 | 22.3 s | 140.8 s |
+| 128 | 6 | 23.2 s | 76.0 s | 24898 | 143.5 s | 1762 s |
+| 256 | 6 | 104.4 s | 443.5 s | 98946 | 1121 s | 16360 s |
 
-- At N=64 the free-variable version is about 7× cheaper in CPU and 2.7× faster in wall time.
+- CPU speedup over the enumerated DAG grows with N: 7× at 64, 23× at 128, 37× at 256. Wall speedup at 256 is 10.7×.
+- Total CPU per doubling is N^1.95 (64→128) and N^2.55 (128→256); the enumerated DAG was about N^3.2.
 - Most of the wall time at small N is Jasper startup, about 3 s per session.
-- The bottleneck is now F2, the induction for D(i,j) over symbolically indexed `ranks`: 1.2 → 2.9 → 15.4 CPU-s, about N^2.4 per doubling from 32 to 64.
-- Raw log: `sweep_free.txt`, kept local.
+- Per-session CPU (s):
+
+| N | F1 | F2 (D, cut) | F3 (G/M, concrete) | F4 |
+|---|---|---|---|---|
+| 64 | 0.8 | 15.4 | 2.6 | 0.9 |
+| 128 | 0.9 | 60.2 | 13.8 | 1.0 |
+| 256 | 1.3 | 303.0 | 137.9 | 1.5 |
+
+  - F2 is the largest cost. It grows about N^2.0, then N^2.3.
+  - F3 is growing fastest: N^2.4, then N^3.3. It runs on the concrete design, where the N-way min feeds the symbolically indexed grant.
+  - F1 and F4 stay at Jasper startup cost.
+  - Wall time is roughly max(F2, F3), because sessions run in parallel.
+- Raw logs: `sweep_free.txt` and `sweep_free_big.txt`, kept local.
