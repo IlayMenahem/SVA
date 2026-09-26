@@ -1,0 +1,4 @@
+{
+  "files": ["rtl/ex15_ebmc.sv", "formal/ex15_obligations.sv", "formal/ex15_bind.sv", "formal/prove.tcl", "formal/run_jasper.sh"],
+  "settings": {"top": "ex15", "clock": "clk", "reset": "rst (active high)", "host": "vlsi", "prover": "JasperGold, engines via EX15_ENGINES"}
+}

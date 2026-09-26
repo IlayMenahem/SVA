@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "target": "target",
+  "premises": [],
+  "transformations": [],
+  "obligations": [
+    {
+      "id": "target",
+      "statement": "@(posedge clk) disable iff (rst) (state != DONE || n <= 0 || m < n)",
+      "scope": "ex15 (WIDTH=32) with bound checker ex15.u_obl; clock clk, reset rst (active high), disable iff (rst)",
+      "dependencies": [
+        "h_x_le_n",
+        "h_m_lt_x"
+      ],
+      "premises": [],
+      "outcome": "proved",
+      "proof_kind": "unbounded",
+      "run": "proof-runs/target-w32/run.json",
+      "run_sha256": "bf4acea52bf908a2d3284001c31535f54da99e2cb6043afc741639319bb9e2da",
+      "evidence": {
+        "file": "stdout.log",
+        "sha256": "61d4bae07007f97476b9a2acb777464269c00a1977e6cb84fd5bcddebc5de64b",
+        "locator": "ex15.u_obl.target: 'EX15_RESULT obl=target width=32 engines={Hp Ht N B} status=proven time=0.001641988754272461 engine=Hp' and the report -detailed 'Result : proven' block"
+      },
+      "context_review": "JasperGold 2024.06p002, engines Hp Ht N B, WIDTH=32, clock clk, reset rst. assert target; assume h_x_le_n and h_m_lt_x (defines ASSERT_TARGET ASSUME_X_LE_N ASSUME_M_LT_X). EX15_PROPERTY lines list exactly these assert/assume properties plus cover c_done, which is covered in 5 cycles under the same assumptions (nonvacuity)."
+    },
+    {
+      "id": "h_x_le_n",
+      "statement": "@(posedge clk) disable iff (rst) (x <= n)",
+      "scope": "ex15 (WIDTH=32) with bound checker ex15.u_obl; clock clk, reset rst (active high), disable iff (rst)",
+      "dependencies": [],
+      "premises": [],
+      "outcome": "proved",
+      "proof_kind": "unbounded",
+      "run": "proof-runs/x_le_n-w32/run.json",
+      "run_sha256": "46c60b0516b7a0f8815d2adf20e7b3cd1d3e36b4751faec48d689ce6813fcdf2",
+      "evidence": {
+        "file": "stdout.log",
+        "sha256": "0e0ad07168d24ea40208597ca83637054b9d7d7178bd700419d129ca6841ab71",
+        "locator": "ex15.u_obl.h_x_le_n: 'EX15_RESULT obl=x_le_n width=32 engines={Hp Ht N B} status=proven time=0.0020890235900878906 engine=Hp' and the report -detailed 'Result : proven' block"
+      },
+      "context_review": "JasperGold 2024.06p002, engines Hp Ht N B, WIDTH=32, clock clk, reset rst. assert h_x_le_n only; no assumptions (EX15_PROPERTY lists a single assert)."
+    },
+    {
+      "id": "h_m_lt_x",
+      "statement": "@(posedge clk) disable iff (rst) (m == 0 || m < x)",
+      "scope": "ex15 (WIDTH=32) with bound checker ex15.u_obl; clock clk, reset rst (active high), disable iff (rst)",
+      "dependencies": [],
+      "premises": [],
+      "outcome": "proved",
+      "proof_kind": "unbounded",
+      "run": "proof-runs/m_lt_x-w32/run.json",
+      "run_sha256": "4dd31648d26159b80a18394ec7971516df28552ea484c33a54cb8852eee1a518",
+      "evidence": {
+        "file": "stdout.log",
+        "sha256": "1b77039d1520c4c77cf4c2f70d4c6d1a301020d1fa402968d099d9ca8240f834",
+        "locator": "ex15.u_obl.h_m_lt_x: 'EX15_RESULT obl=m_lt_x width=32 engines={Hp Ht N B} status=proven time=0.004726886749267578 engine=Hp' and the report -detailed 'Result : proven' block"
+      },
+      "context_review": "JasperGold 2024.06p002, engines Hp Ht N B, WIDTH=32, clock clk, reset rst. assert h_m_lt_x only; no assumptions (EX15_PROPERTY lists a single assert)."
+    }
+  ],
+  "target_source": "datasets/raw/large-lemma-miners/benchmarks/hard/ex15_ebmc.sv, property prop"
+}
