@@ -9,7 +9,12 @@ Reduce total proof cost by composing three strategies:
 
 1. **Helper-lemma DAG:** represent proof obligations as nodes, with edges from each obligation to the helpers it assumes.
 2. **Assume-guarantee reasoning:** prove local guarantees under interface assumptions, assigning generated assumptions to obligations at their owning scope.
-3. **Abstractions:** replace expensive state or logic with a simpler model and add its preservation obligations to the DAG. State the concrete-to-abstract relation and why proving the abstract target implies the concrete one. Common abstractions include cutpoints, initial value abstraction, counter abstractions, and blackboxing.
+3. **Abstractions:** replace expensive state or logic with a simpler model and add its preservation obligations to the DAG. State the concrete-to-abstract relation and why proving the abstract target implies the concrete one. Common abstractions include cutpoints (stopat), initial value abstraction, counter abstractions, and blackboxing.
+
+Different helper lemmas can have its own abstractions and be proved with a different proof engine.
+
+To evaluate how a proof or a lemma scales (i.e., how its CPU time grows with parameter size: exponential, polynomial, linear, logarithmic, and constant), shrink large parameters and observe the CPU time.
+The lower in the heirarchy the CPU time grows, the better; the proof should be accepted for the original parameters.
 
 Helpers may be assumed to prove other helpers or the target before they are proved. Results remain conditional until every obligation in the target's dependency closure is validated; execution order need not follow the DAG.
 
@@ -22,12 +27,6 @@ Helpers may be assumed to prove other helpers or the target before they are prov
 
 ## Compositions
 
-Try these first:
-
-- **Blackbox low-relevance modules.** Replace a large module that contributes little target-relevant behavior with an assume-guarantee contract. Obligation: the module satisfies the contract under the enclosing premises.
-- **Shrink large parameters.** Try proving the property for smaller parameter values, with a proof that adapts to the original parameters and whose cost grows approximately polynomially in them.
-
-Others:
 
 | Difficulty | Composition | Key obligations |
 | --- | --- | --- |
@@ -36,10 +35,6 @@ Others:
 | Expensive logic drives a small interface | Cutpoints constrained by helper contracts | The concrete drivers satisfy the contracts, including temporal correlations. |
 | Initial-state detail dominates reasoning | Initial value abstraction that retains relevant relations | The abstract initial set includes every legal concrete initial state and preserves required cross-state relations. |
 | Wide counters dominate the cone | Bound/relation helpers, then smaller abstract counters | Wraparound, saturation, enable/reset priority, comparisons, and target-visible behavior. |
-
-## Backend support
-
-Not every backend supports every strategy, SVA construct, or validation check. Check available capabilities and documented semantics before choosing a technique. Report unsupported or inconclusive checks; an abstraction with unvalidated preservation obligations remains exploratory.
 
 ## Evidence and reporting
 
@@ -50,4 +45,5 @@ Report target status, the dependency DAG, abstractions, and replay commands. Com
 ## Work methodology
 
 - Time-limit each lemma proof attempt; with the right assumptions and abstractions, each lemma should prove within seconds to a minute.
+- Use free variables and bit splitting to simplify proofs and let the proof engine do its optimizations.
 - Schedule obligations by expected payoff, running the prover on several in parallel.
