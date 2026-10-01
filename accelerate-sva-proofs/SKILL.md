@@ -1,6 +1,6 @@
 ---
 name: accelerate-sva-proofs
-description: Accelerate formal proofs of existing SystemVerilog Assertions by composing helper-lemma DAGs, assume-guarantee reasoning, and abstractions. Use for slow or timed-out SVA proofs and proof-cost optimization with an existing RTL and prover setup.
+description: Accelerate formal proofs of existing SystemVerilog Assertions by composing helper-lemma DAGs, assume-guarantee reasoning, and abstractions. Use for slow or timed-out SVA proofs.
 ---
 
 # Accelerate SVA proofs
@@ -15,7 +15,7 @@ Helpers may be assumed to prove other helpers or the target before they are prov
 
 ## Workflow
 
-1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. Run the target under a time limit with the run recorder to record baseline CPU time, and use diagnostics to identify the bottleneck.
+1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. Run the target under a time limit with the run recorder to record baseline CPU time, and use diagnostics to identify the bottleneck. If the baseline finished then you completed your task.
 2. **Shrink:** If parameters are large, derive a reduced configuration for fast iteration (see [Scaling](#scaling)).
 3. **Propose:** Choose compositions from [Compositions](#compositions) by the estimated combined cost of the target and new obligations; many small obligations can cost more than the original proof. Keep a small ranked list of candidates. For each candidate, draft its DAG nodes, and for each abstraction, its concrete-to-abstract relation.
 4. **Evaluate:** Run candidates in isolated files under time limits, several at once, ordered by expected payoff. Interpret results and check proof contexts with [correctness and feedback](references/correctness.md). Measure how each lemma scales, only up to the target's parameter size.
@@ -44,9 +44,17 @@ Note: we want to minimize the total CPU time (Proof discovery + final validation
 
 ## Evidence and reporting
 
-Use [recording and audit](references/recording.md) for the bundled run recorder and DAG auditor. Keep exact inputs, commands, and full proof artifacts on disk.
+Use [recording and audit](references/recording.md) for the bundled run recorder and DAG auditor.
 
-Report target status, the dependency DAG, abstractions, and replay commands. Compare equivalent configurations and budgets, separating discovery cost (including failed attempts and baseline acquisition) from reusable proof cost (including helpers and preservation obligations). Report elapsed time, verifier CPU time, calls, and agent cost: the API cost, or an estimate from API pricing and token usage.
+Report the dependency DAG, abstractions, and replay commands.
+
+At the top of the report there should be listed the following statistics:
+- Whether the target was proved
+- Agent time cost: the API cost, or an estimate from API pricing and token usage.
+- discovery CPU time (including failed attempts and baseline acquisition)
+- proof CPU time (including helpers and preservation obligations).
+- number of verifier calls
+- Proof DAG size and depth, and number of abstractions
 
 ## General advice and notes
 
