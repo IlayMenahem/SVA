@@ -31,6 +31,13 @@ Inputs are hashed before/after execution and again during audit. The manifest is
 
 The recorder kills remaining POSIX process-group members on completion, timeout, or interruption. Detached workers, remote jobs, and batch schedulers need separate lifecycle management.
 
+For remote provers:
+- Measure CPU on the remote side (e.g. `/usr/bin/time -o` to a file in the run directory) so a killed session keeps its record.
+- Run `ssh -n` with stdin from `/dev/null`; a lingering child holding stdin stalls the stream.
+- Kill a session by its process group, never by `pkill` on a name, which also kills timing wrappers and other runs.
+- Set the prover's job count explicitly in every session; automatic modes may exceed it.
+- Check the run directory before launching; never repeat a recorded run unless its inputs changed.
+
 Exit codes: `0` successful recording, `1` execution/recording failure, `2` invalid setup, `124` timeout, `130` interruption. None establishes proof status. Recorded wall time includes command execution and cleanup, excluding hashing and archival.
 
 ## Maintain a ledger
@@ -71,3 +78,35 @@ python3 /path/to/accelerate-sva-proofs/scripts/audit_proof.py /path/to/project/p
 The audit checks DAG structure, every entry labeled `proved`, evidence integrity, and current input hashes. All target dependencies must be proved at completion, regardless of run order. Unused candidates may remain unresolved but cannot contain cycles or invalid references.
 
 Exit `0` means bookkeeping passed; exit `1` means it failed. The result always includes `formal_validity: "not_certified"`; apply the semantic checks in [correctness](correctness.md).
+
+## Validate a proof
+
+A proof is accepted only when this passes:
+
+```bash
+python3 /path/to/accelerate-sva-proofs/scripts/validate_proof.py /path/to/project/proof-ledger.json
+```
+
+The replay script must write a results file, archived with `--report`, listing every replayed property:
+
+```json
+{"properties": [
+  {"id": "target", "kind": "assert", "status": "proven", "engine": "Hp", "assumed": ["helper"]},
+  {"id": "cov_target_pre", "kind": "cover", "status": "covered", "engine": "Ht", "assumed": []}
+]}
+```
+
+`id` matches ledger obligation IDs, and `assumed` lists the obligations and supplied premises enabled as assumptions while proving it. Add the replay to the ledger:
+
+```json
+"replay": {
+  "run": "proof-runs/replay-001/run.json",
+  "run_sha256": "SHA-256 printed by the recorder",
+  "proof_kind": "unbounded",
+  "evidence": {"file": "reports/000-results.json", "sha256": "hash from run.json evidence", "locator": "replay results file"},
+  "context_review": "Clean prover state, original parameters, one engine per node",
+  "covers": ["cov_target_pre"]
+}
+```
+
+The validator requires a passing audit, a valid replay record with current inputs, every obligation in the target's closure `proven` in that one replay with `assumed` within its declared dependencies and premises, and every listed cover (at least one) `covered`. It trusts the results file to reflect the prover's output; formal validity remains `not_certified`.

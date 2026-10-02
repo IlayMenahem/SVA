@@ -14,6 +14,7 @@ SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 from audit_proof import audit
 from proof_io import digest
+from validate_proof import validate
 
 
 @unittest.skipUnless(os.name == "posix", "recorder requires POSIX")
@@ -307,6 +308,138 @@ class Helpers(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 1)
             self.assertFalse(json.loads(result.stdout)["bookkeeping_ok"])
+            self.assertNotIn("Traceback", result.stderr)
+
+    def replayed_ledger(self, properties):
+        self.serial += 1
+        results = f"results-{self.serial}.json"
+        code = f"from pathlib import Path; Path({results!r}).write_text({json.dumps({'properties': properties})!r})"
+        result, folder = self.run_command(code, extra=["--report", results])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        run = json.loads((folder / "run.json").read_text())
+        evidence = f"reports/000-{results}"
+        ledger = self.ledger()
+        ledger["replay"] = {
+            "run": str(folder / "run.json"),
+            "run_sha256": digest(folder / "run.json"),
+            "proof_kind": "unbounded",
+            "evidence": {
+                "file": evidence,
+                "sha256": run["evidence"][evidence],
+                "locator": "synthetic replay results",
+            },
+            "context_review": "synthetic replay fixture",
+            "covers": ["cov"],
+        }
+        return ledger
+
+    def validate_ledger(self, ledger):
+        path = self.root / "ledger.json"
+        path.write_text(json.dumps(ledger))
+        return validate(path)
+
+    def test_validator_accepts_clean_replay_and_rejects_violations(self):
+        good = [
+            {"id": "helper", "kind": "assert", "status": "proven", "engine": "N", "assumed": []},
+            {"id": "target", "kind": "assert", "status": "proven", "engine": "Hp", "assumed": ["helper"]},
+            {"id": "cov", "kind": "cover", "status": "covered", "engine": "Ht", "assumed": []},
+        ]
+        result = self.validate_ledger(self.replayed_ledger(good))
+        self.assertTrue(result["accepted"], result)
+        cases = {
+            "undeclared assumptions": [good[0] | {"assumed": ["target"]}, good[1], good[2]],
+            "replay status": [good[0] | {"status": "undetermined"}, good[1], good[2]],
+            "not replayed: helper": [good[1], good[2]],
+            "cover not replayed": good[:2],
+            "cover status": [*good[:2], good[2] | {"status": "unreachable"}],
+        }
+        for message, properties in cases.items():
+            with self.subTest(message=message):
+                result = self.validate_ledger(self.replayed_ledger(properties))
+                self.assertFalse(result["accepted"])
+                self.assertIn(message, str(result["errors"]))
+        ledger = self.ledger()
+        self.assertIn("missing replay", str(self.validate_ledger(ledger)["errors"]))
+
+    def good_replay(self):
+        return [
+            {"id": "helper", "kind": "assert", "status": "proven", "engine": "N", "assumed": []},
+            {"id": "target", "kind": "assert", "status": "proven", "engine": "Hp", "assumed": ["helper"]},
+            {"id": "cov", "kind": "cover", "status": "covered", "engine": "Ht", "assumed": []},
+        ]
+
+    def test_validator_property_level_violations(self):
+        good = self.good_replay()
+        cases = {
+            "replayed as cover": [good[0] | {"kind": "cover"}, good[1], good[2]],
+            "missing text: engine": [good[0] | {"engine": ""}, good[1], good[2]],
+            "duplicate ID": [good[0] | {"assumed": ["x", "x"]}, good[1], good[2]],
+            "replayed as assert": [*good[:2], good[2] | {"kind": "assert"}],
+            "duplicate replay property": [*good, good[0]],
+        }
+        for message, properties in cases.items():
+            with self.subTest(message=message):
+                result = self.validate_ledger(self.replayed_ledger(properties))
+                self.assertFalse(result["accepted"])
+                self.assertIn(message, str(result["errors"]))
+
+    def test_validator_allows_premises_and_ignores_unused_candidates(self):
+        ledger = self.replayed_ledger(self.good_replay())
+        ledger["premises"] = [
+            {"id": "env", "kind": "supplied", "statement": "s", "source": "harness", "scope": "top"}
+        ]
+        ledger["obligations"][1]["premises"] = ["env"]
+        ledger["obligations"].append(
+            {"id": "unused", "statement": "u", "scope": "t", "dependencies": [], "premises": [], "outcome": "failed"}
+        )
+        self.assertTrue(self.validate_ledger(ledger)["accepted"])
+        replay = self.replayed_ledger(
+            [p | {"assumed": ["helper", "env"]} if p["id"] == "target" else p for p in self.good_replay()]
+        )["replay"]
+        ledger["replay"] = replay
+        self.assertTrue(self.validate_ledger(ledger)["accepted"], self.validate_ledger(ledger))
+
+    def test_validator_replay_record_integrity(self):
+        ledger = self.replayed_ledger(self.good_replay())
+        ledger["replay"]["covers"] = []
+        self.assertIn("at least one", str(self.validate_ledger(ledger)["errors"]))
+        ledger = self.replayed_ledger(self.good_replay())
+        results = Path(ledger["replay"]["run"]).parent / ledger["replay"]["evidence"]["file"]
+        results.write_text(results.read_text().replace("proven", "proven "))
+        self.assertIn("hash mismatch", str(self.validate_ledger(ledger)["errors"]))
+        ledger = self.replayed_ledger(self.good_replay())
+        self.source.write_text("changed")
+        self.assertIn("stale input", str(self.validate_ledger(ledger)["errors"]))
+        self.source.write_text("original RTL snapshot\n")
+        ledger["replay"]["evidence"]["file"] = "../input.sv"
+        self.assertFalse(self.validate_ledger(ledger)["accepted"])
+
+    def test_validator_rejects_failed_replay_run_and_bad_results(self):
+        result, folder = self.run_command(
+            "from pathlib import Path; import sys; Path('r.json').write_text('[]'); sys.exit(3)",
+            extra=["--report", "r.json"],
+        )
+        run = json.loads((folder / "run.json").read_text())
+        ledger = self.replayed_ledger(self.good_replay())
+        ledger["replay"].update(
+            run=str(folder / "run.json"),
+            run_sha256=digest(folder / "run.json"),
+            evidence={"file": "reports/000-r.json", "sha256": run["evidence"]["reports/000-r.json"], "locator": "x"},
+        )
+        self.assertIn("successful completed", str(self.validate_ledger(ledger)["errors"]))
+
+    def test_validator_cli_exit_codes(self):
+        path = self.root / "ledger.json"
+        path.write_text(json.dumps(self.replayed_ledger(self.good_replay())))
+        command = [sys.executable, str(SCRIPTS / "validate_proof.py"), str(path)]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=10, check=False)
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertTrue(json.loads(result.stdout)["accepted"])
+        for content in ["[]", '{"x":NaN}', "not json"]:
+            path.write_text(content)
+            result = subprocess.run(command, capture_output=True, text=True, timeout=10, check=False)
+            self.assertEqual(result.returncode, 1)
+            self.assertFalse(json.loads(result.stdout)["accepted"])
             self.assertNotIn("Traceback", result.stderr)
 
     def test_template_is_unproved_and_cli_reports_it(self):

@@ -15,19 +15,22 @@ Helpers may be assumed to prove other helpers or the target before they are prov
 
 ## Workflow
 
-1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. Run the target under a time limit with the run recorder to record baseline CPU time, and use diagnostics to identify the bottleneck. If the baseline finished then you completed your task.
+1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. Then check the target isn't trivial with a short recorded run (about 60 s, explicit job count): precondition covers, a short BMC, and the target with default engines. If it proves, or a counterexample shows it is false, you completed your task. Otherwise use diagnostics to identify the bottleneck; the baseline CPU time is this run's.
 2. **Shrink:** If parameters are large, derive a reduced configuration for fast iteration (see [Scaling](#scaling)).
 3. **Propose:** Choose compositions from [Compositions](#compositions) by the estimated combined cost of the target and new obligations; many small obligations can cost more than the original proof. Keep a small ranked list of candidates. For each candidate, draft its DAG nodes, and for each abstraction, its concrete-to-abstract relation.
 4. **Evaluate:** Run candidates in isolated files under time limits, several at once, ordered by expected payoff. Interpret results and check proof contexts with [correctness and feedback](references/correctness.md). Measure how each lemma scales, only up to the target's parameter size.
 5. **Integrate:** Keep improvements, update the DAG, and audit that every obligation in the target's dependency closure is proved.
-6. **Replay:** Replay the accepted proof at the original parameters from clean prover state. If the budget runs out, keep the best replayable candidate and list the unresolved obligations.
+6. **Replay:** Replay the proof at the original parameters in one recorded session from clean prover state: each node with the single engine that proved it fastest, independent nodes in parallel, and each node assuming only its proved dependencies. The proof is accepted only if [`validate_proof.py`](references/recording.md#validate-a-proof) passes. If the budget runs out, keep the best replayable candidate and list the unresolved obligations.
 7. **Report:** Follow [Evidence and reporting](#evidence-and-reporting).
 
 ## Compositions
 
 | Difficulty | Composition | Key obligations |
 | --- | --- | --- |
-| Induction admits unreachable states | Invariant helpers for bounds, state exclusivity, or pointer/occupancy relations | Initialization and preservation under transitions. |
+| Induction admits unreachable states | Invariant helpers for bounds, state exclusivity, or pointer/occupancy relations; try the design's own assertions first | Initialization and preservation under transitions. |
+| Arithmetic compared across register stages | Symbolic-constant operands (rigid free registers) with a reference model evaluated on them | Every concrete violation maps to an abstract one with the constants set to its operands. |
+| Wide arithmetic identity | Bit splitting, MSB first for division, each bit assuming the bits already proved | Every bit proved; the split covers the whole word. |
+| Target depends on few control signals | Cut those signals, constrained by a lemma proved on the concrete design | The lemma holds without assuming the target or the cut. |
 | Target spans a pipeline or hierarchy boundary | Local guarantees under interface assumptions | Cycle alignment, validity, stalls, flushes, and reset. |
 | Expensive logic drives a small interface | Cutpoints constrained by helper contracts | The concrete drivers satisfy the contracts, including temporal correlations. |
 | Initial-state detail dominates reasoning | Initial value abstraction that retains relevant relations | The abstract initial set includes every legal concrete initial state and preserves required cross-state relations. |
@@ -44,7 +47,7 @@ Note: we want to minimize the total CPU time (Proof discovery + final validation
 
 ## Evidence and reporting
 
-Use [recording and audit](references/recording.md) for the bundled run recorder and DAG auditor.
+Use [recording and audit](references/recording.md) for the bundled run recorder, DAG auditor, and proof validator.
 
 Report the dependency DAG, abstractions, and replay commands.
 
