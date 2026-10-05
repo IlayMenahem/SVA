@@ -1,30 +1,43 @@
 #!/usr/bin/env python3
-"""Audit proof records and dependencies; does not certify formal validity."""
+"""Audit per-obligation proof records and dependencies; does not certify formal validity."""
+
+from __future__ import annotations
 
 import argparse
 import json
 import math
 import sys
 from pathlib import Path
+from typing import Any, NamedTuple
 
 from proof_io import contained_file, digest, load_json, resolve
 
 OUTCOMES = {"unproved", "proved", "failed", "timeout", "bounded", "unknown", "error"}
 
+Json = dict[str, Any]
 
-def require(condition, message):
+
+class Dag(NamedTuple):
+    target: str
+    nodes: dict[str, Json]
+    edges: dict[str, set[str]]
+    order: list[str]
+    closure: set[str]
+
+
+def require(condition: bool, message: str) -> None:
     if not condition:
         raise ValueError(message)
 
 
-def text_field(obj, key):
+def text_field(obj: Json, key: str) -> str:
     require(
         isinstance(obj.get(key), str) and bool(obj[key].strip()), f"missing text: {key}"
     )
     return obj[key]
 
 
-def ids(value, label):
+def ids(value: Any, label: str) -> list[str]:
     require(
         isinstance(value, list) and all(isinstance(x, str) and x for x in value),
         f"{label} must be a list of IDs",
@@ -33,7 +46,7 @@ def ids(value, label):
     return value
 
 
-def indexed(value, label):
+def indexed(value: Any, label: str) -> dict[str, Json]:
     require(isinstance(value, list), f"{label} must be a list")
     result = {}
     for item in value:
@@ -44,11 +57,11 @@ def indexed(value, label):
     return result
 
 
-def finite_number(value):
+def finite_number(value: Any) -> bool:
     return type(value) in (int, float) and math.isfinite(value)
 
 
-def audit_run(node, base):
+def audit_run(node: Json, base: Path) -> None:
     run_path = resolve(base, text_field(node, "run"))
     require(
         digest(run_path) == text_field(node, "run_sha256"), "run record hash mismatch"
@@ -121,20 +134,7 @@ def audit_run(node, base):
     )
 
 
-def audit(path):
-    ledger = load_json(path)
-    require(
-        isinstance(ledger, dict) and ledger.get("schema_version") == 1,
-        "invalid ledger schema",
-    )
-    nodes = indexed(ledger.get("obligations"), "obligation")
-    premises = indexed(ledger.get("premises"), "premise")
-    transformations = indexed(ledger.get("transformations"), "transformation")
-    require(
-        not set(nodes) & set(premises), "obligation and premise IDs must be disjoint"
-    )
-    target = text_field(ledger, "target")
-    require(target in nodes, "target is not an obligation")
+def check_premises(premises: dict[str, Json]) -> None:
     for premise in premises.values():
         for key in ("statement", "source", "scope"):
             text_field(premise, key)
@@ -142,37 +142,45 @@ def audit(path):
             premise.get("kind") == "supplied",
             "generated assumptions must be obligations",
         )
+
+
+def dependency_edges(
+    nodes: dict[str, Json], premises: dict[str, Json]
+) -> dict[str, set[str]]:
     edges = {}
     for name, node in nodes.items():
         for key in ("statement", "scope"):
             text_field(node, key)
-        require(
-            isinstance(node.get("outcome"), str) and node["outcome"] in OUTCOMES,
-            f"invalid outcome: {name}",
-        )
         edges[name] = set(ids(node.get("dependencies"), f"{name} dependencies"))
         require(edges[name] <= set(nodes), f"unknown obligation dependency: {name}")
         used = set(ids(node.get("premises"), f"{name} premises"))
         require(used <= set(premises), f"unknown supplied premise: {name}")
+    return edges
+
+
+def check_transformations(
+    transformations: dict[str, Json], edges: dict[str, set[str]]
+) -> None:
     for name, transformation in transformations.items():
         for key in ("kind", "description"):
             text_field(transformation, key)
         applied = ids(transformation.get("applies_to"), f"{name} applies_to")
-        required = ids(transformation.get("obligations"), f"{name} obligations")
+        required = set(ids(transformation.get("obligations"), f"{name} obligations"))
         require(
             bool(applied) and bool(required),
             f"transformation lacks uses or obligations: {name}",
         )
         require(
-            set(applied) <= set(nodes) and set(required) <= set(nodes),
+            set(applied) <= set(edges) and required <= set(edges),
             f"unknown transformation obligation or use: {name}",
         )
         for use in applied:
             require(
-                set(required) <= edges[use],
-                f"missing transformation dependencies: {use}",
+                required <= edges[use], f"missing transformation dependencies: {use}"
             )
-    # Iterative traversal avoids recursion limits for large DAGs.
+
+
+def topological_order(edges: dict[str, set[str]]) -> list[str]:
     pending = {name: set(deps) for name, deps in edges.items()}
     order = []
     while pending:
@@ -183,39 +191,81 @@ def audit(path):
             del pending[name]
         for deps in pending.values():
             deps.difference_update(leaves)
+    return order
+
+
+def dependency_closure(edges: dict[str, set[str]], target: str) -> set[str]:
     closure, todo = set(), [target]
     while todo:
         name = todo.pop()
         if name not in closure:
             closure.add(name)
             todo.extend(edges[name])
+    return closure
+
+
+def check_dag(ledger: Any) -> Dag:
+    require(
+        isinstance(ledger, dict) and ledger.get("schema_version") == 1,
+        "invalid ledger schema",
+    )
+    nodes = indexed(ledger.get("obligations"), "obligation")
+    premises = indexed(ledger.get("premises"), "premise")
+    require(
+        not set(nodes) & set(premises), "obligation and premise IDs must be disjoint"
+    )
+    target = text_field(ledger, "target")
+    require(target in nodes, "target is not an obligation")
+    check_premises(premises)
+    edges = dependency_edges(nodes, premises)
+    check_transformations(
+        indexed(ledger.get("transformations"), "transformation"), edges
+    )
+    return Dag(
+        target,
+        nodes,
+        edges,
+        topological_order(edges),
+        dependency_closure(edges, target),
+    )
+
+
+def outcome(name: str, node: Json) -> str:
+    result = node.get("outcome", "unproved")
+    require(isinstance(result, str) and result in OUTCOMES, f"invalid outcome: {name}")
+    return result
+
+
+def audit(path: str | Path) -> Json:
+    dag = check_dag(load_json(path))
+    outcomes = {name: outcome(name, node) for name, node in dag.nodes.items()}
+    base = Path(path).resolve().parent
     errors, validated = [], set()
-    for name in order:
-        node = nodes[name]
-        if node["outcome"] != "proved":
-            if name in closure:
-                errors.append(f"{name}: unresolved ({node['outcome']})")
+    for name in dag.order:
+        if outcomes[name] != "proved":
+            if name in dag.closure:
+                errors.append(f"{name}: unresolved ({outcomes[name]})")
             continue
         try:
-            audit_run(node, Path(path).resolve().parent)
-            for dep in edges[name]:
-                require(
-                    dep in validated,
-                    f"dependency not supported by valid proved evidence: {dep}",
-                )
+            audit_run(dag.nodes[name], base)
+            unsupported = sorted(dag.edges[name] - validated)
+            require(
+                not unsupported,
+                f"dependency not supported by valid proved evidence: {unsupported}",
+            )
             validated.add(name)
         except (OSError, ValueError, TypeError) as exc:
             errors.append(f"{name}: {exc}")
     return {
         "bookkeeping_ok": not errors,
         "formal_validity": "not_certified",
-        "target": target,
-        "closure": sorted(closure),
+        "target": dag.target,
+        "closure": sorted(dag.closure),
         "errors": errors,
     }
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ledger")
     args = parser.parse_args()

@@ -9,19 +9,16 @@ Reduce total CPU time by composing three strategies:
 
 1. **Helper-lemma DAG:** represent proof obligations as nodes, with edges from each obligation to the helpers it assumes.
 2. **Assume-guarantee reasoning:** prove local guarantees under interface assumptions, assigning generated assumptions to obligations at their owning scope.
-3. **Abstractions:** replace expensive state or logic with a simpler model and add its preservation obligations to the DAG. State the concrete-to-abstract relation and why proving the abstract target implies the concrete one. Common abstractions include cutpoints (stopat), initial value abstraction, counter abstractions, and blackboxing.
-
-Helpers may be assumed to prove other helpers or the target before they are proved. Results remain conditional until every obligation in the target's dependency closure is validated; execution order need not follow the DAG.
+3. **Abstractions:** replace expensive state or logic with a simpler model and add its preservation obligations to the DAG. Common abstractions include cutpoints (stopat), initial value abstraction, counter abstractions, and blackboxing.
 
 ## Workflow
 
-1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. Then check the target isn't trivial with a short recorded run (about 60 s, explicit job count): precondition covers, a short BMC, and the target with default engines. If it proves, or a counterexample shows it is false, you completed your task. Otherwise use diagnostics to identify the bottleneck; the baseline CPU time is this run's.
-2. **Shrink:** If parameters are large, derive a reduced configuration for fast iteration (see [Scaling](#scaling)).
-3. **Propose:** Choose compositions from [Compositions](#compositions) by the estimated combined cost of the target and new obligations; many small obligations can cost more than the original proof. Keep a small ranked list of candidates. For each candidate, draft its DAG nodes, and for each abstraction, its concrete-to-abstract relation.
-4. **Evaluate:** Run candidates in isolated files under time limits, several at once, ordered by expected payoff. Interpret results and check proof contexts with [correctness and feedback](references/correctness.md). Measure how each lemma scales, only up to the target's parameter size.
-5. **Integrate:** Keep improvements, update the DAG, and audit that every obligation in the target's dependency closure is proved.
-6. **Replay:** Replay the proof at the original parameters in one recorded session from clean prover state: each node with the single engine that proved it fastest, independent nodes in parallel, and each node assuming only its proved dependencies. The proof is accepted only if [`validate_proof.py`](references/recording.md#validate-a-proof) passes. If the budget runs out, keep the best replayable candidate and list the unresolved obligations.
-7. **Report:** Follow [Evidence and reporting](#evidence-and-reporting).
+1. **Baseline:** Inspect the target's cone, RTL, harness, clock/reset, initial states, parameters, supplied premises, and proof commands. While continuing with the next steps, check that the target isn't trivial with a short recorded run (about 60 s). If it proves, or a counterexample shows it is false, you completed your task.
+2. **Bottleneck identification:** Use the baseline run's diagnostics to identify the bottleneck; its CPU time is the baseline CPU time.
+3. **Shrink:** If parameters are large, derive a reduced configuration for fast iteration (see [Scaling](#scaling)).
+4. **DAG build:** Build a DAG of obligations and abstractions layer by layer, top to bottom, starting with the target. Each layer is a set of obligations and abstractions that can be proved with k-induction (k<=4) assuming only the layers below it; the bottom layer assumes only supplied premises.
+5. **Replay:** Replay the proof at the original parameters in one recorded session from clean prover state: each node with the single engine that proved it fastest, independent nodes in parallel, and each node assuming only its proved dependencies. The proof is accepted only if [`validate_proof.py`](references/recording.md#validate-a-proof) passes.
+6. **Report:** Follow [Evidence and reporting](#evidence-and-reporting).
 
 ## Compositions
 
@@ -38,22 +35,23 @@ Helpers may be assumed to prove other helpers or the target before they are prov
 
 ## Scaling
 
-If our module has a large parameter size, we first would work on the module with the shrink the parameters, writing a proof that will be accepted fast for the original parameters.
-To evaluate how a proof or a lemma scales (i.e., how its CPU time grows with parameter size: exponential, polynomial, linear, logarithmic, and constant).
-The lower in the heirarchy the CPU time grows, the better.
-If the number of lemmas is constant, the scaling of the proof is the scaling of the worst scaling lemma.
+If our module has a large parameter size, we first work on the module with shrunk parameters, writing a proof that will be accepted fast for the original parameters.
+Evaluate how a proof or a lemma scales, i.e., how its CPU time grows with parameter size: exponential, polynomial, linear, logarithmic, or constant.
+The lower in the hierarchy the CPU time grows, the better.
+The scaling of a proof is the sum of the scaling of the lemmas; take into account whether the number of lemmas grows with the parameter size.
 
 Note: we want to minimize the total CPU time (Proof discovery + final validation), so you shouldn't try to check scaling beyond the target's parameter size.
 
 ## Evidence and reporting
 
-Use [recording and audit](references/recording.md) for the bundled run recorder, DAG auditor, and proof validator.
+Use [recording and validation](references/recording.md) for the bundled run recorder and proof validator.
 
 Report the dependency DAG, abstractions, and replay commands.
 
 At the top of the report there should be listed the following statistics:
 - Whether the target was proved
 - Agent time cost: the API cost, or an estimate from API pricing and token usage.
+- wall time: the total time from the start of your run to the end of the replay, or of the baseline if it settles the target.
 - discovery CPU time (including failed attempts and baseline acquisition)
 - proof CPU time (including helpers and preservation obligations).
 - number of verifier calls

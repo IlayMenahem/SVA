@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Record one bounded POSIX command without interpreting its proof outcome."""
 
+from __future__ import annotations
+
 import argparse
 import math
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -13,14 +16,14 @@ from pathlib import Path
 from proof_io import digest, load_json, resolve, write_json
 
 
-def positive_timeout(value):
+def positive_timeout(value: str) -> float:
     number = float(value)
     if not math.isfinite(number) or number <= 0:
         raise argparse.ArgumentTypeError("timeout must be finite and positive")
     return number
 
 
-def stop_group(process):
+def stop_group(process: subprocess.Popen[bytes]) -> None:
     try:
         os.killpg(process.pid, signal.SIGKILL)
     except ProcessLookupError:
@@ -28,7 +31,7 @@ def stop_group(process):
     process.wait()
 
 
-def record(args):
+def record(args: argparse.Namespace) -> int:
     if os.name != "posix":
         raise ValueError("timed recording requires POSIX process groups")
     cwd = Path(args.cwd).resolve(strict=True)
@@ -75,7 +78,7 @@ def record(args):
         "errors": [],
         "evidence": {},
     }
-    process = None
+    process: subprocess.Popen[bytes] | None = None
     with (
         (output / "stdout.log").open("xb") as stdout,
         (output / "stderr.log").open("xb") as stderr,
@@ -89,23 +92,19 @@ def record(args):
                 stdin=subprocess.DEVNULL,
                 start_new_session=True,
             )
-            result["exit_code"] = process.wait(timeout=args.timeout)
+            process.wait(timeout=args.timeout)
             result["status"] = "completed"
         except subprocess.TimeoutExpired:
             result["status"] = "timeout"
-            stop_group(process)
-            result["exit_code"] = process.returncode
         except KeyboardInterrupt:
             result["status"] = "interrupted"
-            if process is not None:
-                stop_group(process)
-                result["exit_code"] = process.returncode
         except OSError as exc:
             result["errors"].append(str(exc))
         finally:
             # A synchronous prover command must not leave workers writing evidence.
             if process is not None:
                 stop_group(process)
+                result["exit_code"] = process.returncode
     result["finished_at"] = time.time()
     result["elapsed_seconds"] = time.monotonic() - timer
     result["inputs_after"] = {}
@@ -123,13 +122,7 @@ def record(args):
     for index, report in enumerate(reports):
         name = f"reports/{index:03d}-{report.name}"
         try:
-            # Explicit report paths are caller-selected; copied bytes are archived.
-            with report.open("rb") as source, (output / name).open("xb") as dest:
-                while True:
-                    chunk = source.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    dest.write(chunk)
+            shutil.copyfile(report, output / name)
             result["evidence"][name] = digest(output / name)
         except OSError as exc:
             result["errors"].append(f"could not archive report {report}: {exc}")
@@ -154,7 +147,7 @@ def record(args):
     )
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cwd", required=True)
     parser.add_argument("--manifest", required=True)

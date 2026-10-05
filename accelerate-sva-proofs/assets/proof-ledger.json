@@ -9,8 +9,7 @@
       "statement": "Replace with the exact original target or an unambiguous source location.",
       "scope": "Replace with elaborated instance and clock/reset context.",
       "dependencies": [],
-      "premises": [],
-      "outcome": "unproved"
+      "premises": []
     }
   ]
 }

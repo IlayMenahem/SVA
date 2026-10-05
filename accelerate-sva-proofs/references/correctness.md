@@ -27,4 +27,4 @@ Check assumption consistency, antecedent reachability, and reset release: satisf
 
 Changes to RTL, premises, helpers, abstractions, or configuration invalidate affected evidence. Recheck dependent results in the final context; reuse cached results only with sufficient context validation and replayable dependencies.
 
-The auditor checks bookkeeping and evidence integrity, not lemma truth, abstraction soundness, report interpretation, manifest completeness, or nonvacuity.
+The validator checks bookkeeping and evidence integrity, not lemma truth, abstraction soundness, report interpretation, manifest completeness, or nonvacuity.

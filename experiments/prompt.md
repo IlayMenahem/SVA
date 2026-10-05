@@ -1,4 +1,4 @@
-Call claude opus 5.5 (thinking medium) using my claude code cli for each of the tasks in <Dataset name>.
+Call claude opus 5.5 (thinking high) using my claude code cli for each of the tasks in <Dataset name>.
 with the following prompt template:
 
 ```

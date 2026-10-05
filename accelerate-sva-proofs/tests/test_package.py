@@ -18,12 +18,10 @@ class Package(unittest.TestCase):
                             (document.parent / target.split("#")[0]).is_file()
                         )
 
-    def test_json_assets_parse_and_start_unproved(self):
+    def test_ledger_template_parses_without_replay(self):
         ledger = json.loads((ROOT / "assets/proof-ledger.json").read_text())
         self.assertEqual(ledger["schema_version"], 1)
-        self.assertTrue(
-            all(node["outcome"] == "unproved" for node in ledger["obligations"])
-        )
+        self.assertNotIn("replay", ledger)
 
 
 if __name__ == "__main__":

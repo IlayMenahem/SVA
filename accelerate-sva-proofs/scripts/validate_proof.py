@@ -1,80 +1,91 @@
 #!/usr/bin/env python3
-"""Accept a proof only if its ledger audits and one clean replay proves the closure."""
+"""Accept a proof only if the ledger's DAG is valid and one clean replay proves its closure."""
+
+from __future__ import annotations
 
 import argparse
 import json
 import sys
+from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
-from audit_proof import audit, audit_run, ids, indexed, require, text_field
+from audit_proof import Json, audit_run, check_dag, ids, indexed, require, text_field
 from proof_io import contained_file, load_json, resolve
 
 
-def replay_results(replay, base):
+def replay_results(replay: Json, base: Path) -> dict[str, Json]:
     run_dir = resolve(base, text_field(replay, "run")).parent
     results = load_json(contained_file(run_dir, text_field(replay["evidence"], "file")))
     require(isinstance(results, dict), "replay results must be an object")
     return indexed(results.get("properties"), "replay property")
 
 
-def check_obligation(node, result):
-    name = node["id"]
+def check_obligation(name: str, node: Json, result: Json | None) -> None:
+    require(result is not None, f"obligation not replayed: {name}")
     require(result.get("kind") == "assert", f"{name}: replayed as {result.get('kind')}")
-    require(result.get("status") == "proven", f"{name}: replay status {result.get('status')}")
+    require(
+        result.get("status") == "proven",
+        f"{name}: replay status {result.get('status')}",
+    )
     text_field(result, "engine")
     assumed = set(ids(result.get("assumed"), f"{name} assumed"))
     allowed = set(node["dependencies"]) | set(node["premises"])
-    require(assumed <= allowed, f"{name}: undeclared assumptions {sorted(assumed - allowed)}")
+    require(
+        assumed <= allowed,
+        f"{name}: undeclared assumptions {sorted(assumed - allowed)}",
+    )
 
 
-def check_cover(name, result):
+def check_cover(name: str, result: Json | None) -> None:
     require(result is not None, f"cover not replayed: {name}")
     require(result.get("kind") == "cover", f"{name}: replayed as {result.get('kind')}")
-    require(result.get("status") == "covered", f"{name}: cover status {result.get('status')}")
+    require(
+        result.get("status") == "covered",
+        f"{name}: cover status {result.get('status')}",
+    )
 
 
-def validate(path):
-    audit_result = audit(path)
-    errors = list(audit_result["errors"])
+def failure(check: Callable[..., None], *args: Any) -> str | None:
     try:
-        ledger = load_json(path)
-        replay = ledger.get("replay")
-        require(isinstance(replay, dict), "missing replay entry")
-        base = Path(path).resolve().parent
-        audit_run(replay, base)
-        results = replay_results(replay, base)
-        nodes = indexed(ledger["obligations"], "obligation")
-        covers = ids(replay.get("covers"), "replay covers")
-        require(bool(covers), "replay needs at least one nonvacuity cover")
-        for name in audit_result.get("closure", []):
-            try:
-                require(name in results, f"obligation not replayed: {name}")
-                check_obligation(nodes[name], results[name])
-            except ValueError as exc:
-                errors.append(str(exc))
-        for name in covers:
-            try:
-                check_cover(name, results.get(name))
-            except ValueError as exc:
-                errors.append(str(exc))
+        check(*args)
+    except ValueError as exc:
+        return str(exc)
+    return None
+
+
+def replay_errors(ledger: Any, base: Path) -> list[str]:
+    dag = check_dag(ledger)
+    replay = ledger.get("replay")
+    require(isinstance(replay, dict), "missing replay entry")
+    audit_run(replay, base)
+    results = replay_results(replay, base)
+    covers = ids(replay.get("covers"), "replay covers")
+    require(bool(covers), "replay needs at least one nonvacuity cover")
+    found = [
+        failure(check_obligation, name, dag.nodes[name], results.get(name))
+        for name in sorted(dag.closure)
+    ]
+    found += [failure(check_cover, name, results.get(name)) for name in covers]
+    return [error for error in found if error]
+
+
+def validate(path: str | Path) -> Json:
+    try:
+        errors = replay_errors(load_json(path), Path(path).resolve().parent)
     except (OSError, ValueError, TypeError, KeyError) as exc:
-        errors.append(f"replay: {exc}")
+        errors = [str(exc)]
     return {
         "accepted": not errors,
         "formal_validity": "not_certified",
-        "target": audit_result.get("target"),
         "errors": errors,
     }
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ledger")
-    args = parser.parse_args()
-    try:
-        result = validate(args.ledger)
-    except (OSError, ValueError, TypeError) as exc:
-        result = {"accepted": False, "formal_validity": "not_certified", "errors": [str(exc)]}
+    result = validate(parser.parse_args().ledger)
     print(json.dumps(result, indent=2))
     return 0 if result["accepted"] else 1
 
