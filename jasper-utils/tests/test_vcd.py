@@ -4,9 +4,8 @@ import contextlib
 import io
 import unittest
 
-from support import TempDirTest
-
 from jgu import vcd
+from support import TempDirTest
 
 JASPER_VCD = """$date Mon Oct  5 13:58:32 2026
  $end
@@ -66,13 +65,20 @@ class Parse(unittest.TestCase):
         signals = vcd.find_signals(self.trace, [r"\.q$", r"\.en$", "data"])
         lines = vcd.table(self.trace, signals, clock).splitlines()
         self.assertEqual(lines[0], "cycle\tcounter.en\tcounter.q\tcounter.sub.data")
-        self.assertEqual(lines[1:], ["1\t1\t0x0\txxxx0001", "2\t0\t0x1\t0x02", "3\t0\t0x1\t0x02"])
+        self.assertEqual(
+            lines[1:], ["1\t1\t0x0\txxxx0001", "2\t0\t0x1\t0x02", "3\t0\t0x1\t0x02"]
+        )
 
     def test_radix_and_first_cycle(self) -> None:
         clock = vcd.single_signal(self.trace, vcd.DEFAULT_CLOCK, "clock")
         q = vcd.find_signals(self.trace, [r"\.q$"])
-        self.assertEqual(vcd.table(self.trace, q, clock, "dec", first_cycle=0).splitlines()[2], "1\t1")
-        self.assertEqual(vcd.table(self.trace, q, clock, "bin").splitlines()[2], "2\t0001")
+        self.assertEqual(
+            vcd.table(self.trace, q, clock, "dec", first_cycle=0).splitlines()[2],
+            "1\t1",
+        )
+        self.assertEqual(
+            vcd.table(self.trace, q, clock, "bin").splitlines()[2], "2\t0001"
+        )
 
     def test_clock_pattern_must_match_one_signal(self) -> None:
         with self.assertRaises(ValueError):

@@ -16,7 +16,9 @@ def walk_files(path: Path) -> list[Path]:
     files: list[Path] = []
     for root, dirs, names in os.walk(path):
         dirs[:] = sorted(d for d in dirs if d not in SKIPPED_NAMES)
-        files += [Path(root) / name for name in sorted(names) if name not in SKIPPED_NAMES]
+        files += [
+            Path(root) / name for name in sorted(names) if name not in SKIPPED_NAMES
+        ]
     return files
 
 
@@ -33,5 +35,7 @@ def require_relative(path: str) -> str:
     """A path that stays inside the directory it is relative to, in POSIX form."""
     posix = PurePosixPath(path)
     if posix.is_absolute() or ".." in posix.parts or not posix.parts:
-        raise ValueError(f"path must be relative and inside the working directory: {path}")
+        raise ValueError(
+            f"path must be relative and inside the working directory: {path}"
+        )
     return posix.as_posix()

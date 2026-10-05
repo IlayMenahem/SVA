@@ -84,33 +84,71 @@ puts "JSON_END"
 class Jglib(TempDirTest):
     def setUp(self) -> None:
         super().setUp()
-        script = self.write("scenario.tcl", STUBS + SCENARIO.replace("{JGLIB}", "{" + str(JGLIB) + "}"))
-        env = {"JGU_TCL": str(self.tmp / "formal/run.tcl"), "PATH": "/usr/bin:/bin:/opt/homebrew/bin"}
-        run = subprocess.run(["tclsh", str(script)], capture_output=True, text=True, env=env)
+        script = self.write(
+            "scenario.tcl", STUBS + SCENARIO.replace("{JGLIB}", "{" + str(JGLIB) + "}")
+        )
+        env = {
+            "JGU_TCL": str(self.tmp / "formal/run.tcl"),
+            "PATH": "/usr/bin:/bin:/opt/homebrew/bin",
+        }
+        run = subprocess.run(
+            ["tclsh", str(script)], capture_output=True, text=True, env=env, check=False
+        )
         self.assertEqual(run.returncode, 0, run.stderr)
         self.lines = run.stdout.splitlines()
 
     def value(self, prefix: str) -> str:
-        return next(line[len(prefix) + 1:] for line in self.lines if line.startswith(prefix + " "))
+        return next(
+            line[len(prefix) + 1 :]
+            for line in self.lines
+            if line.startswith(prefix + " ")
+        )
 
     def calls(self) -> list[str]:
         return [line[5:] for line in self.lines if line.startswith("CALL ")]
 
     def test_results_json_matches_the_skill_schema(self) -> None:
-        text = "\n".join(self.lines[self.lines.index("JSON_BEGIN") + 1: self.lines.index("JSON_END")])
+        text = "\n".join(
+            self.lines[
+                self.lines.index("JSON_BEGIN") + 1 : self.lines.index("JSON_END")
+            ]
+        )
         properties = json.loads(text)["properties"]
-        self.assertEqual(properties, [
-            {"id": "l1", "kind": "assert", "status": "proven", "engine": "Hp", "assumed": [], "time_s": 1.5},
-            {"id": "tq", "kind": "assert", "status": "proven", "engine": "Hp",
-             "assumed": ["l1", "jgu_rigid_top_k_0_"], "time_s": 1.5},
-            {"id": "c1", "kind": "cover", "status": "covered", "engine": "Hp", "assumed": [], "time_s": 1.5},
-        ])
+        self.assertEqual(
+            properties,
+            [
+                {
+                    "id": "l1",
+                    "kind": "assert",
+                    "status": "proven",
+                    "engine": "Hp",
+                    "assumed": [],
+                    "time_s": 1.5,
+                },
+                {
+                    "id": "tq",
+                    "kind": "assert",
+                    "status": "proven",
+                    "engine": "Hp",
+                    "assumed": ["l1", "jgu_rigid_top_k_0_"],
+                    "time_s": 1.5,
+                },
+                {
+                    "id": "c1",
+                    "kind": "cover",
+                    "status": "covered",
+                    "engine": "Hp",
+                    "assumed": [],
+                    "time_s": 1.5,
+                },
+            ],
+        )
 
     def test_prove_node_enables_only_dependency_twins_around_the_prove(self) -> None:
         calls = self.calls()
         declared_disabled = calls.index("assume -disable l1__twin")
         enable = calls.index("assume -enable l1__twin")
-        prove = calls.index(r'prove -property {t\"x}')
+        prove = calls.index(r"prove -property {t\"x}")
         disable = calls.index("assume -disable l1__twin", enable)
         self.assertLess(declared_disabled, enable)
         self.assertLess(enable, prove)
@@ -124,7 +162,9 @@ class Jglib(TempDirTest):
     def test_setup_helpers(self) -> None:
         self.assertEqual(self.value("CAPS"), "3")
         self.assertIn("set_proofgrid_max_jobs 3", self.calls())
-        self.assertIn("assume -name jgu_rigid_top_k_0_ {##1 $stable(top.k[0])}", self.calls())
+        self.assertIn(
+            "assume -name jgu_rigid_top_k_0_ {##1 $stable(top.k[0])}", self.calls()
+        )
         self.assertEqual(self.value("STATUS"), "proven")
         self.assertEqual(self.value("PRECOVERS"), "<embedded>::l1:precondition1")
         self.assertEqual(self.value("SNAPSHOT"), "l1 proven c1 covered")
@@ -135,7 +175,10 @@ class Jglib(TempDirTest):
     def test_report_lines_are_parseable(self) -> None:
         reports = [line for line in self.lines if line.startswith("JGU_RESULT ")]
         self.assertEqual(len(reports), 3)
-        self.assertIn("id=t\"x kind=assert status=proven engine=Hp time_s=1.5 depth=infinite", reports[1])
+        self.assertIn(
+            'id=t"x kind=assert status=proven engine=Hp time_s=1.5 depth=infinite',
+            reports[1],
+        )
 
     def test_json_string_escapes(self) -> None:
         self.assertEqual(json.loads(self.value("ESCAPED")), 'a"b\\c\nd\te')

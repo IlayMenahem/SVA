@@ -7,7 +7,9 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 
 DEFAULT_CLOCK = r"(^|\.)(clk|clock|clk_i)$"
-KEYWORDS_WITHOUT_VALUES = frozenset({"$dumpvars", "$dumpall", "$dumpon", "$dumpoff", "$end"})
+KEYWORDS_WITHOUT_VALUES = frozenset(
+    {"$dumpvars", "$dumpall", "$dumpon", "$dumpoff", "$end"}
+)
 
 
 @dataclass(frozen=True)
@@ -46,8 +48,14 @@ def header_signals(tokens: Sequence[str]) -> list[Signal]:
         elif token == "$upscope":
             scopes.pop()
         elif token == "$var":
-            width, code, reference = int(tokens[index + 2]), tokens[index + 3], tokens[index + 4]
-            signals.append(Signal(code=code, name=".".join([*scopes, reference]), width=width))
+            width, code, reference = (
+                int(tokens[index + 2]),
+                tokens[index + 3],
+                tokens[index + 4],
+            )
+            signals.append(
+                Signal(code=code, name=".".join([*scopes, reference]), width=width)
+            )
         index += 1
     return signals
 
@@ -97,7 +105,9 @@ def rising_edges(vcd: Vcd, clock: Signal) -> list[int]:
     return edges
 
 
-def values_before(vcd: Vcd, codes: set[str], times: Sequence[int]) -> list[dict[str, str]]:
+def values_before(
+    vcd: Vcd, codes: set[str], times: Sequence[int]
+) -> list[dict[str, str]]:
     """For each sample time, the value of each code just before that time (x if never set)."""
     state = {code: "x" for code in codes}
     samples: list[dict[str, str]] = []
@@ -112,11 +122,15 @@ def values_before(vcd: Vcd, codes: set[str], times: Sequence[int]) -> list[dict[
     return samples
 
 
-def cycle_values(vcd: Vcd, signals: Sequence[Signal], clock: Signal) -> list[dict[str, str]]:
+def cycle_values(
+    vcd: Vcd, signals: Sequence[Signal], clock: Signal
+) -> list[dict[str, str]]:
     """Row k: values held between rising edge k and rising edge k+1 (the last row: final values)."""
     edges = rising_edges(vcd, clock)
     end = max((now for now, _, _ in vcd.changes), default=0) + 1
-    return values_before(vcd, {s.code for s in signals}, [*edges[1:], end] if edges else [])
+    return values_before(
+        vcd, {s.code for s in signals}, [*edges[1:], end] if edges else []
+    )
 
 
 def format_value(bits: str, width: int, radix: str) -> str:
@@ -127,13 +141,21 @@ def format_value(bits: str, width: int, radix: str) -> str:
     return str(number) if radix == "dec" else f"0x{number:0{(width + 3) // 4}x}"
 
 
-def table(vcd: Vcd, signals: Sequence[Signal], clock: Signal, radix: str = "hex", first_cycle: int = 1) -> str:
+def table(
+    vcd: Vcd,
+    signals: Sequence[Signal],
+    clock: Signal,
+    radix: str = "hex",
+    first_cycle: int = 1,
+) -> str:
     """Tab-separated table: one row per clock cycle, one column per signal. Cycles are numbered
     from first_cycle; the default 1 matches Jasper's trace numbering."""
     rows = cycle_values(vcd, signals, clock)
     header = "\t".join(["cycle", *(s.name for s in signals)])
     body = [
-        "\t".join([str(cycle), *(format_value(row[s.code], s.width, radix) for s in signals)])
+        "\t".join(
+            [str(cycle), *(format_value(row[s.code], s.width, radix) for s in signals)]
+        )
         for cycle, row in enumerate(rows, start=first_cycle)
     ]
     return "\n".join([header, *body])
@@ -143,5 +165,7 @@ def single_signal(vcd: Vcd, pattern: str, role: str) -> Signal:
     matches = find_signals(vcd, [pattern])
     if len(matches) != 1:
         names = ", ".join(s.name for s in matches[:5]) or "none"
-        raise ValueError(f"{role} pattern {pattern!r} must match one signal; matched {names}")
+        raise ValueError(
+            f"{role} pattern {pattern!r} must match one signal; matched {names}"
+        )
     return matches[0]

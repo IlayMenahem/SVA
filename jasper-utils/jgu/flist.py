@@ -34,7 +34,10 @@ class FileList:
 
 def expand_variables(text: str, variables: Mapping[str, str]) -> str:
     """Substitute ${X}, $(X) and $X; unknown variables are an error."""
-    unknown = sorted({next(filter(None, m.groups())) for m in VARIABLE.finditer(text)} - set(variables))
+    unknown = sorted(
+        {next(filter(None, m.groups())) for m in VARIABLE.finditer(text)}
+        - set(variables)
+    )
     if unknown:
         raise ValueError(f"undefined file-list variables: {', '.join(unknown)}")
     return VARIABLE.sub(lambda m: variables[next(filter(None, m.groups()))], text)
@@ -49,13 +52,19 @@ def tokens(text: str, variables: Mapping[str, str]) -> list[str]:
 def plus_option(token: str, base: Path) -> FileList:
     """+incdir+a+b and +define+A=1+B; other plus options are kept verbatim."""
     if token.startswith("+incdir+"):
-        return FileList(incdirs=tuple(base / d for d in token[len("+incdir+") :].split("+") if d))
+        return FileList(
+            incdirs=tuple(base / d for d in token[len("+incdir+") :].split("+") if d)
+        )
     if token.startswith("+define+"):
-        return FileList(defines=tuple(d for d in token[len("+define+") :].split("+") if d))
+        return FileList(
+            defines=tuple(d for d in token[len("+define+") :].split("+") if d)
+        )
     return FileList(other=(token,))
 
 
-def parse_flist(path: Path, variables: Mapping[str, str], cwd: Path, relative_to_file: bool = False) -> FileList:
+def parse_flist(
+    path: Path, variables: Mapping[str, str], cwd: Path, relative_to_file: bool = False
+) -> FileList:
     """Expand path. Entries resolve against the file's own directory when relative_to_file
     (nested -F lists) and against cwd otherwise (nested -f lists)."""
     path = path if path.is_absolute() else cwd / path
@@ -65,9 +74,17 @@ def parse_flist(path: Path, variables: Mapping[str, str], cwd: Path, relative_to
     index = 0
     while index < len(words):
         word = words[index]
-        argument = words[index + 1] if word in OPTIONS_WITH_ARGUMENT and index + 1 < len(words) else None
+        argument = (
+            words[index + 1]
+            if word in OPTIONS_WITH_ARGUMENT and index + 1 < len(words)
+            else None
+        )
         if word in ("-f", "-F") and argument is not None:
-            result = result.merge(parse_flist(base / argument, variables, cwd, relative_to_file=word == "-F"))
+            result = result.merge(
+                parse_flist(
+                    base / argument, variables, cwd, relative_to_file=word == "-F"
+                )
+            )
         elif word == "-v" and argument is not None:
             result = result.merge(FileList(sources=((base / argument).resolve(),)))
         elif argument is not None:
@@ -89,4 +106,6 @@ def parse_flist(path: Path, variables: Mapping[str, str], cwd: Path, relative_to
 
 
 def missing_files(file_list: FileList) -> list[Path]:
-    return [p for p in file_list.sources if not p.is_file()] + [d for d in file_list.incdirs if not d.is_dir()]
+    return [p for p in file_list.sources if not p.is_file()] + [
+        d for d in file_list.incdirs if not d.is_dir()
+    ]

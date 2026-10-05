@@ -44,7 +44,14 @@ ROOT = re.compile(r"/?[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*")
 ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 REMOTE_TOKEN = re.compile(r"[A-Za-z0-9_./=+:,@%-]+")
 REMOTE_OPERATORS = frozenset({"&&"})
-MULTIPLEX_OPTIONS = ("-o", "ControlMaster=auto", "-o", "ControlPersist=120", "-o", "ControlPath=~/.ssh/jgu-%C")
+MULTIPLEX_OPTIONS = (
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPersist=120",
+    "-o",
+    "ControlPath=~/.ssh/jgu-%C",
+)
 
 
 @dataclass(frozen=True)
@@ -82,9 +89,11 @@ def require_name(run: str) -> str:
 
 def normalize_root(root: str) -> str:
     """The root without a leading '~/' or trailing '/', checked to be a plain path."""
-    stripped = (root[2:] if root.startswith("~/") else root).rstrip("/")
+    stripped = root.removeprefix("~/").rstrip("/")
     if not ROOT.fullmatch(stripped) or ".." in stripped.split("/"):
-        raise ValueError(f"remote root must be a plain path of letters, digits, '.', '_', '-': {root!r}")
+        raise ValueError(
+            f"remote root must be a plain path of letters, digits, '.', '_', '-': {root!r}"
+        )
     return stripped
 
 
@@ -99,11 +108,16 @@ def make_target(host: str | None, root: str | None) -> Target:
 def parse_env(pairs: Sequence[str]) -> tuple[tuple[str, str], ...]:
     """KEY=VALUE pairs exported to the Jasper session; JGU_* names are reserved."""
     bad = [
-        p for p in pairs
-        if "=" not in p or not ENV_NAME.fullmatch(p.split("=", 1)[0]) or p.startswith("JGU_")
+        p
+        for p in pairs
+        if "=" not in p
+        or not ENV_NAME.fullmatch(p.split("=", 1)[0])
+        or p.startswith("JGU_")
     ]
     if bad:
-        raise ValueError(f"--env takes KEY=VALUE with a shell name, not JGU_*: {', '.join(bad)}")
+        raise ValueError(
+            f"--env takes KEY=VALUE with a shell name, not JGU_*: {', '.join(bad)}"
+        )
     return tuple((name, value) for name, value in (p.split("=", 1) for p in pairs))
 
 
@@ -114,7 +128,9 @@ def ssh_options() -> tuple[str, ...]:
 
 def ssh_argv(host: str, remote: Sequence[str], stdin_null: bool = True) -> list[str]:
     """ssh argv for a remote command made of csh-safe tokens."""
-    unsafe = [t for t in remote if t not in REMOTE_OPERATORS and not REMOTE_TOKEN.fullmatch(t)]
+    unsafe = [
+        t for t in remote if t not in REMOTE_OPERATORS and not REMOTE_TOKEN.fullmatch(t)
+    ]
     if unsafe:
         raise ValueError(f"unsafe remote tokens: {unsafe}")
     return ["ssh", *(["-n"] if stdin_null else []), *ssh_options(), host, *remote]
@@ -133,8 +149,13 @@ def params_text(spec: RunSpec, target: Target) -> str:
         "JGU_SAMPLE_CPU": "1" if spec.sample_cpu else "0",
         "JGU_SAMPLE_PERIOD_S": str(spec.sample_period_s),
     }
-    lines = [f"export {name}={shlex.quote(value)}" for name, value in [*fixed.items(), *spec.env]]
-    return "# written by jgu run; sourced by .jgu/jgu_run.sh\n" + "\n".join(lines) + "\n"
+    lines = [
+        f"export {name}={shlex.quote(value)}"
+        for name, value in [*fixed.items(), *spec.env]
+    ]
+    return (
+        "# written by jgu run; sourced by .jgu/jgu_run.sh\n" + "\n".join(lines) + "\n"
+    )
 
 
 def sync_files(cwd: Path, paths: Sequence[str]) -> list[str]:
@@ -158,14 +179,20 @@ def generated_files(spec: RunSpec, target: Target) -> dict[str, bytes]:
     }
 
 
-def write_archive(stream: IO[bytes], cwd: Path, files: Sequence[str], generated: Mapping[str, bytes]) -> None:
+def write_archive(
+    stream: IO[bytes], cwd: Path, files: Sequence[str], generated: Mapping[str, bytes]
+) -> None:
     """Stream a tar of files (relative to cwd) and generated members to stream."""
     with tarfile.open(fileobj=stream, mode="w|", format=tarfile.PAX_FORMAT) as tar:
         for name in files:
             tar.add(cwd / name, arcname=name, recursive=False)
         for name, data in generated.items():
             info = tarfile.TarInfo(name)
-            info.size, info.mode, info.mtime = len(data), 0o755 if name.endswith(".sh") else 0o644, int(time.time())
+            info.size, info.mode, info.mtime = (
+                len(data),
+                0o755 if name.endswith(".sh") else 0o644,
+                int(time.time()),
+            )
             tar.addfile(info, io.BytesIO(data))
 
 
@@ -176,12 +203,29 @@ def exists_argv(target: Target, path: str) -> list[str]:
 def upload_run_argv(target: Target, run: str) -> list[str]:
     """Create the run directory atomically (mkdir fails if it exists) and untar stdin into it."""
     run_dir = target.run_dir(require_name(run))
-    remote = ["mkdir", "-p", f"{target.root}/runs", "&&", "mkdir", run_dir, "&&", "tar", "-xf", "-", "-C", run_dir]
+    remote = [
+        "mkdir",
+        "-p",
+        f"{target.root}/runs",
+        "&&",
+        "mkdir",
+        run_dir,
+        "&&",
+        "tar",
+        "-xf",
+        "-",
+        "-C",
+        run_dir,
+    ]
     return ssh_argv(target.host, remote, stdin_null=False)
 
 
 def push_argv(target: Target) -> list[str]:
-    return ssh_argv(target.host, ["mkdir", "-p", target.root, "&&", "tar", "-xf", "-", "-C", target.root], stdin_null=False)
+    return ssh_argv(
+        target.host,
+        ["mkdir", "-p", target.root, "&&", "tar", "-xf", "-", "-C", target.root],
+        stdin_null=False,
+    )
 
 
 def runner_argv(target: Target, run: str, mode: str, *extra: str) -> list[str]:
@@ -195,13 +239,22 @@ def list_argv(target: Target) -> list[str]:
 
 
 def remote_exists(target: Target, path: str) -> bool:
-    result = subprocess.run(exists_argv(target, path), stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    result = subprocess.run(
+        exists_argv(target, path),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
     if result.returncode not in (0, 1):
-        raise ConnectionError(f"ssh {target.host} failed: {result.stderr.decode(errors='replace').strip()}")
+        raise ConnectionError(
+            f"ssh {target.host} failed: {result.stderr.decode(errors='replace').strip()}"
+        )
     return result.returncode == 0
 
 
-def stream_upload(argv: Sequence[str], cwd: Path, files: Sequence[str], generated: Mapping[str, bytes]) -> int:
+def stream_upload(
+    argv: Sequence[str], cwd: Path, files: Sequence[str], generated: Mapping[str, bytes]
+) -> int:
     """Run argv with a tar of the files on its stdin; returns its exit code."""
     with subprocess.Popen(list(argv), stdin=subprocess.PIPE) as process:
         assert process.stdin is not None
@@ -219,8 +272,15 @@ def stream_upload(argv: Sequence[str], cwd: Path, files: Sequence[str], generate
 
 def upload_run(target: Target, spec: RunSpec, cwd: Path) -> int:
     if remote_exists(target, target.run_dir(spec.run)):
-        raise FileExistsError(f"{target.host}:{target.run_dir(spec.run)} exists; run names are never reused")
-    return stream_upload(upload_run_argv(target, spec.run), cwd, run_files(cwd, spec), generated_files(spec, target))
+        raise FileExistsError(
+            f"{target.host}:{target.run_dir(spec.run)} exists; run names are never reused"
+        )
+    return stream_upload(
+        upload_run_argv(target, spec.run),
+        cwd,
+        run_files(cwd, spec),
+        generated_files(spec, target),
+    )
 
 
 def push(target: Target, cwd: Path, paths: Sequence[str]) -> int:
@@ -228,15 +288,26 @@ def push(target: Target, cwd: Path, paths: Sequence[str]) -> int:
 
 
 def start(target: Target, run: str, detach: bool) -> int:
-    return subprocess.run(runner_argv(target, run, "start", *(["--detach"] if detach else []))).returncode
+    return subprocess.run(
+        runner_argv(target, run, "start", *(["--detach"] if detach else [])),
+        check=False,
+    ).returncode
 
 
 def control(target: Target, run: str, mode: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(runner_argv(target, run, mode), capture_output=True, text=True)
+    return subprocess.run(
+        runner_argv(target, run, mode), capture_output=True, text=True, check=False
+    )
 
 
 def list_runs(target: Target) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(list_argv(target), input=RUNNER.read_text(), capture_output=True, text=True)
+    return subprocess.run(
+        list_argv(target),
+        input=RUNNER.read_text(),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
 
 def fetch(target: Target, run: str, dest: Path) -> list[str]:
@@ -245,12 +316,16 @@ def fetch(target: Target, run: str, dest: Path) -> list[str]:
         raise FileExistsError(f"{dest} exists; fetch into a fresh directory")
     dest.mkdir(parents=True)
     names: list[str] = []
-    with subprocess.Popen(runner_argv(target, run, "pack"), stdout=subprocess.PIPE) as process:
+    with subprocess.Popen(
+        runner_argv(target, run, "pack"), stdout=subprocess.PIPE
+    ) as process:
         assert process.stdout is not None
         with tarfile.open(fileobj=process.stdout, mode="r|") as tar:
             for member in tar:
                 tar.extract(member, dest, filter="data")
                 names.append(member.name)
         if process.wait() != 0:
-            raise RuntimeError(f"could not pack outputs of {target.host}:{target.run_dir(run)}")
+            raise RuntimeError(
+                f"could not pack outputs of {target.host}:{target.run_dir(run)}"
+            )
     return names

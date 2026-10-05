@@ -24,18 +24,43 @@ class Runner(TempDirTest):
     def runner(self, name: str, mode: str) -> subprocess.CompletedProcess[bytes]:
         script = self.tmp / f"ws/runs/{name}/.jgu/jgu_run.sh"
         no_mac_metadata = {**os.environ, "COPYFILE_DISABLE": "1"}
-        return subprocess.run(["sh", str(script), mode], capture_output=True, cwd=self.tmp, env=no_mac_metadata)
+        return subprocess.run(
+            ["sh", str(script), mode],
+            capture_output=True,
+            cwd=self.tmp,
+            env=no_mac_metadata,
+            check=False,
+        )
 
     def test_status_of_a_finished_run(self) -> None:
-        self.make_run("done-1", {
-            ".jgu/done": "", ".jgu/started": "100\n", ".jgu/finished": "142\n", "exit_code": "124\n",
-            "time.txt": "Command exited with non-zero status 124\nJGU_TIME wall=42.0 user=1 sys=0 maxrss_kb=5\n",
-            "cpu_sample.txt": "JGU_CPUSAMPLE total_cpu_s=40.50 procs=3\n",
-        })
+        self.make_run(
+            "done-1",
+            {
+                ".jgu/done": "",
+                ".jgu/started": "100\n",
+                ".jgu/finished": "142\n",
+                "exit_code": "124\n",
+                "time.txt": "Command exited with non-zero status 124\nJGU_TIME wall=42.0 user=1 sys=0 maxrss_kb=5\n",
+                "cpu_sample.txt": "JGU_CPUSAMPLE total_cpu_s=40.50 procs=3\n",
+            },
+        )
         out = self.runner("done-1", "status").stdout.decode()
-        self.assertEqual(out.split(), ["JGU_STATUS", "run=done-1", "state=done", "exit=124", "killed=no",
-                                       "elapsed_s=42", "sampled_cpu_s=40.50", "wall=42.0", "user=1", "sys=0",
-                                       "maxrss_kb=5"])
+        self.assertEqual(
+            out.split(),
+            [
+                "JGU_STATUS",
+                "run=done-1",
+                "state=done",
+                "exit=124",
+                "killed=no",
+                "elapsed_s=42",
+                "sampled_cpu_s=40.50",
+                "wall=42.0",
+                "user=1",
+                "sys=0",
+                "maxrss_kb=5",
+            ],
+        )
 
     def test_states_new_and_lost(self) -> None:
         self.make_run("new-1", {})
@@ -52,18 +77,35 @@ class Runner(TempDirTest):
     def test_list_reads_the_script_from_stdin(self) -> None:
         self.make_run("a-1", {".jgu/done": "", "exit_code": "0\n"})
         self.make_run("b-1", {})
-        listing = subprocess.run(["sh", "-s", "list", "ws"], input=RUNNER.read_bytes(), capture_output=True,
-                                 env={**os.environ, "HOME": str(self.tmp)}, check=True).stdout.decode()
-        self.assertEqual([line.split()[1] for line in listing.splitlines()], ["run=a-1", "run=b-1"])
+        listing = subprocess.run(
+            ["sh", "-s", "list", "ws"],
+            input=RUNNER.read_bytes(),
+            capture_output=True,
+            env={**os.environ, "HOME": str(self.tmp)},
+            check=True,
+        ).stdout.decode()
+        self.assertEqual(
+            [line.split()[1] for line in listing.splitlines()], ["run=a-1", "run=b-1"]
+        )
 
     def test_pack_tars_only_existing_outputs(self) -> None:
-        self.make_run("p-1", {"jg.log": "log", "results.json": "{}", "out/t.vcd": "v", "formal/run.tcl": "x",
-                              ".jgu/params.sh": "export JGU_RUN=p-1\n"})
+        self.make_run(
+            "p-1",
+            {
+                "jg.log": "log",
+                "results.json": "{}",
+                "out/t.vcd": "v",
+                "formal/run.tcl": "x",
+                ".jgu/params.sh": "export JGU_RUN=p-1\n",
+            },
+        )
         packed = self.runner("p-1", "pack")
         self.assertEqual(packed.returncode, 0, packed.stderr)
         with tarfile.open(fileobj=io.BytesIO(packed.stdout)) as tar:
             names = {m.name for m in tar.getmembers() if m.isfile()}
-        self.assertEqual(names, {"jg.log", "results.json", "out/t.vcd", ".jgu/params.sh"})
+        self.assertEqual(
+            names, {"jg.log", "results.json", "out/t.vcd", ".jgu/params.sh"}
+        )
 
     def test_unknown_mode_is_usage_error(self) -> None:
         self.make_run("u-1", {})

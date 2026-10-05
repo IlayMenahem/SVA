@@ -73,7 +73,11 @@ class CpuRow:
 def effective_cpu(time: TimeRecord | None, sampled_cpu_s: float | None) -> float | None:
     """The larger of GNU time's CPU (exact when jg exits by itself, far too low when it is
     killed) and the /proc sample (a lower bound that survives kills); None without either."""
-    known = [value for value in (time.cpu_s if time else None, sampled_cpu_s) if value is not None]
+    known = [
+        value
+        for value in (time.cpu_s if time else None, sampled_cpu_s)
+        if value is not None
+    ]
     return max(known) if known else None
 
 
@@ -86,7 +90,11 @@ def parse_fields(line: str, prefix: str) -> dict[str, str] | None:
 
 
 def field_lines(text: str, prefix: str) -> list[dict[str, str]]:
-    return [fields for line in text.splitlines() if (fields := parse_fields(line, prefix)) is not None]
+    return [
+        fields
+        for line in text.splitlines()
+        if (fields := parse_fields(line, prefix)) is not None
+    ]
 
 
 def time_from_fields(fields: Mapping[str, str]) -> TimeRecord | None:
@@ -103,13 +111,19 @@ def time_from_fields(fields: Mapping[str, str]) -> TimeRecord | None:
 
 def parse_time(text: str) -> TimeRecord | None:
     """The last JGU_TIME record in a time.txt (GNU time may add a status line before it)."""
-    records = [record for fields in field_lines(text, TIME_PREFIX) if (record := time_from_fields(fields))]
+    records = [
+        record
+        for fields in field_lines(text, TIME_PREFIX)
+        if (record := time_from_fields(fields))
+    ]
     return records[-1] if records else None
 
 
 def parse_sample(text: str) -> float | None:
     """total_cpu_s of the last JGU_CPUSAMPLE line written by cpu_sampler.py."""
-    totals = [fields.get("total_cpu_s", "") for fields in field_lines(text, SAMPLE_PREFIX)]
+    totals = [
+        fields.get("total_cpu_s", "") for fields in field_lines(text, SAMPLE_PREFIX)
+    ]
     try:
         return float(totals[-1]) if totals else None
     except ValueError:
@@ -144,12 +158,16 @@ def property_errors(index: int, item: object) -> list[str]:
     if item.get("kind") not in RESULT_KINDS:
         errors.append(f"{where}.kind must be one of {sorted(RESULT_KINDS)}")
     assumed = item.get("assumed")
-    if not (isinstance(assumed, list) and all(isinstance(a, str) and a for a in assumed)):
+    if not (
+        isinstance(assumed, list) and all(isinstance(a, str) and a for a in assumed)
+    ):
         errors.append(f"{where}.assumed must be a list of IDs")
     elif len(set(assumed)) != len(assumed):
         errors.append(f"{where}.assumed has duplicate IDs")
     time_s = item.get("time_s")
-    if time_s is not None and not (type(time_s) in (int, float) and math.isfinite(time_s)):
+    if time_s is not None and not (
+        type(time_s) in (int, float) and math.isfinite(time_s)
+    ):
         errors.append(f"{where}.time_s must be a finite number")
     return errors
 
@@ -161,9 +179,11 @@ def results_errors(data: object) -> list[str]:
     items: list[object] = data["properties"]
     ids = [item.get("id") for item in items if isinstance(item, dict)]
     duplicates = sorted(str(name) for name, count in Counter(ids).items() if count > 1)
-    return [error for index, item in enumerate(items) for error in property_errors(index, item)] + [
-        f"duplicate property id: {name}" for name in duplicates
-    ]
+    return [
+        error
+        for index, item in enumerate(items)
+        for error in property_errors(index, item)
+    ] + [f"duplicate property id: {name}" for name in duplicates]
 
 
 def status_counts(statuses: Iterable[str]) -> dict[str, int]:
@@ -181,7 +201,9 @@ def parse_exit_code(text: str | None) -> int | None:
         return None
 
 
-def load_results(path: Path) -> tuple[tuple[Mapping[str, object], ...] | None, tuple[str, ...]]:
+def load_results(
+    path: Path,
+) -> tuple[tuple[Mapping[str, object], ...] | None, tuple[str, ...]]:
     text = read_text(path)
     if text is None:
         return None, ()
@@ -228,7 +250,11 @@ def cpu_rows(
     groups = sorted({group_of(name, pattern) for name, _, _ in runs})
 
     def row(group: str) -> CpuRow:
-        members = [(time, sampled) for name, time, sampled in runs if group_of(name, pattern) == group]
+        members = [
+            (time, sampled)
+            for name, time, sampled in runs
+            if group_of(name, pattern) == group
+        ]
         timed = [time for time, _ in members if time is not None]
         effective = [effective_cpu(time, sampled) for time, sampled in members]
         return CpuRow(
@@ -310,7 +336,8 @@ def format_run(record: RunRecord) -> str:
             seconds_field("time_cpu_s", time.cpu_s if time else None),
             seconds_field("sampled_cpu_s", record.sampled_cpu_s),
             seconds_field("effective_cpu_s", effective_cpu(time, record.sampled_cpu_s)),
-            "results=" + (",".join(f"{k}:{v}" for k, v in run_statuses(record).items()) or "-"),
+            "results="
+            + (",".join(f"{k}:{v}" for k, v in run_statuses(record).items()) or "-"),
             f"results_json={results_state(record)}",
         ]
     )
@@ -319,4 +346,6 @@ def format_run(record: RunRecord) -> str:
         f"assumed={','.join(map(str, p.get('assumed') or [])) or '-'}"
         for p in record.results or ()
     ]
-    return "\n".join([summary, *properties, *(f"  error: {e}" for e in record.results_errors)])
+    return "\n".join(
+        [summary, *properties, *(f"  error: {e}" for e in record.results_errors)]
+    )

@@ -190,7 +190,11 @@ bound, and the bound survives kills. It is on by default; `--no-sample-cpu` turn
 
 ```sh
 python3 -m unittest discover -s jasper-utils/tests
+ruff check jasper-utils jasper-utils/bin/jgu && ruff format --check jasper-utils jasper-utils/bin/jgu
 ```
+
+Run ruff from the repository root. Its import sorting treats `jgu` as third-party there and
+as first-party inside `jasper-utils/`, and the code is sorted for the root.
 
 The unit tests run without a Jasper host. `test_jglib_tcl.py` runs `jglib.tcl` in `tclsh`
 against stub Jasper commands, and is skipped if `tclsh` is not installed.
@@ -206,8 +210,11 @@ against stub Jasper commands, and is skipped if `tclsh` is not installed.
 Copy the folder into each agent's task directory and tell the agent about it:
 
 ```python
-shutil.copytree(REPO / "jasper-utils", task_dir / "jasper-utils",
-                ignore=shutil.ignore_patterns("__pycache__"))
+shutil.copytree(
+    REPO / "jasper-utils",
+    task_dir / "jasper-utils",
+    ignore=shutil.ignore_patterns("__pycache__"),
+)
 ```
 
 Add this line to the agent's prompt: *"Reusable Jasper utilities are in `jasper-utils/`
