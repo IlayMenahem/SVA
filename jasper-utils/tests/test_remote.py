@@ -12,7 +12,7 @@ from support import TempDirTest
 
 from jgu import cli, remote
 
-TARGET = remote.Target(host="vlsi-77", root="ws/task")
+TARGET = remote.Target(host="prover-1", root="ws/task")
 
 
 class Validation(unittest.TestCase):
@@ -31,7 +31,7 @@ class Validation(unittest.TestCase):
         with self.assertRaises(ValueError):
             remote.make_target("host;x", "ws")
         with self.assertRaises(ValueError):
-            remote.make_target("vlsi", None)
+            remote.make_target("prover-1", None)
 
     def test_env(self) -> None:
         self.assertEqual(remote.parse_env(["A=1", "B=x=y z"]), (("A", "1"), ("B", "x=y z")))
@@ -50,7 +50,7 @@ class Commands(unittest.TestCase):
     def test_upload_creates_the_run_dir_atomically(self) -> None:
         argv = remote.upload_run_argv(TARGET, "r1")
         self.assertNotIn("-n", argv)
-        tail = argv[argv.index("vlsi-77") + 1:]
+        tail = argv[argv.index("prover-1") + 1:]
         self.assertEqual(tail, ["mkdir", "-p", "ws/task/runs", "&&", "mkdir", "ws/task/runs/r1",
                                 "&&", "tar", "-xf", "-", "-C", "ws/task/runs/r1"])
 
